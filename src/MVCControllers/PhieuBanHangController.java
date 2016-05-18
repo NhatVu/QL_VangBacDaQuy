@@ -1,12 +1,12 @@
-package team.com.controller;
+package MVCControllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JSpinner;
 
-import team.com.model.PhieuBanHangModel;
-import team.com.view.PhieuBanHangView;
+import MVCModels.PhieuBanHangModel;
+import MVCViews.PhieuBanHangView;
 
 public class PhieuBanHangController {
 	private PhieuBanHangModel modelPhieuBanHang;

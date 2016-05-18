@@ -1,4 +1,4 @@
-package team.com.model;
+package MVCModels;
 
 import javax.swing.JSpinner;
 import javax.swing.JTable;

@@ -1,8 +1,8 @@
 package team.com.main;
 
-import team.com.controller.PhieuBanHangController;
-import team.com.model.PhieuBanHangModel;
-import team.com.view.PhieuBanHangView;
+import MVCControllers.PhieuBanHangController;
+import MVCModels.PhieuBanHangModel;
+import MVCViews.PhieuBanHangView;
 
 public class Main {
 

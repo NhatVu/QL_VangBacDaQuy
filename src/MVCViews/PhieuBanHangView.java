@@ -1,4 +1,4 @@
-package team.com.view;
+package MVCViews;
 
 import java.awt.EventQueue;
 
