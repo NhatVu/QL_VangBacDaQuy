@@ -48,6 +48,14 @@ public class CTP_BanHangDAO {
         } catch (SQLException ex) {
             Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        finally{
+            if(connection!= null)
+                try {
+                    connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return false;
     }
     
