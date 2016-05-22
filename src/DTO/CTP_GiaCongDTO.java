@@ -17,6 +17,8 @@ public class CTP_GiaCongDTO {
     private String maCTP_GC = null;
     private String maLoaiGC = null;
     private String maP_GC = null;
+    private int soLuong = 0;
+    private double thanhTien = 0;
     
     /*
     * Constructor
@@ -52,6 +54,23 @@ public class CTP_GiaCongDTO {
     public void setMaP_GC(String maP_GC) {
         this.maP_GC = maP_GC;
     }
+
+    public int getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
+    }
+
+    public double getThanhTien() {
+        return thanhTien;
+    }
+
+    public void setThanhTien(double thanhTien) {
+        this.thanhTien = thanhTien;
+    }
+    
     
 
 }

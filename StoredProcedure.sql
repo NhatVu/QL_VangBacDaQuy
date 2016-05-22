@@ -39,20 +39,19 @@ end//
 
 
 
-create procedure CTP_BANHANG_Ins (MACTP_BH varchar(10), MAP_BH varchar(10), MASP varchar(10), SOLUONG int, DONGIA decimal, THANHTIEN decimal )
+create procedure CTP_BANHANG_Ins (MACTP_BH varchar(10), MAP_BH varchar(10), MASP varchar(10), SOLUONG int, THANHTIEN decimal )
 begin
-insert into ctp_banhang ( MACTP_BH, MAP_BH, MASP, SOLUONG, DONGIA, THANHTIEN ) values ( MACTP_BH, MAP_BH, MASP, SOLUONG, DONGIA, THANHTIEN );
+insert into ctp_banhang ( MACTP_BH, MAP_BH, MASP, SOLUONG, THANHTIEN ) values ( MACTP_BH, MAP_BH, MASP, SOLUONG, THANHTIEN );
 end//
 
 
-create procedure CTP_BANHANG_Upd (MACTP_BH varchar(10), MAP_BH varchar(10), MASP varchar(10), SOLUONG int, DONGIA decimal, THANHTIEN decimal )
+create procedure CTP_BANHANG_Upd (MACTP_BH varchar(10), MAP_BH varchar(10), MASP varchar(10), SOLUONG int, THANHTIEN decimal )
 begin
 update ctp_banhang as a 
 set 
 a.MAP_BH = if(a.MAP_BH <> MAP_BH, MAP_BH, a.MAP_BH),
 a.MASP = if(a.MASP <> MASP, MASP, a.MASP),
 a.SOLUONG = if(a.SOLUONG <> SOLUONG, SOLUONG, a.SOLUONG),
-a.DONGIA = if(a.DONGIA <> DONGIA, DONGIA, a.DONGIA),
 a.THANHTIEN = if(a.THANHTIEN <> THANHTIEN, THANHTIEN, a.THANHTIEN)
 where a.MACTP_BH = MACTP_BH;
 end//
@@ -102,20 +101,19 @@ end//
 
 
 
-create procedure CTP_DICHVU_Ins (MACTP_DV varchar(10), MAP_DV varchar(10), MADV varchar(10), SOLUONG int, DONGIA decimal, THANHTIEN decimal )
+create procedure CTP_DICHVU_Ins (MACTP_DV varchar(10), MAP_DV varchar(10), MADV varchar(10), SOLUONG int, THANHTIEN decimal )
 begin
-insert into ctp_dichvu ( MACTP_DV, MAP_DV, MADV, SOLUONG, DONGIA, THANHTIEN ) values ( MACTP_DV, MAP_DV, MADV, SOLUONG, DONGIA, THANHTIEN );
+insert into ctp_dichvu ( MACTP_DV, MAP_DV, MADV, SOLUONG, THANHTIEN ) values ( MACTP_DV, MAP_DV, MADV, SOLUONG, THANHTIEN );
 end//
 
 
-create procedure CTP_DICHVU_Upd (MACTP_DV varchar(10), MAP_DV varchar(10), MADV varchar(10), SOLUONG int, DONGIA decimal, THANHTIEN decimal )
+create procedure CTP_DICHVU_Upd (MACTP_DV varchar(10), MAP_DV varchar(10), MADV varchar(10), SOLUONG int, THANHTIEN decimal )
 begin
 update ctp_dichvu as a 
 set 
 a.MAP_DV = if(a.MAP_DV <> MAP_DV, MAP_DV, a.MAP_DV),
 a.MADV = if(a.MADV <> MADV, MADV, a.MADV),
 a.SOLUONG = if(a.SOLUONG <> SOLUONG, SOLUONG, a.SOLUONG),
-a.DONGIA = if(a.DONGIA <> DONGIA, DONGIA, a.DONGIA),
 a.THANHTIEN = if(a.THANHTIEN <> THANHTIEN, THANHTIEN, a.THANHTIEN)
 where a.MACTP_DV = MACTP_DV;
 end//
@@ -134,18 +132,20 @@ end//
 
 
 
-create procedure CTP_GIACONG_Ins (MACTP_GC varchar(10), MALOAIGC varchar(10), MAP_GC varchar(10) )
+create procedure CTP_GIACONG_Ins (MACTP_GC varchar(10), MAP_GC varchar(10), MALOAIGC varchar(10), SOLUONG int, THANHTIEN decimal )
 begin
-insert into ctp_giacong ( MACTP_GC, MALOAIGC, MAP_GC ) values ( MACTP_GC, MALOAIGC, MAP_GC );
+insert into ctp_giacong ( MACTP_GC, MAP_GC, MALOAIGC, SOLUONG, THANHTIEN ) values ( MACTP_GC, MAP_GC, MALOAIGC, SOLUONG, THANHTIEN );
 end//
 
 
-create procedure CTP_GIACONG_Upd (MACTP_GC varchar(10), MALOAIGC varchar(10), MAP_GC varchar(10) )
+create procedure CTP_GIACONG_Upd (MACTP_GC varchar(10), MAP_GC varchar(10), MALOAIGC varchar(10), SOLUONG int, THANHTIEN decimal )
 begin
 update ctp_giacong as a 
 set 
+a.MAP_GC = if(a.MAP_GC <> MAP_GC, MAP_GC, a.MAP_GC),
 a.MALOAIGC = if(a.MALOAIGC <> MALOAIGC, MALOAIGC, a.MALOAIGC),
-a.MAP_GC = if(a.MAP_GC <> MAP_GC, MAP_GC, a.MAP_GC)
+a.SOLUONG = if(a.SOLUONG <> SOLUONG, SOLUONG, a.SOLUONG),
+a.THANHTIEN = if(a.THANHTIEN <> THANHTIEN, THANHTIEN, a.THANHTIEN)
 where a.MACTP_GC = MACTP_GC;
 end//
 
@@ -163,20 +163,19 @@ end//
 
 
 
-create procedure CTP_MUAHANG_Ins (MACTP_MH varchar(10), MASP varchar(10), MAP_MH varchar(10), SOLUONG int, DONGIA decimal, THANHTIEN decimal )
+create procedure CTP_MUAHANG_Ins (MACTP_MH varchar(10), MASP varchar(10), MAP_MH varchar(10), SOLUONG int, THANHTIEN decimal )
 begin
-insert into ctp_muahang ( MACTP_MH, MASP, MAP_MH, SOLUONG, DONGIA, THANHTIEN ) values ( MACTP_MH, MASP, MAP_MH, SOLUONG, DONGIA, THANHTIEN );
+insert into ctp_muahang ( MACTP_MH, MASP, MAP_MH, SOLUONG, THANHTIEN ) values ( MACTP_MH, MASP, MAP_MH, SOLUONG, THANHTIEN );
 end//
 
 
-create procedure CTP_MUAHANG_Upd (MACTP_MH varchar(10), MASP varchar(10), MAP_MH varchar(10), SOLUONG int, DONGIA decimal, THANHTIEN decimal )
+create procedure CTP_MUAHANG_Upd (MACTP_MH varchar(10), MASP varchar(10), MAP_MH varchar(10), SOLUONG int, THANHTIEN decimal )
 begin
 update ctp_muahang as a 
 set 
 a.MASP = if(a.MASP <> MASP, MASP, a.MASP),
 a.MAP_MH = if(a.MAP_MH <> MAP_MH, MAP_MH, a.MAP_MH),
 a.SOLUONG = if(a.SOLUONG <> SOLUONG, SOLUONG, a.SOLUONG),
-a.DONGIA = if(a.DONGIA <> DONGIA, DONGIA, a.DONGIA),
 a.THANHTIEN = if(a.THANHTIEN <> THANHTIEN, THANHTIEN, a.THANHTIEN)
 where a.MACTP_MH = MACTP_MH;
 end//
@@ -195,17 +194,18 @@ end//
 
 
 
-create procedure DICHVU_Ins (MADV varchar(10), TENDV varchar(30) )
+create procedure DICHVU_Ins (MADV varchar(10), TENDV varchar(30), DONGIA decimal )
 begin
-insert into dichvu ( MADV, TENDV ) values ( MADV, TENDV );
+insert into dichvu ( MADV, TENDV, DONGIA ) values ( MADV, TENDV, DONGIA );
 end//
 
 
-create procedure DICHVU_Upd (MADV varchar(10), TENDV varchar(30) )
+create procedure DICHVU_Upd (MADV varchar(10), TENDV varchar(30), DONGIA decimal )
 begin
 update dichvu as a 
 set 
-a.TENDV = if(a.TENDV <> TENDV, TENDV, a.TENDV)
+a.TENDV = if(a.TENDV <> TENDV, TENDV, a.TENDV),
+a.DONGIA = if(a.DONGIA <> DONGIA, DONGIA, a.DONGIA)
 where a.MADV = MADV;
 end//
 
@@ -223,17 +223,18 @@ end//
 
 
 
-create procedure HANGGIACONG_Ins (MALOAIGC varchar(10), TENLOAGC varchar(20) )
+create procedure HANGGIACONG_Ins (MALOAIGC varchar(10), TENLOAGC varchar(20), DONGIA decimal )
 begin
-insert into hanggiacong ( MALOAIGC, TENLOAGC ) values ( MALOAIGC, TENLOAGC );
+insert into hanggiacong ( MALOAIGC, TENLOAGC, DONGIA ) values ( MALOAIGC, TENLOAGC, DONGIA );
 end//
 
 
-create procedure HANGGIACONG_Upd (MALOAIGC varchar(10), TENLOAGC varchar(20) )
+create procedure HANGGIACONG_Upd (MALOAIGC varchar(10), TENLOAGC varchar(20), DONGIA decimal )
 begin
 update hanggiacong as a 
 set 
-a.TENLOAGC = if(a.TENLOAGC <> TENLOAGC, TENLOAGC, a.TENLOAGC)
+a.TENLOAGC = if(a.TENLOAGC <> TENLOAGC, TENLOAGC, a.TENLOAGC),
+a.DONGIA = if(a.DONGIA <> DONGIA, DONGIA, a.DONGIA)
 where a.MALOAIGC = MALOAIGC;
 end//
 
@@ -519,17 +520,20 @@ end//
 
 
 
-create procedure SANPHAM_Ins (MASP varchar(10), TENLOAISP varchar(30) )
+create procedure SANPHAM_Ins (MASP varchar(10), TENLOAISP varchar(30), DONGIAMUA int, DONGIABAN int, SOLUONGTON int )
 begin
-insert into sanpham ( MASP, TENLOAISP ) values ( MASP, TENLOAISP );
+insert into sanpham ( MASP, TENLOAISP, DONGIAMUA, DONGIABAN, SOLUONGTON ) values ( MASP, TENLOAISP, DONGIAMUA, DONGIABAN, SOLUONGTON );
 end//
 
 
-create procedure SANPHAM_Upd (MASP varchar(10), TENLOAISP varchar(30) )
+create procedure SANPHAM_Upd (MASP varchar(10), TENLOAISP varchar(30), DONGIAMUA int, DONGIABAN int, SOLUONGTON int )
 begin
 update sanpham as a 
 set 
-a.TENLOAISP = if(a.TENLOAISP <> TENLOAISP, TENLOAISP, a.TENLOAISP)
+a.TENLOAISP = if(a.TENLOAISP <> TENLOAISP, TENLOAISP, a.TENLOAISP),
+a.DONGIAMUA = if(a.DONGIAMUA <> DONGIAMUA, DONGIAMUA, a.DONGIAMUA),
+a.DONGIABAN = if(a.DONGIABAN <> DONGIABAN, DONGIABAN, a.DONGIABAN),
+a.SOLUONGTON = if(a.SOLUONGTON <> SOLUONGTON, SOLUONGTON, a.SOLUONGTON)
 where a.MASP = MASP;
 end//
 

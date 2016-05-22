@@ -19,7 +19,6 @@ public class CTP_DichVuDTO {
     private String maP_DV = null;
     private String maDV = null;
     private int soLuong = 0;
-    private double donGia = 0;
     private double thanhTien = 0;
     
     /*
@@ -63,14 +62,6 @@ public class CTP_DichVuDTO {
 
     public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
-    }
-
-    public double getDonGia() {
-        return donGia;
-    }
-
-    public void setDonGia(double donGia) {
-        this.donGia = donGia;
     }
 
     public double getThanhTien() {

@@ -16,6 +16,7 @@ public class DichVuDTO {
 
     private String maDV = null;
     private String tenDV = null;
+    private double donGia = 0;
     
     /*
     * Constructor
@@ -43,6 +44,15 @@ public class DichVuDTO {
     public void setTenDV(String tenDV) {
         this.tenDV = tenDV;
     }
+
+    public double getDonGia() {
+        return donGia;
+    }
+
+    public void setDonGia(double donGia) {
+        this.donGia = donGia;
+    }
+    
     
     
 

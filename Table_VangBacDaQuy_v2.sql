@@ -1,7 +1,9 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     5/16/2016 10:03:49 PM                        */
+/* Created on:     5/22/2016 5:29:12 PM                         */
 /*==============================================================*/
+
+drop database vangbacdaquy;
 create database vangbacdaquy;
 use vangbacdaquy;
 drop table if exists CTP_BANHANG;
@@ -53,9 +55,8 @@ create table CTP_BANHANG
    MAP_BH               varchar(10) not null,
    MASP                 varchar(10) not null,
    SOLUONG              int,
-   DONGIA               decimal(10,3),
    THANHTIEN            decimal(10,3),
-   primary key (MACTP_BH)
+   primary key (MAP_BH, MASP, MACTP_BH)
 );
 
 /*==============================================================*/
@@ -80,9 +81,8 @@ create table CTP_DICHVU
    MAP_DV               varchar(10) not null,
    MADV                 varchar(10) not null,
    SOLUONG              int,
-   DONGIA               decimal(10,3),
    THANHTIEN            decimal(10,3),
-   primary key (MACTP_DV)
+   primary key (MAP_DV, MADV, MACTP_DV)
 );
 
 /*==============================================================*/
@@ -90,11 +90,12 @@ create table CTP_DICHVU
 /*==============================================================*/
 create table CTP_GIACONG
 (
-	MACTP_GC             varchar(10) not null,
-   MALOAIGC             varchar(10) not null,
+   MACTP_GC             varchar(10) not null,
    MAP_GC               varchar(10) not null,
-   
-   primary key (MACTP_GC)
+   MALOAIGC             varchar(10) not null,
+   SOLUONG              int,
+   THANHTIEN            decimal(10,3) not null,
+   primary key (MAP_GC, MALOAIGC, MACTP_GC)
 );
 
 /*==============================================================*/
@@ -106,9 +107,8 @@ create table CTP_MUAHANG
    MASP                 varchar(10) not null,
    MAP_MH               varchar(10) not null,
    SOLUONG              int,
-   DONGIA               decimal(10,3),
    THANHTIEN            decimal(10,3),
-   primary key (MACTP_MH)
+   primary key (MASP, MAP_MH, MACTP_MH)
 );
 
 /*==============================================================*/
@@ -133,6 +133,7 @@ create table DICHVU
 (
    MADV                 varchar(10) not null,
    TENDV                varchar(30),
+   DONGIA               decimal(10,3),
    primary key (MADV)
 );
 
@@ -143,6 +144,7 @@ create table HANGGIACONG
 (
    MALOAIGC             varchar(10) not null,
    TENLOAGC             varchar(20),
+   DONGIA               decimal(10,3),
    primary key (MALOAIGC)
 );
 
@@ -259,6 +261,9 @@ create table SANPHAM
 (
    MASP                 varchar(10) not null,
    TENLOAISP            varchar(30),
+   DONGIAMUA            int,
+   DONGIABAN            int,
+   SOLUONGTON           int,
    primary key (MASP)
 );
 

@@ -16,6 +16,8 @@ public class SanPhamDTO {
 
     private String maSP = null;
     private String tenSP = null;
+    private double donGiaBan = 0;
+    private double donGiaMua = 0;
 
     /*
     * Constructor
@@ -43,5 +45,22 @@ public class SanPhamDTO {
     public void setTenSP(String tenSP) {
         this.tenSP = tenSP;
     }
+
+    public double getDonGiaBan() {
+        return donGiaBan;
+    }
+
+    public void setDonGiaBan(double donGiaBan) {
+        this.donGiaBan = donGiaBan;
+    }
+
+    public double getDonGiaMua() {
+        return donGiaMua;
+    }
+
+    public void setDonGiaMua(double donGiaMua) {
+        this.donGiaMua = donGiaMua;
+    }
+    
     
 }

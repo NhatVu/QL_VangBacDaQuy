@@ -16,7 +16,7 @@ public class HangGiaCongDTO {
 
     private String maLoaiGC = null;
     private String tenLoaiGC = null;
-    
+    private double donGia = 0;
     /*
     * Constructor
     */
@@ -43,6 +43,15 @@ public class HangGiaCongDTO {
     public void setTenLoaiGC(String tenLoaiGC) {
         this.tenLoaiGC = tenLoaiGC;
     }
+
+    public double getDonGia() {
+        return donGia;
+    }
+
+    public void setDonGia(double donGia) {
+        this.donGia = donGia;
+    }
+    
     
 
 }
