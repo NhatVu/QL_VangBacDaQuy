@@ -11,7 +11,6 @@ begin
 insert into ct_tonkho ( MACTP_TK, MAP_TK, MAHANG, TONDAUKY, TONCUOIKY, SOLUONGBAN, SOLUONGMUA ) values ( MACTP_TK, MAP_TK, MAHANG, TONDAUKY, TONCUOIKY, SOLUONGBAN, SOLUONGMUA );
 end//
 
-
 create procedure CT_TONKHO_Upd (MACTP_TK varchar(10), MAP_TK varchar(10), MAHANG varchar(10), TONDAUKY int, TONCUOIKY int, SOLUONGBAN int, SOLUONGMUA int )
 begin
 update ct_tonkho as a 
@@ -25,7 +24,6 @@ a.SOLUONGMUA = if(a.SOLUONGMUA <> SOLUONGMUA, SOLUONGMUA, a.SOLUONGMUA)
 where a.MACTP_TK = MACTP_TK;
 end//
 
-
 create procedure CT_TONKHO_Del (MACTP_TK varchar(10) )
 begin
 delete from ct_tonkho 
@@ -33,7 +31,7 @@ where MACTP_TK = MACTP_TK;
 end//
 
 
-/*******************************************
+/*****************************CTP_BANHANG_DelCTP_BANHANG_InsCTP_BANHANG_Ins**************
 * Table: CTP_BANHANG
 **********************************************/
 
@@ -55,7 +53,6 @@ a.SOLUONG = if(a.SOLUONG <> SOLUONG, SOLUONG, a.SOLUONG),
 a.THANHTIEN = if(a.THANHTIEN <> THANHTIEN, THANHTIEN, a.THANHTIEN)
 where a.MACTP_BH = MACTP_BH;
 end//
-
 
 create procedure CTP_BANHANG_Del (MACTP_BH varchar(10) )
 begin

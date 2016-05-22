@@ -1,12 +1,12 @@
-package MVCControllers;
+package team.com.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JSpinner;
+import com.toedter.calendar.JDateChooser;
 
-import MVCModels.PhieuBanHangModel;
-import MVCViews.PhieuBanHangView;
+import team.com.model.PhieuBanHangModel;
+import team.com.view.PhieuBanHangView;
 
 public class PhieuBanHangController {
 	private PhieuBanHangModel modelPhieuBanHang;
@@ -17,7 +17,6 @@ public class PhieuBanHangController {
 		this.viewPhieuBanHang = viewPhieuBanHang;
 		
 		viewPhieuBanHang.addBtnThemListener( new BtnThemListener() );
-		
 		
 		// tượng tự, đối với viewPhieuBanHang.addBtnSuaListener, viewPhieuBanHang.addBtnXoaListener, viewPhieuBanHang.addBtnLuuListener 
 				// và viewPhieuBanHang.addBtnThoatListener
@@ -37,7 +36,7 @@ public class PhieuBanHangController {
 			
 			String khachHang;
 			String diaChi;
-			JSpinner ngayThanhToan;
+			JDateChooser ngayThanhToan;
 			String sanPham;
 			int soLuong;
 			int donGia;
@@ -47,7 +46,7 @@ public class PhieuBanHangController {
 			{
 				khachHang = viewPhieuBanHang.getTxtKhachHang().getText();
 				diaChi = viewPhieuBanHang.getTxtDiaChi().getText();
-				ngayThanhToan = viewPhieuBanHang.getSpinnerNgayLapPhieu();
+				ngayThanhToan = viewPhieuBanHang.getDateNgayThanhToan();
 				sanPham = viewPhieuBanHang.getCbKieuSanPham().getSelectedItem().toString();
 				soLuong = viewPhieuBanHang.getTxtSoLuong();
 				donGia = Integer.parseInt(viewPhieuBanHang.getCbDonGia().getSelectedItem().toString());
@@ -55,7 +54,7 @@ public class PhieuBanHangController {
 				
 				modelPhieuBanHang.themPhieuBanHang(khachHang, diaChi, ngayThanhToan, sanPham, soLuong, donGia, thanhTien);
 				
-				viewPhieuBanHang.setTbDanhSachPhieuBanHang(modelPhieuBanHang.getStateTblDanhSachPhieuBanHang());
+				viewPhieuBanHang.setTblDanhSachPhieuBanHang(modelPhieuBanHang.getStateTblDanhSachPhieuBanHang());
 			} 
 			catch (Exception e) 
 			{
