@@ -29,7 +29,7 @@ public class CTP_MuaHangDAO {
     */
     public boolean insert(CTP_MuaHangDTO ctp_MH){
         // procedure CTP_MUAHANG_Ins (MACTP_MH varchar(10), MASP varchar(10), MAP_MH varchar(10),
-        // SOLUONG int, THANHTIEN decimal )
+        // SOLUONG int, DONGIA decimal, THANHTIEN decimal )
         try {
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall("{call CTP_MUAHANG_Ins(?,?,?,?,?,?)}");
@@ -37,6 +37,7 @@ public class CTP_MuaHangDAO {
             call.setString("MASP", ctp_MH.getMaSP());
             call.setString("MAP_MH", ctp_MH.getMaP_MH());
             call.setInt("SOLUONG", ctp_MH.getSoLuong());
+            call.setDouble("DONGIA", ctp_MH.getDonGia());
             call.setDouble("THANHTIEN", ctp_MH.getThanhTien());
             
             return call.execute();
@@ -59,7 +60,7 @@ public class CTP_MuaHangDAO {
     public boolean update(CTP_MuaHangDTO ctp_MH){
         try {
             //procedure CTP_MUAHANG_Upd (MACTP_MH varchar(10), MASP varchar(10), MAP_MH varchar(10),
-            // SOLUONG int, THANHTIEN decimal )
+            // SOLUONG int, DONGIA decimal, THANHTIEN decimal )
             connection = DataSource.getInstance().getConnection();
             
             call = connection.prepareCall("{call CTP_MUAHANG_Upd(?,?,?,?,?,?)}");
@@ -67,6 +68,7 @@ public class CTP_MuaHangDAO {
             call.setString("MASP", ctp_MH.getMaSP());
             call.setString("MAP_MH", ctp_MH.getMaP_MH());
             call.setInt("SOLUONG", ctp_MH.getSoLuong());
+            call.setDouble("DONGIA", ctp_MH.getDonGia());
             call.setDouble("THANHTIEN", ctp_MH.getThanhTien());
             
             return call.execute();

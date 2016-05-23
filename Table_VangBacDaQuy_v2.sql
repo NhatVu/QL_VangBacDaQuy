@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     5/22/2016 5:53:33 PM                         */
+/* Created on:     5/22/2016 5:29:12 PM                         */
 /*==============================================================*/
 
 
@@ -261,8 +261,8 @@ create table SANPHAM
 (
    MASP                 varchar(10) not null,
    TENLOAISP            varchar(30),
-   DONGIAMUA            decimal(10,3),
-   DONGIABAN            decimal(10,3),
+   DONGIAMUA            int,
+   DONGIABAN            int,
    SOLUONGTON           int,
    primary key (MASP)
 );

@@ -517,13 +517,13 @@ end//
 
 
 
-create procedure SANPHAM_Ins (MASP varchar(10), TENLOAISP varchar(30), DONGIAMUA decimal, DONGIABAN decimal, SOLUONGTON int )
+create procedure SANPHAM_Ins (MASP varchar(10), TENLOAISP varchar(30), DONGIAMUA int, DONGIABAN int, SOLUONGTON int )
 begin
 insert into sanpham ( MASP, TENLOAISP, DONGIAMUA, DONGIABAN, SOLUONGTON ) values ( MASP, TENLOAISP, DONGIAMUA, DONGIABAN, SOLUONGTON );
 end//
 
 
-create procedure SANPHAM_Upd (MASP varchar(10), TENLOAISP varchar(30), DONGIAMUA decimal, DONGIABAN decimal, SOLUONGTON int )
+create procedure SANPHAM_Upd (MASP varchar(10), TENLOAISP varchar(30), DONGIAMUA int, DONGIABAN int, SOLUONGTON int )
 begin
 update sanpham as a 
 set 

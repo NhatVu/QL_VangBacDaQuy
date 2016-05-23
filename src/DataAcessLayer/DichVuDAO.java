@@ -28,13 +28,12 @@ public class DichVuDAO {
     * CRUD
     */
     public boolean insert(DichVuDTO dv){
-        //procedure DICHVU_Ins (MADV varchar(10), TENDV varchar(30), DONGIA decimal )
+        //create procedure DICHVU_Ins (MADV varchar(10), TENDV varchar(30) )
         try {
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall("{call DICHVU_Ins(?,?)}");
             call.setString("MADV", dv.getMaDV());
             call.setString("TENDV", dv.getTenDV());
-            call.setDouble("DONGIA", dv.getDonGia());
             
             return call.execute();
                     
@@ -55,13 +54,12 @@ public class DichVuDAO {
     
     public boolean update(DichVuDTO dv){
         try {
-            // procedure DICHVU_Upd (MADV varchar(10), TENDV varchar(30), DONGIA decimal)
+            // procedure DICHVU_Upd (MADV varchar(10), TENDV varchar(30) )
             connection = DataSource.getInstance().getConnection();
             
             call = connection.prepareCall("{call DICHVU_Upd(?,?)}");
             call.setString("MADV", dv.getMaDV());
             call.setString("TENDV", dv.getTenDV());
-            call.setDouble("DONGIA", dv.getDonGia());
             
             return call.execute();
            

@@ -30,8 +30,8 @@ public class CTP_BanHangDAO {
     * CRUD
     */
     public boolean insert(CTP_BanHangDTO ctp_BH){
-        // procedure CTP_BANHANG_Ins (MACTP_BH varchar(10), MAP_BH varchar(10), 
-        // MASP varchar(10), SOLUONG int, THANHTIEN decimal )
+        //procedure CTP_BANHANG_Ins (MACTP_BH varchar(10), MAP_BH varchar(10), 
+        //                  MASP varchar(10), SOLUONG int, DONGIA decimal, THANHTIEN decimal )
         try {
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall("{call CTP_BANHANG_Ins(?,?,?,?,?,?)}");
@@ -39,6 +39,7 @@ public class CTP_BanHangDAO {
             call.setString("MAP_BH", ctp_BH.getMaP_BH());
             call.setString("MASP", ctp_BH.getMaSP());
             call.setInt("SOLUONG", ctp_BH.getSoLuong());
+            call.setDouble("DONGIA", ctp_BH.getDonGia());
             call.setDouble("THANHTIEN", ctp_BH.getThanhTien());
             
             return call.execute();
@@ -61,7 +62,7 @@ public class CTP_BanHangDAO {
     public boolean update(CTP_BanHangDTO ctp_BH){
         try {
             //CTP_BANHANG_Upd (MACTP_BH varchar(10), MAP_BH varchar(10),
-            //                  MASP varchar(10), SOLUONG int, THANHTIEN decimal )
+            //                  MASP varchar(10), SOLUONG int, DONGIA decimal, THANHTIEN decimal )
             connection = DataSource.getInstance().getConnection();
             
             call = connection.prepareCall("{call CTP_BANHANG_Upd(?,?,?,?,?,?)}");
@@ -69,6 +70,7 @@ public class CTP_BanHangDAO {
             call.setString("MAP_BH", ctp_BH.getMaP_BH());
             call.setString("MASP", ctp_BH.getMaSP());
             call.setInt("SOLUONG", ctp_BH.getSoLuong());
+            call.setDouble("DONGIA", ctp_BH.getDonGia());
             call.setDouble("THANHTIEN", ctp_BH.getThanhTien());
             
             return call.execute();
