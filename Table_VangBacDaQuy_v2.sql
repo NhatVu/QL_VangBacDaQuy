@@ -1,11 +1,9 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     5/22/2016 5:53:33 PM                         */
+/* Created on:     5/23/2016 9:08:15 PM                         */
 /*==============================================================*/
 
-drop database vangbacdaquy;
-create database vangbacdaquy;
-use vangbacdaquy;
+
 drop table if exists CTP_BANHANG;
 
 drop table if exists CTP_CHI;
@@ -165,6 +163,7 @@ create table KHACHHANG
 create table NGUOI
 (
    MANGUOI              varchar(10) not null,
+   SHORTID              int,
    HOTEN                varchar(50),
    DIACHI               varchar(100),
    primary key (MANGUOI)

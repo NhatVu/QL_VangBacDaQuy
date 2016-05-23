@@ -281,16 +281,17 @@ end//
 
 
 
-create procedure NGUOI_Ins (MANGUOI varchar(10), HOTEN varchar(50), DIACHI varchar(100) )
+create procedure NGUOI_Ins (MANGUOI varchar(10), SHORTID int, HOTEN varchar(50), DIACHI varchar(100) )
 begin
-insert into nguoi ( MANGUOI, HOTEN, DIACHI ) values ( MANGUOI, HOTEN, DIACHI );
+insert into nguoi ( MANGUOI, SHORTID, HOTEN, DIACHI ) values ( MANGUOI, SHORTID, HOTEN, DIACHI );
 end//
 
 
-create procedure NGUOI_Upd (MANGUOI varchar(10), HOTEN varchar(50), DIACHI varchar(100) )
+create procedure NGUOI_Upd (MANGUOI varchar(10), SHORTID int, HOTEN varchar(50), DIACHI varchar(100) )
 begin
 update nguoi as a 
 set 
+a.SHORTID = if(a.SHORTID <> SHORTID, SHORTID, a.SHORTID),
 a.HOTEN = if(a.HOTEN <> HOTEN, HOTEN, a.HOTEN),
 a.DIACHI = if(a.DIACHI <> DIACHI, DIACHI, a.DIACHI)
 where a.MANGUOI = MANGUOI;

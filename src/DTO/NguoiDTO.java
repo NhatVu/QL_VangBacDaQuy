@@ -16,6 +16,7 @@ public class NguoiDTO {
     private String maLoaiNguoi = null;
     private String hoTen = null;
     private String diaChi = null;
+    private int shortID = 0;
     
     /*
     * Constructor 
@@ -52,6 +53,15 @@ public class NguoiDTO {
     public void setDiaChi(String diaChi) {
         this.diaChi = diaChi;
     }
+
+    public int getShortID() {
+        return shortID;
+    }
+
+    public void setShortID(int shortID) {
+        this.shortID = shortID;
+    }
        
+    
     
 }
