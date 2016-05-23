@@ -1,12 +1,12 @@
-package team.com.DataAccessLayer;
+package DataAcessLayer;
 
+import DTO.CT_TonKhoDTO;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import team.com.DTO.CT_TonKhoDTO;
 
 public class CT_TonKhoDAO {
 	CallableStatement call = null;

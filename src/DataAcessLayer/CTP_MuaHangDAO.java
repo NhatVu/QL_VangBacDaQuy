@@ -37,7 +37,6 @@ public class CTP_MuaHangDAO {
             call.setString("MASP", ctp_MH.getMaSP());
             call.setString("MAP_MH", ctp_MH.getMaP_MH());
             call.setInt("SOLUONG", ctp_MH.getSoLuong());
-            call.setDouble("DONGIA", ctp_MH.getDonGia());
             call.setDouble("THANHTIEN", ctp_MH.getThanhTien());
             
             return call.execute();
@@ -68,7 +67,6 @@ public class CTP_MuaHangDAO {
             call.setString("MASP", ctp_MH.getMaSP());
             call.setString("MAP_MH", ctp_MH.getMaP_MH());
             call.setInt("SOLUONG", ctp_MH.getSoLuong());
-            call.setDouble("DONGIA", ctp_MH.getDonGia());
             call.setDouble("THANHTIEN", ctp_MH.getThanhTien());
             
             return call.execute();

@@ -1,12 +1,12 @@
-package team.com.DataAccessLayer;
+package DataAcessLayer;
 
+import DTO.P_DichVuDTO;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import team.com.DTO.P_DichVuDTO;
 
 public class P_DichVuDAO {
 	CallableStatement call = null;

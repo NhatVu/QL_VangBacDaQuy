@@ -1,5 +1,6 @@
-package team.com.view;
+package MVCViews;
 
+import com.toedter.calendar.JDateChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.DefaultComboBoxModel;
@@ -10,7 +11,7 @@ import java.awt.SystemColor;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import com.toedter.calendar.JDateChooser;
+
 import javax.swing.ListSelectionModel;
 
 public class PhieuBanHangView {

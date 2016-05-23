@@ -39,7 +39,6 @@ public class CTP_BanHangDAO {
             call.setString("MAP_BH", ctp_BH.getMaP_BH());
             call.setString("MASP", ctp_BH.getMaSP());
             call.setInt("SOLUONG", ctp_BH.getSoLuong());
-            call.setDouble("DONGIA", ctp_BH.getDonGia());
             call.setDouble("THANHTIEN", ctp_BH.getThanhTien());
             
             return call.execute();
@@ -70,7 +69,6 @@ public class CTP_BanHangDAO {
             call.setString("MAP_BH", ctp_BH.getMaP_BH());
             call.setString("MASP", ctp_BH.getMaSP());
             call.setInt("SOLUONG", ctp_BH.getSoLuong());
-            call.setDouble("DONGIA", ctp_BH.getDonGia());
             call.setDouble("THANHTIEN", ctp_BH.getThanhTien());
             
             return call.execute();

@@ -1,12 +1,12 @@
-package team.com.DataAccessLayer;
+package DataAcessLayer;
 
+import DTO.P_ChiDTO;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import team.com.DTO.P_ChiDTO;
 
 public class P_ChiDAO {
 	CallableStatement call = null;
@@ -26,7 +26,7 @@ public class P_ChiDAO {
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall("{call P_CHI_Ins(?,?,?)}");
             call.setString("MAP_CHI", p_C.getMaP_Chi());
-            call.setTimestamp("NGAYBAOCAO", p_C.getNgayBaoCao());
+            call.setTimestamp("NGAYBAOCAO", p_C.getBaoCao());
             call.setInt("TONGCONG", p_C.getTongCong());
     
             return call.execute();
@@ -54,7 +54,7 @@ public class P_ChiDAO {
             
             call = connection.prepareCall("{call P_CHI_Upd(?,?,?)}");
             call.setString("MAP_CHI", p_C.getMaP_Chi());
-            call.setTimestamp("NGAYBAOCAO", p_C.getNgayBaoCao());
+            call.setTimestamp("NGAYBAOCAO", p_C.getBaoCao());
             call.setInt("TONGCONG", p_C.getTongCong());
             
             return call.execute();

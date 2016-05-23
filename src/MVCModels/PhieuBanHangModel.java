@@ -1,4 +1,4 @@
-package team.com.model;
+package MVCModels;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;

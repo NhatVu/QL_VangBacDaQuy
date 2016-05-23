@@ -1,4 +1,4 @@
-package team.com.main;
+package main;
 
 import MVCControllers.PhieuBanHangController;
 import MVCModels.PhieuBanHangModel;
