@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 public class CTP_ChiDAO {
 	CallableStatement call = null;
-    Connection connection = null;
+        Connection connection = null;
     
     public CTP_ChiDAO(){
         
