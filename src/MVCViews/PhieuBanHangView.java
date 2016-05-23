@@ -1,45 +1,29 @@
 package MVCViews;
 
-import java.awt.EventQueue;
-
+import com.toedter.calendar.JDateChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.Box;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JTabbedPane;
 import javax.swing.JButton;
-import javax.swing.JToolBar;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.JTextField;
-import javax.swing.JSpinner;
-import javax.swing.JTextPane;
-import javax.swing.JEditorPane;
-import java.awt.Label;
 import javax.swing.JComboBox;
-import java.awt.Color;
-import java.awt.Desktop.Action;
 import java.awt.SystemColor;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 import java.awt.event.ActionEvent;
+
+import javax.swing.ListSelectionModel;
 
 public class PhieuBanHangView {
 
 	private JFrame frame;
 	private JTextField txtKhachHang;
 	private JTextField txtDiaChi;
-	private JSpinner spinnerNgayLapPhieu;
-	private JSpinner spinnerNgayThanhToan;
 	private JLabel lblTongTien;
-	private JComboBox cbKieuSanPham;
-	private JComboBox cbLoaiSanPham;
+	private JComboBox<String> cbKieuSanPham;
+	private JComboBox<String> cbLoaiSanPham;
 	private JTextField txtSoLuong;
-	private JComboBox cbDonGia;
+	private JComboBox<Integer> cbDonGia;
 	private JLabel lblThanhTien;
 	private JButton btnThem;
 	private JButton btnSua;
@@ -47,6 +31,8 @@ public class PhieuBanHangView {
 	private JTable tblDanhSachPhieuBanHang;
 	private JButton btnLuu;
 	private JButton btnThoat;
+	private JDateChooser dateNgayThanhToan;
+	private JDateChooser dateNgayLapPhieu;
 
 	/**
 	 * Create the application.
@@ -101,7 +87,7 @@ public class PhieuBanHangView {
 		{
 			sanphamName.addElement(arrSanPham[i]);
 		}
-		cbKieuSanPham = new JComboBox(sanphamName);
+		cbKieuSanPham = new JComboBox<String>(sanphamName);
 		cbKieuSanPham.setSelectedIndex(0);
 		cbKieuSanPham.setBounds(99, 149, 148, 20);
 		
@@ -111,7 +97,7 @@ public class PhieuBanHangView {
 		final DefaultComboBoxModel<String> loaiSanPhamName = new DefaultComboBoxModel<String>();
 		loaiSanPhamName.addElement("Hàng Thật");
 		loaiSanPhamName.addElement("Hàng Giả");
-		cbLoaiSanPham = new JComboBox(loaiSanPhamName);
+		cbLoaiSanPham = new JComboBox<String>(loaiSanPhamName);
 		cbLoaiSanPham.setSelectedIndex(0);
 		cbLoaiSanPham.setBounds(410, 149, 147, 20);
 		
@@ -142,7 +128,7 @@ public class PhieuBanHangView {
 		{
 			dongiaName.addElement(listDonGia[i]);
 		}
-		cbDonGia = new JComboBox(dongiaName);
+		cbDonGia = new JComboBox<Integer>(dongiaName);
 		cbDonGia.setSelectedIndex(7);
 		cbDonGia.setBounds(410, 174, 147, 20);
 		
@@ -158,14 +144,12 @@ public class PhieuBanHangView {
 		String[][] arr2C = {  {"a", "1"}, {"b", "2"}, {"c", "3"}  };
 		String[] arr1C = {"TEN", "TUOI"};
 		//final DefaultTableColumnModel
-		tblDanhSachPhieuBanHang = new JTable(5, 4);
+		tblDanhSachPhieuBanHang = new JTable();
+		tblDanhSachPhieuBanHang.setToolTipText("");
+		tblDanhSachPhieuBanHang.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		tblDanhSachPhieuBanHang.setColumnSelectionAllowed(true);
 		tblDanhSachPhieuBanHang.setBounds(10, 268, 764, 142);
 		
-		spinnerNgayLapPhieu = new JSpinner();
-		spinnerNgayLapPhieu.setBounds(99, 77, 147, 20);
-		
-		spinnerNgayThanhToan = new JSpinner();
-		spinnerNgayThanhToan.setBounds(410, 76, 147, 20);
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(lblPhieuBanHang);
 		frame.getContentPane().add(lblThngTinKhch);
@@ -184,8 +168,6 @@ public class PhieuBanHangView {
 		frame.getContentPane().add(lblLoiSnPhm);
 		frame.getContentPane().add(lblTongTien);
 		frame.getContentPane().add(cbLoaiSanPham);
-		frame.getContentPane().add(spinnerNgayLapPhieu);
-		frame.getContentPane().add(spinnerNgayThanhToan);
 		frame.getContentPane().add(cbDonGia);
 		frame.getContentPane().add(lblNewLabel_2);
 		frame.getContentPane().add(lblThanhTien);
@@ -216,6 +198,14 @@ public class PhieuBanHangView {
 		btnLuu = new JButton("Lưu");
 		btnLuu.setBounds(580, 427, 89, 23);
 		frame.getContentPane().add(btnLuu);
+		
+		dateNgayLapPhieu = new JDateChooser();
+		dateNgayLapPhieu.setBounds(100, 73, 147, 20);
+		frame.getContentPane().add(dateNgayLapPhieu);
+		
+		dateNgayThanhToan = new JDateChooser();
+		dateNgayThanhToan.setBounds(410, 73, 147, 20);
+		frame.getContentPane().add(dateNgayThanhToan); 
 	}
 
 	public JFrame getFrame() {
@@ -238,24 +228,12 @@ public class PhieuBanHangView {
 		return txtDiaChi;
 	}
 
+	{
+		// cả ngày này éo làm đượ gu dlfa sao !!!
+	}
+	
 	public void setTxtDiaChi(JTextField txtDiaChi) {
 		this.txtDiaChi = txtDiaChi;
-	}
-
-	public JSpinner getSpinnerNgayLapPhieu() {
-		return spinnerNgayLapPhieu;
-	}
-
-	public void setSpinnerNgayLapPhieu(JSpinner spinnerNgayLapPhieu) {
-		this.spinnerNgayLapPhieu = spinnerNgayLapPhieu;
-	}
-
-	public JSpinner getSpinnerNgayThanhToan() {
-		return spinnerNgayThanhToan;
-	}
-
-	public void setSpinnerNgayThanhToan(JSpinner spinnerNgayThanhToan) {
-		this.spinnerNgayThanhToan = spinnerNgayThanhToan;
 	}
 
 	public int getLblTongTien() {
@@ -266,19 +244,19 @@ public class PhieuBanHangView {
 		this.lblTongTien.setText(Integer.toString(lblTongTien));
 	}
 
-	public JComboBox getCbKieuSanPham() {
+	public JComboBox<String> getCbKieuSanPham() {
 		return cbKieuSanPham;
 	}
 
-	public void setCbKieuSanPham(JComboBox cbKieuSanPham) {
+	public void setCbKieuSanPham(JComboBox<String> cbKieuSanPham) {
 		this.cbKieuSanPham = cbKieuSanPham;
 	}
 
-	public JComboBox getCbLoaiSanPham() {
+	public JComboBox<String> getCbLoaiSanPham() {
 		return cbLoaiSanPham;
 	}
 
-	public void setCbLoaiSanPham(JComboBox cbLoaiSanPham) {
+	public void setCbLoaiSanPham(JComboBox<String> cbLoaiSanPham) {
 		this.cbLoaiSanPham = cbLoaiSanPham;
 	}
 
@@ -290,11 +268,11 @@ public class PhieuBanHangView {
 		this.txtSoLuong.setText(Integer.toString(txtSoLuong));
 	}
 
-	public JComboBox getCbDonGia() {
+	public JComboBox<Integer> getCbDonGia() {
 		return cbDonGia;
 	}
 
-	public void setCbDonGia(JComboBox cbDonGia) {
+	public void setCbDonGia(JComboBox<Integer> cbDonGia) {
 		this.cbDonGia = cbDonGia;
 	}
 
@@ -318,13 +296,30 @@ public class PhieuBanHangView {
 		return btnXoa;
 	}
 
-	public JTable getTbDanhSachPhieuBanHang() {
+	public JTable getTblDanhSachPhieuBanHang() {
 		return tblDanhSachPhieuBanHang;
 	}
 
-	public void setTbDanhSachPhieuBanHang(JTable tblDanhSachPhieuBanHang) {
+	public void setTblDanhSachPhieuBanHang(JTable tblDanhSachPhieuBanHang) {
 		this.tblDanhSachPhieuBanHang = tblDanhSachPhieuBanHang;
 	}
+	
+	public JDateChooser getDateNgayThanhToan() {
+		return dateNgayThanhToan;
+	}
+
+	public void setDateNgayThanhToan(JDateChooser dateNgayThanhToan) {
+		this.dateNgayThanhToan = dateNgayThanhToan;
+	}
+
+	public JDateChooser getDateNgayLapPhieu() {
+		return dateNgayLapPhieu;
+	}
+
+	public void setDateNgayLapPhieu(JDateChooser dateNgayLapPhieu) {
+		this.dateNgayLapPhieu = dateNgayLapPhieu;
+	}
+
 	
 	
 	// gọi các Sự Kiện, chưa xử lý sự kiện ( sự kiện được xử lý trong Controller )

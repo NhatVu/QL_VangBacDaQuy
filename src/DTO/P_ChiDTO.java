@@ -17,7 +17,7 @@ public class P_ChiDTO {
      */
 
     private String maP_Chi = null;
-    private String ngayBaoCao = null;
+    private Timestamp BaoCao = null;
     private int tongCong = 0;
     
     /*
@@ -39,13 +39,15 @@ public class P_ChiDTO {
         this.maP_Chi = maP_Chi;
     }
 
-    public String getNgayBaoCao() {
-        return ngayBaoCao;
+    public Timestamp getBaoCao() {
+        return BaoCao;
     }
 
-    public void setNgayBaoCao(String ngayBaoCao) {
-        this.ngayBaoCao = ngayBaoCao;
+    public void setBaoCao(Timestamp BaoCao) {
+        this.BaoCao = BaoCao;
     }
+
+    
 
     public int getTongCong() {
         return tongCong;

@@ -20,7 +20,7 @@ import org.jdom.input.SAXBuilder;
 //dung connecton poolling
 public class DataSource {
 
-    protected Connection connection = null;
+    
     private static DataSource dataSource = null;
     private ComboPooledDataSource cpds = null;
     

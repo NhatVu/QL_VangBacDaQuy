@@ -23,6 +23,8 @@ public class CTP_MuaHangDTO {
     /*
     * Constructor
     */
+    
+    
 
     public CTP_MuaHangDTO() {
     }
