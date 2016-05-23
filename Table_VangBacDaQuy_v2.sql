@@ -3,7 +3,7 @@
 /* Created on:     5/22/2016 5:53:33 PM                         */
 /*==============================================================*/
 
-drop database vangbacdaquy;
+
 create database vangbacdaquy;
 use vangbacdaquy;
 drop table if exists CTP_BANHANG;
