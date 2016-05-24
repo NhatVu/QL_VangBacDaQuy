@@ -14,7 +14,7 @@ public class ThoGiaCongDTO {
     * Properties
     */
     
-    private String maKH = null;
+    private String maTho = null;
     private String maNguoi = null;
     
     /*
@@ -28,13 +28,15 @@ public class ThoGiaCongDTO {
     * Getters and Setters
     */
 
-    public String getMaKH() {
-        return maKH;
+    public String getMaTho() {
+        return maTho;
     }
 
-    public void setMaKH(String maKH) {
-        this.maKH = maKH;
+    public void setMaTho(String maTho) {
+        this.maTho = maTho;
     }
+
+    
 
     public String getMaNguoi() {
         return maNguoi;

@@ -16,7 +16,7 @@ public class KhachHangDTO {
 
     private String maKH = null;
     private String maNguoi = null;
-    private boolean laKhachQuen = false;
+    private int laKhachQuen = 0;
     
     /*
     * Constructor
@@ -45,11 +45,11 @@ public class KhachHangDTO {
         this.maNguoi = maNguoi;
     }
 
-    public boolean isLaKhachQuen() {
+    public int isLaKhachQuen() {
         return laKhachQuen;
     }
 
-    public void setLaKhachQuen(boolean laKhachQuen) {
+    public void setLaKhachQuen(int laKhachQuen) {
         this.laKhachQuen = laKhachQuen;
     }
 
