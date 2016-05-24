@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     5/23/2016 9:08:15 PM                         */
+/* Created on:     5/24/2016 9:25:09 PM                         */
 /*==============================================================*/
 
 
@@ -54,7 +54,7 @@ create table CTP_BANHANG
    MASP                 varchar(10) not null,
    SOLUONG              int,
    THANHTIEN            decimal(10,3),
-   primary key (MAP_BH, MASP, MACTP_BH)
+   primary key (MACTP_BH)
 );
 
 /*==============================================================*/
@@ -80,7 +80,7 @@ create table CTP_DICHVU
    MADV                 varchar(10) not null,
    SOLUONG              int,
    THANHTIEN            decimal(10,3),
-   primary key (MAP_DV, MADV, MACTP_DV)
+   primary key (MACTP_DV)
 );
 
 /*==============================================================*/
@@ -93,7 +93,7 @@ create table CTP_GIACONG
    MALOAIGC             varchar(10) not null,
    SOLUONG              int,
    THANHTIEN            decimal(10,3) not null,
-   primary key (MAP_GC, MALOAIGC, MACTP_GC)
+   primary key (MACTP_GC)
 );
 
 /*==============================================================*/
@@ -106,7 +106,7 @@ create table CTP_MUAHANG
    MAP_MH               varchar(10) not null,
    SOLUONG              int,
    THANHTIEN            decimal(10,3),
-   primary key (MASP, MAP_MH, MACTP_MH)
+   primary key (MACTP_MH)
 );
 
 /*==============================================================*/
@@ -163,9 +163,9 @@ create table KHACHHANG
 create table NGUOI
 (
    MANGUOI              varchar(10) not null,
-   SHORTID              int,
    HOTEN                varchar(50),
    DIACHI               varchar(100),
+   SHORTID              int,
    primary key (MANGUOI)
 );
 
