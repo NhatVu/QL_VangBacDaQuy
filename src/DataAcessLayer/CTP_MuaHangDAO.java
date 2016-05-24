@@ -32,7 +32,7 @@ public class CTP_MuaHangDAO {
         // SOLUONG int, DONGIA decimal, THANHTIEN decimal )
         try {
             connection = DataSource.getInstance().getConnection();
-            call = connection.prepareCall("{call CTP_MUAHANG_Ins(?,?,?,?,?,?)}");
+            call = connection.prepareCall("{call CTP_MUAHANG_Ins(?,?,?,?,?)}");
             call.setString("MACTP_MH", ctp_MH.getMaCTP_MH());
             call.setString("MASP", ctp_MH.getMaSP());
             call.setString("MAP_MH", ctp_MH.getMaP_MH());
@@ -62,7 +62,7 @@ public class CTP_MuaHangDAO {
             // SOLUONG int, DONGIA decimal, THANHTIEN decimal )
             connection = DataSource.getInstance().getConnection();
             
-            call = connection.prepareCall("{call CTP_MUAHANG_Upd(?,?,?,?,?,?)}");
+            call = connection.prepareCall("{call CTP_MUAHANG_Upd(?,?,?,?,?)}");
             call.setString("MACTP_MH", ctp_MH.getMaCTP_MH());
             call.setString("MASP", ctp_MH.getMaSP());
             call.setString("MAP_MH", ctp_MH.getMaP_MH());

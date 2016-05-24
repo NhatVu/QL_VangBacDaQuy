@@ -34,7 +34,7 @@ public class CTP_BanHangDAO {
         // MASP varchar(10), SOLUONG int, THANHTIEN decimal )
         try {
             connection = DataSource.getInstance().getConnection();
-            call = connection.prepareCall("{call CTP_BANHANG_Ins(?,?,?,?,?,?)}");
+            call = connection.prepareCall("{call CTP_BANHANG_Ins(?,?,?,?,?)}");
             call.setString("MACTP_BH", ctp_BH.getMaCTP_BH());
             call.setString("MAP_BH", ctp_BH.getMaP_BH());
             call.setString("MASP", ctp_BH.getMaSP());
@@ -64,7 +64,7 @@ public class CTP_BanHangDAO {
             //                  MASP varchar(10), SOLUONG int, THANHTIEN decimal )
             connection = DataSource.getInstance().getConnection();
             
-            call = connection.prepareCall("{call CTP_BANHANG_Upd(?,?,?,?,?,?)}");
+            call = connection.prepareCall("{call CTP_BANHANG_Upd(?,?,?,?,?)}");
             call.setString("MACTP_BH", ctp_BH.getMaCTP_BH());
             call.setString("MAP_BH", ctp_BH.getMaP_BH());
             call.setString("MASP", ctp_BH.getMaSP());

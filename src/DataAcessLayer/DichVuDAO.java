@@ -31,7 +31,7 @@ public class DichVuDAO {
         //procedure DICHVU_Ins (MADV varchar(10), TENDV varchar(30), DONGIA decimal )
         try {
             connection = DataSource.getInstance().getConnection();
-            call = connection.prepareCall("{call DICHVU_Ins(?,?)}");
+            call = connection.prepareCall("{call DICHVU_Ins(?,?,?)}");
             call.setString("MADV", dv.getMaDV());
             call.setString("TENDV", dv.getTenDV());
             call.setDouble("DONGIA", dv.getDonGia());
@@ -58,7 +58,7 @@ public class DichVuDAO {
             // procedure DICHVU_Upd (MADV varchar(10), TENDV varchar(30), DONGIA decimal)
             connection = DataSource.getInstance().getConnection();
             
-            call = connection.prepareCall("{call DICHVU_Upd(?,?)}");
+            call = connection.prepareCall("{call DICHVU_Upd(?,?,?)}");
             call.setString("MADV", dv.getMaDV());
             call.setString("TENDV", dv.getTenDV());
             call.setDouble("DONGIA", dv.getDonGia());

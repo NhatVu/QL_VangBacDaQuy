@@ -32,7 +32,7 @@ public class SanPhamDAO {
         //procedure SANPHAM_Ins (MASP varchar(10), TENLOAISP varchar(30), DONGIAMUA decial, DONGIABAN decimal, SOLUONGTON int )
         try {
             connection = DataSource.getInstance().getConnection();
-            call = connection.prepareCall("{call SANPHAM_Ins(?,?)}");
+            call = connection.prepareCall("{call SANPHAM_Ins(?,?,?,?,?)}");
             call.setString("MASP", sp.getMaSP());
             call.setString("TENLOAISP", sp.getTenSP());
             call.setDouble("DONGIAMUA", sp.getDonGiaMua());
@@ -60,7 +60,7 @@ public class SanPhamDAO {
             //procedure SANPHAM_Upd (MASP varchar(10), TENLOAISP varchar(30), DONGIAMUA decimal, DONGIABAN decimal, SOLUONGTON int )
             connection = DataSource.getInstance().getConnection();
 
-            call = connection.prepareCall("{call SANPHAM_Upd(?,?)}");
+            call = connection.prepareCall("{call SANPHAM_Upd(?,?,?,?,?)}");
             call.setString("MASP", sp.getMaSP());
             call.setString("TENLOAISP", sp.getTenSP());
             call.setDouble("DONGIAMUA", sp.getDonGiaMua());
