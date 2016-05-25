@@ -1,25 +1,18 @@
 package MVCViews;
 
-import MVCControllers.PhieuBanHangController;
-import com.toedter.calendar.JDateChooser;
+import java.awt.EventQueue;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-
-import java.awt.EventQueue;
-import java.awt.SystemColor;
 import javax.swing.JTable;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-import javax.swing.ListSelectionModel;
+import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-public class PhieuBanHangView {
+import com.toedter.calendar.JDateChooser;
+
+public class PhieuDichVuView {
 
     private JFrame frame;
     private JTextField textMaPhieu;
@@ -29,16 +22,14 @@ public class PhieuBanHangView {
     private JTextField textTongCong;
     private JTable tableCTP_MH;
 
-    private PhieuBanHangController controller = null;
     /**
      * Launch the application.
      */
     /**
      * Create the application.
      */
-    public PhieuBanHangView(PhieuBanHangController controller) {
+    public PhieuDichVuView() {
         initialize();
-        this.controller = controller;
     }
 
     /**
@@ -49,41 +40,41 @@ public class PhieuBanHangView {
         frame.setBounds(100, 100, 792, 484);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JLabel lblPhiuMuaHng = new JLabel("PHIẾU BÁN HÀNG");
+        JLabel lblPhiuMuaHng = new JLabel("PHIẾU DỊCH VỤ");
         lblPhiuMuaHng.setBounds(294, 32, 116, 14);
 
         JLabel lblSPhiu = new JLabel("Mã phiếu :");
         lblSPhiu.setBounds(45, 71, 67, 14);
 
         textMaPhieu = new JTextField();
-        textMaPhieu.setBounds(122, 68, 117, 20);
+        textMaPhieu.setBounds(139, 68, 86, 20);
         textMaPhieu.setColumns(10);
 
-        JLabel lblNgayMua = new JLabel("Ngày bán :");
-        lblNgayMua.setBounds(45, 111, 67, 14);
+        JLabel lblNgayMua = new JLabel("Ngày đăng ký :");
+        lblNgayMua.setBounds(45, 111, 80, 14);
 
-        JLabel lblNgyThanhTon = new JLabel("Ngày thanh toán :");
-        lblNgyThanhTon.setBounds(341, 111, 99, 14);
+        JLabel lblNgyThanhTon = new JLabel("Ngày giao :");
+        lblNgyThanhTon.setBounds(360, 111, 99, 14);
 
         JLabel labelMaKH = new JLabel("Mã Khách :");
         labelMaKH.setBounds(45, 158, 67, 14);
 
         textMaKH = new JTextField();
-        textMaKH.setBounds(122, 155, 117, 20);
+        textMaKH.setBounds(139, 155, 86, 20);
         textMaKH.setColumns(10);
 
         JLabel lblHTn = new JLabel("Họ tên :");
-        lblHTn.setBounds(373, 158, 67, 14);
+        lblHTn.setBounds(372, 158, 67, 14);
 
         textHoTen = new JTextField();
-        textHoTen.setBounds(450, 155, 141, 20);
+        textHoTen.setBounds(449, 155, 137, 20);
         textHoTen.setColumns(10);
 
         JLabel lblaCh = new JLabel("Địa chỉ :");
         lblaCh.setBounds(40, 208, 74, 14);
 
         textDiaChi = new JTextField();
-        textDiaChi.setBounds(122, 205, 469, 20);
+        textDiaChi.setBounds(136, 205, 450, 20);
         textDiaChi.setColumns(10);
         frame.getContentPane().setLayout(null);
         frame.getContentPane().add(lblPhiuMuaHng);
@@ -99,8 +90,8 @@ public class PhieuBanHangView {
         frame.getContentPane().add(textDiaChi);
 
         JPanel panel_1 = new JPanel();
-        panel_1.setBorder(new TitledBorder(null, "Chi tiết phiếu bán hàng", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-        panel_1.setBounds(27, 242, 703, 120);
+        panel_1.setBorder(new TitledBorder(null, "Chi tiết phiếu dịch vụ", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        panel_1.setBounds(39, 231, 703, 137);
         frame.getContentPane().add(panel_1);
         panel_1.setLayout(null);
 
@@ -129,16 +120,15 @@ public class PhieuBanHangView {
         btnThoat.setBounds(531, 411, 89, 23);
         frame.getContentPane().add(btnThoat);
 
-        JDateChooser dateNgayBan = new JDateChooser();
-        dateNgayBan.setBounds(123, 105, 116, 20);
-        frame.getContentPane().add(dateNgayBan);
+        JDateChooser dateNgayDK = new JDateChooser();
+        dateNgayDK.setBounds(139, 105, 91, 20);
+        frame.getContentPane().add(dateNgayDK);
 
-        JDateChooser dateNgayThanhToan = new JDateChooser();
-        dateNgayThanhToan.setBounds(450, 111, 141, 20);
-        frame.getContentPane().add(dateNgayThanhToan);
+        JDateChooser dateNgayGiao = new JDateChooser();
+        dateNgayGiao.setBounds(450, 105, 136, 20);
+        frame.getContentPane().add(dateNgayGiao);
     }
 
-    
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     public JFrame getFrame() {
         return frame;
