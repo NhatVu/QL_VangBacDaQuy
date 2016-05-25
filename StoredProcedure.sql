@@ -339,13 +339,13 @@ end//
 
 
 
-create procedure P_CHI_Ins (MAP_CHI varchar(10), NGAYBAOCAO time, TONGCONG decimal )
+create procedure P_CHI_Ins (MAP_CHI varchar(10), NGAYBAOCAO timestamp, TONGCONG decimal )
 begin
 insert into p_chi ( MAP_CHI, NGAYBAOCAO, TONGCONG ) values ( MAP_CHI, NGAYBAOCAO, TONGCONG );
 end//
 
 
-create procedure P_CHI_Upd (MAP_CHI varchar(10), NGAYBAOCAO time, TONGCONG decimal )
+create procedure P_CHI_Upd (MAP_CHI varchar(10), NGAYBAOCAO timestamp, TONGCONG decimal )
 begin
 update p_chi as a 
 set 
@@ -396,13 +396,13 @@ end//
 
 
 
-create procedure P_GIACONG_Ins (MAP_GC varchar(10), MATHOGC varchar(10), NGAYNHANHANG time, NGAYTHANHTOAN time, TONGCONG decimal )
+create procedure P_GIACONG_Ins (MAP_GC varchar(10), MATHOGC varchar(10), NGAYNHANHANG timestamp, NGAYTHANHTOAN timestamp, TONGCONG decimal )
 begin
 insert into p_giacong ( MAP_GC, MATHOGC, NGAYNHANHANG, NGAYTHANHTOAN, TONGCONG ) values ( MAP_GC, MATHOGC, NGAYNHANHANG, NGAYTHANHTOAN, TONGCONG );
 end//
 
 
-create procedure P_GIACONG_Upd (MAP_GC varchar(10), MATHOGC varchar(10), NGAYNHANHANG time, NGAYTHANHTOAN time, TONGCONG decimal )
+create procedure P_GIACONG_Upd (MAP_GC varchar(10), MATHOGC varchar(10), NGAYNHANHANG timestamp, NGAYTHANHTOAN timestamp, TONGCONG decimal )
 begin
 update p_giacong as a 
 set 
@@ -427,13 +427,13 @@ end//
 
 
 
-create procedure P_MUAHANG_Ins (MAP_MH varchar(10), MAKH varchar(10), NGAYMUA time, NGAYTHANHTOAN time, TONGCONG decimal )
+create procedure P_MUAHANG_Ins (MAP_MH varchar(10), MAKH varchar(10), NGAYMUA timestamp, NGAYTHANHTOAN timestamp, TONGCONG decimal )
 begin
 insert into p_muahang ( MAP_MH, MAKH, NGAYMUA, NGAYTHANHTOAN, TONGCONG ) values ( MAP_MH, MAKH, NGAYMUA, NGAYTHANHTOAN, TONGCONG );
 end//
 
 
-create procedure P_MUAHANG_Upd (MAP_MH varchar(10), MAKH varchar(10), NGAYMUA time, NGAYTHANHTOAN time, TONGCONG decimal )
+create procedure P_MUAHANG_Upd (MAP_MH varchar(10), MAKH varchar(10), NGAYMUA timestamp, NGAYTHANHTOAN timestamp, TONGCONG decimal )
 begin
 update p_muahang as a 
 set 
@@ -458,13 +458,13 @@ end//
 
 
 
-create procedure P_NO_Ins (MAP_NO varchar(10), MAP_THU varchar(10), NGAYNO time, SOTIENNO decimal, NGAYTRA time, SOTIENTRA decimal )
+create procedure P_NO_Ins (MAP_NO varchar(10), MAP_THU varchar(10), NGAYNO timestamp, SOTIENNO decimal, NGAYTRA timestamp, SOTIENTRA decimal )
 begin
 insert into p_no ( MAP_NO, MAP_THU, NGAYNO, SOTIENNO, NGAYTRA, SOTIENTRA ) values ( MAP_NO, MAP_THU, NGAYNO, SOTIENNO, NGAYTRA, SOTIENTRA );
 end//
 
 
-create procedure P_NO_Upd (MAP_NO varchar(10), MAP_THU varchar(10), NGAYNO time, SOTIENNO decimal, NGAYTRA time, SOTIENTRA decimal )
+create procedure P_NO_Upd (MAP_NO varchar(10), MAP_THU varchar(10), NGAYNO timestamp, SOTIENNO decimal, NGAYTRA timestamp, SOTIENTRA decimal )
 begin
 update p_no as a 
 set 
@@ -490,13 +490,13 @@ end//
 
 
 
-create procedure P_THU_Ins (MAP_THU varchar(10), MAKH varchar(10), NGAYLAPPHIEU time, NGAYKETTHUC time, TONGCONG decimal )
+create procedure P_THU_Ins (MAP_THU varchar(10), MAKH varchar(10), NGAYLAPPHIEU timestamp, NGAYKETTHUC timestamp, TONGCONG decimal )
 begin
 insert into p_thu ( MAP_THU, MAKH, NGAYLAPPHIEU, NGAYKETTHUC, TONGCONG ) values ( MAP_THU, MAKH, NGAYLAPPHIEU, NGAYKETTHUC, TONGCONG );
 end//
 
 
-create procedure P_THU_Upd (MAP_THU varchar(10), MAKH varchar(10), NGAYLAPPHIEU time, NGAYKETTHUC time, TONGCONG decimal )
+create procedure P_THU_Upd (MAP_THU varchar(10), MAKH varchar(10), NGAYLAPPHIEU timestamp, NGAYKETTHUC timestamp, TONGCONG decimal )
 begin
 update p_thu as a 
 set 
@@ -580,13 +580,13 @@ end//
 
 
 
-create procedure TONKHO_Ins (MAP_TK varchar(10), NGAYBAOCAO time )
+create procedure TONKHO_Ins (MAP_TK varchar(10), NGAYBAOCAO timestamp )
 begin
 insert into tonkho ( MAP_TK, NGAYBAOCAO ) values ( MAP_TK, NGAYBAOCAO );
 end//
 
 
-create procedure TONKHO_Upd (MAP_TK varchar(10), NGAYBAOCAO time )
+create procedure TONKHO_Upd (MAP_TK varchar(10), NGAYBAOCAO timestamp )
 begin
 update tonkho as a 
 set 

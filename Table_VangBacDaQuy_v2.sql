@@ -2,7 +2,9 @@
 /* DBMS name:      MySQL 5.0                                    */
 /* Created on:     5/24/2016 9:25:09 PM                         */
 /*==============================================================*/
-
+drop database vangbacdaquy;
+create database vangbacdaquy;
+use vangbacdaquy;
 
 drop table if exists CTP_BANHANG;
 
@@ -163,9 +165,10 @@ create table KHACHHANG
 create table NGUOI
 (
    MANGUOI              varchar(10) not null,
+   SHORTID              int,
    HOTEN                varchar(50),
    DIACHI               varchar(100),
-   SHORTID              int,
+   
    primary key (MANGUOI)
 );
 
@@ -185,7 +188,7 @@ create table P_BANHANG
 create table P_CHI
 (
    MAP_CHI              varchar(10) not null,
-   NGAYBAOCAO           time,
+   NGAYBAOCAO           timestamp,
    TONGCONG             decimal(10,3),
    primary key (MAP_CHI)
 );
@@ -207,8 +210,8 @@ create table P_GIACONG
 (
    MAP_GC               varchar(10) not null,
    MATHOGC              varchar(10) not null,
-   NGAYNHANHANG         time,
-   NGAYTHANHTOAN        time,
+   NGAYNHANHANG         timestamp,
+   NGAYTHANHTOAN        timestamp,
    TONGCONG             decimal(10,3),
    primary key (MAP_GC)
 );
@@ -220,8 +223,8 @@ create table P_MUAHANG
 (
    MAP_MH               varchar(10) not null,
    MAKH                 varchar(10) not null,
-   NGAYMUA              time,
-   NGAYTHANHTOAN        time,
+   NGAYMUA              timestamp,
+   NGAYTHANHTOAN        timestamp,
    TONGCONG             decimal(10,3),
    primary key (MAP_MH)
 );
@@ -233,9 +236,9 @@ create table P_NO
 (
    MAP_NO               varchar(10) not null,
    MAP_THU              varchar(10),
-   NGAYNO               time,
+   NGAYNO               timestamp,
    SOTIENNO             decimal(10,3),
-   NGAYTRA              time,
+   NGAYTRA              timestamp,
    SOTIENTRA            decimal(10,3),
    primary key (MAP_NO)
 );
@@ -247,8 +250,8 @@ create table P_THU
 (
    MAP_THU              varchar(10) not null,
    MAKH                 varchar(10) not null,
-   NGAYLAPPHIEU         time,
-   NGAYKETTHUC          time,
+   NGAYLAPPHIEU         timestamp,
+   NGAYKETTHUC          timestamp,
    TONGCONG             decimal(10,3),
    primary key (MAP_THU)
 );
@@ -282,7 +285,7 @@ create table THOGIACONG
 create table TONKHO
 (
    MAP_TK               varchar(10) not null,
-   NGAYBAOCAO           time,
+   NGAYBAOCAO           timestamp,
    primary key (MAP_TK)
 );
 
