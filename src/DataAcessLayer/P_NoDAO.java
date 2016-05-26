@@ -4,6 +4,7 @@ import DTO.P_NoDTO;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.SQLType;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -47,6 +48,12 @@ public class P_NoDAO {
             } catch (SQLException ex) {
                 Logger.getLogger(P_NoDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+             try {
+                call.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(P_NoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return false;
     }
@@ -78,6 +85,12 @@ public class P_NoDAO {
             } catch (SQLException ex) {
                 Logger.getLogger(P_NoDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+             try {
+                call.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(P_NoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return false;
     }
@@ -94,14 +107,60 @@ public class P_NoDAO {
         } catch (SQLException ex) {
             Logger.getLogger(P_NoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //<editor-fold defaultstate="collapsed" desc="finally">
         finally{
             if(connection!=null)
                 try {
                     connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(P_NoDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
+            try {
+                call.close();
             } catch (SQLException ex) {
                 Logger.getLogger(P_NoDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+//</editor-fold>
         return false;
+    }
+    
+    /*
+    1. Intent
+        - Lấy mã phiếu nợ tiếp theo sẽ được thêm vào bảng phiếu nợ.
+    2. Return
+        - Trả về mã phiếu nợ.
+    */
+    public String getLastID(){
+        try {
+            // procedure  P_No_getLastID(out maxid varchar(10))
+            connection = DataSource.getInstance().getConnection();
+            call = connection.prepareCall("{call P_No_getLastID(?)}");
+            call.registerOutParameter(1, java.sql.Types.VARCHAR);
+            
+            call.execute();
+            return call.getString(1);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(P_NoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //<editor-fold defaultstate="collapsed" desc="finally">
+        finally{
+            if(connection!=null)
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(P_NoDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
+            try {
+                call.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(P_NoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+//</editor-fold>
+          return null;  
     }
 }
