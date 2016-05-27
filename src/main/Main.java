@@ -4,6 +4,7 @@ import MVCControllers.NhapSanPhamController;
 import MVCControllers.PhieuBanHangController;
 import MVCModels.PhieuBanHangModel;
 import MVCViews.PhieuBanHangView;
+import MVCViews.PhieuDichVuView;
 
 public class Main {
 
@@ -14,8 +15,8 @@ public class Main {
 //		PhieuBanHangController controllerPhieuBangHang = new PhieuBanHangController(modelPhieuBanHang, viewPhieuBanHang);
 //		
 //		viewPhieuBanHang.getFrame().setVisible(true);
-		NhapSanPhamController controller = new NhapSanPhamController();
-		controller.startApplication();
+		PhieuDichVuView controller = new PhieuDichVuView();
+		controller.getFrame().setVisible(true);
 	}
 
 }

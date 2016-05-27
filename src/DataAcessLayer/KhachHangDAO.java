@@ -26,7 +26,7 @@ public class KhachHangDAO {
     private static final String maNguoi = "MANGUOI";
     private static final String laKhachQuen = "LAKHACHQUEN";
     
-        private static final String insertStatement = "{call KHACHHANG_Ins(?,?,?)}";
+    private static final String insertStatement = "{call KHACHHANG_Ins(?,?,?)}";
     private static final String updateStatement = "{call KHACHHANG_Upd(?,?,?,?)}";
     private static final String deleteStatement = "{call KHACHHANG_Del(?)}";
     
