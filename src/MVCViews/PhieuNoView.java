@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -12,21 +13,35 @@ import javax.swing.border.TitledBorder;
 
 import com.toedter.calendar.JDateChooser;
 
+import MVCControllers.PhieuNoController;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 public class PhieuNoView {
 
     private JFrame frame;
-    private JTextField textMaPhieu;
+    private JTextField textMaPhieuNo;
     private JTextField textMaKH;
     private JTextField textHoTen;
     private JTextField textSoTienNo;
     private JTextField textSoTienTra;
     private JTextField textConLai;
+    private JTextField textMaPhieuBan;
+    private JDateChooser dateNgayNo;
+    private JDateChooser dateNgayTra;
 
+    private PhieuNoController controller = null;
     /**
      * Create the application.
      */
-    public PhieuNoView() {
+    public PhieuNoView(PhieuNoController controller) {
         initialize();
+        this.controller = controller;
     }
 
     /**
@@ -34,6 +49,12 @@ public class PhieuNoView {
      */
     private void initialize() {
         frame = new JFrame();
+        frame.addWindowListener(new WindowAdapter() {
+        	@Override
+        	public void windowOpened(WindowEvent arg0) {
+                    controller.frameWindowOpened(arg0);
+        	}
+        });
         frame.setBounds(100, 100, 792, 484);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -43,33 +64,53 @@ public class PhieuNoView {
         JLabel lblSPhiu = new JLabel("Mã phiếu :");
         lblSPhiu.setBounds(45, 71, 67, 14);
 
-        textMaPhieu = new JTextField();
-        textMaPhieu.setBounds(122, 68, 111, 20);
-        textMaPhieu.setColumns(10);
+        textMaPhieuNo = new JTextField();
+        textMaPhieuNo.setBounds(122, 68, 111, 20);
+        textMaPhieuNo.setColumns(10);
+        textMaPhieuNo.setEditable(false);
 
         JLabel lblNgayMua = new JLabel("Mã khách :");
         lblNgayMua.setBounds(45, 132, 67, 14);
         frame.getContentPane().setLayout(null);
         frame.getContentPane().add(lblPhiuMuaHng);
         frame.getContentPane().add(lblSPhiu);
-        frame.getContentPane().add(textMaPhieu);
+        frame.getContentPane().add(textMaPhieuNo);
         frame.getContentPane().add(lblNgayMua);
 
         JButton btnLuu = new JButton("Lưu");
+        btnLuu.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		controller.btnLuuActionPerformed(arg0);
+        	}
+        });
         btnLuu.setBounds(88, 411, 89, 23);
         frame.getContentPane().add(btnLuu);
 
         JButton btnXoa = new JButton("Xóa");
         btnXoa.setBounds(309, 411, 89, 23);
         frame.getContentPane().add(btnXoa);
+        btnXoa.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				controller.btnXoaActionPerformed(e);
+			}
+		});
 
         JButton btnThoat = new JButton("Thoát");
+        btnThoat.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		controller.btnThoatActionPerformed(e);
+        	}
+        });
         btnThoat.setBounds(531, 411, 89, 23);
         frame.getContentPane().add(btnThoat);
 
         textMaKH = new JTextField();
         textMaKH.setColumns(10);
         textMaKH.setBounds(122, 129, 111, 20);
+        textMaKH.setEditable(false);
         frame.getContentPane().add(textMaKH);
 
         JLabel lblTnKhch = new JLabel("Tên khách :");
@@ -79,6 +120,7 @@ public class PhieuNoView {
         textHoTen = new JTextField();
         textHoTen.setColumns(10);
         textHoTen.setBounds(499, 126, 148, 20);
+        textHoTen.setEditable(false);
         frame.getContentPane().add(textHoTen);
 
         JLabel lblNgyN = new JLabel("Ngày nợ :");
@@ -103,6 +145,12 @@ public class PhieuNoView {
         frame.getContentPane().add(lblSTinN_1);
 
         textSoTienTra = new JTextField();
+        textSoTienTra.addFocusListener(new FocusAdapter() {
+        	@Override
+        	public void focusLost(FocusEvent e) {
+                    controller.textSoTienTraFocusLost(e);
+        	}
+        });
         textSoTienTra.setColumns(10);
         textSoTienTra.setBounds(499, 243, 148, 20);
         frame.getContentPane().add(textSoTienTra);
@@ -116,13 +164,32 @@ public class PhieuNoView {
         textConLai.setBounds(499, 301, 148, 20);
         frame.getContentPane().add(textConLai);
 
-        JDateChooser dateNgayNo = new JDateChooser();
-        dateNgayNo.setBounds(117, 187, 116, 20);
+        dateNgayNo = new JDateChooser();
+        dateNgayNo.setBounds(122, 181, 116, 20);
         frame.getContentPane().add(dateNgayNo);
 
-        JDateChooser dateNgayTra = new JDateChooser();
-        dateNgayTra.setBounds(117, 246, 116, 20);
+        dateNgayTra = new JDateChooser();
+        dateNgayTra.setBounds(122, 246, 116, 20);
         frame.getContentPane().add(dateNgayTra);
+        
+        JLabel lblMPhiuBn = new JLabel("Mã phiếu bán :");
+        lblMPhiuBn.setBounds(413, 68, 89, 14);
+        frame.getContentPane().add(lblMPhiuBn);
+        
+        textMaPhieuBan = new JTextField();
+        textMaPhieuBan.addFocusListener(new FocusAdapter() {
+			
+			@Override
+			public void focusLost(FocusEvent e) {
+				// TODO Auto-generated method stub
+				controller.textMaPhieuBanFocusLost(e);
+			}
+			
+			
+		});
+        textMaPhieuBan.setColumns(10);
+        textMaPhieuBan.setBounds(499, 68, 148, 20);
+        frame.getContentPane().add(textMaPhieuBan);
     }
 
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
@@ -135,13 +202,6 @@ public class PhieuNoView {
         this.frame = frame;
     }
     
-    public JTextField getTextMaPhieu() {
-        return textMaPhieu;
-    }
-    
-    public void setTextMaPhieu(JTextField textMaPhieu) {
-        this.textMaPhieu = textMaPhieu;
-    }
     
     public JTextField getTextMaKH() {
         return textMaKH;
@@ -182,8 +242,40 @@ public class PhieuNoView {
     public void setTextConLai(JTextField textConLai) {
         this.textConLai = textConLai;
     }
-    
-//</editor-fold>
-    
 
+    public JTextField getTextMaPhieuNo() {
+        return textMaPhieuNo;
+    }
+
+    public void setTextMaPhieuNo(JTextField textMaPhieuNo) {
+        this.textMaPhieuNo = textMaPhieuNo;
+    }
+
+    public JTextField getTextMaPhieuBan() {
+        return textMaPhieuBan;
+    }
+
+    public void setTextMaPhieuBan(JTextField textMaPhieuBan) {
+        this.textMaPhieuBan = textMaPhieuBan;
+    }
+
+    public JDateChooser getDateNgayNo() {
+        return dateNgayNo;
+    }
+
+    public void setDateNgayNo(JDateChooser dateNgayNo) {
+        this.dateNgayNo = dateNgayNo;
+    }
+
+    public JDateChooser getDateNgayTra() {
+        return dateNgayTra;
+    }
+
+    public void setDateNgayTra(JDateChooser dateNgayTra) {
+        this.dateNgayTra = dateNgayTra;
+    }
+    
+    
+    
+    
 }

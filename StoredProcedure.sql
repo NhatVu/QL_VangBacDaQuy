@@ -601,6 +601,80 @@ delete from tonkho
 where MAP_TK = MAP_TK;
 end//
 
+/************************************************
+* 	Nhật PROCEDURE
+*************************************************/
+/* 
+	1. Lấy mã khách hàng, họ tên bởi mã phiếu bán khi đã tồn tại phiếu nợ.
+*/
+create procedure P_BanHang_getMaKHHoTenByMaP_BH(in maP_BH varchar(10))
+begin
+select k.MAKH, n.HOTEN
+from ((p_banhang as b inner join p_thu as t
+    on t.MAP_THU = b.MAP_THU) inner join khachhang as k
+    on t.makh = k.makh ) inner join nguoi as n
+	on k.MANGUOI = n.MANGUOI
+where b.map_bh = map_BH;
+end//
 
 
+/* 
+	2. Lấy index cuối cùng của phiếu nợ
+*/
+
+create procedure  P_No_getLastID(out maxid varchar(10))
+begin
+select MAP_NO into maxid
+from p_no
+order by MAP_NO desc
+limit 1;
+end//
+
+/* 
+	3. Lấy thông tin tiền còn lại, ngày thu
+	3.1. Nếu phiếu thu đã lập => lấy theo bảng phiếu nợ
+	3.2. Nếu phiếu thu chưa lập => kiểm tra , nếu là khách quen => cho lập
+	3.3 1,2 ko thỏa => trả về conLao = 0, ngayLap = "0000-00-00
+*/
+create procedure  P_Thu_getLastConLaiNgayTraByMaP_Thu(in maKH varchar(10), in maP_Thu varchar(10),
+out conLai decimal(10,3), out ngayTra timestamp)
+begin
+declare checkKhachquen bool;
+set conlai = 0;
+ set ngayTra = '1970-01-02 00:00:00';
+-- nếu phiếu nợ đã tồn tại
+
+select (SOTIENNO - SOTIENTRA), n.NGAYTRA
+into conlai, ngayTra
+from p_no as n
+where n.map_thu = maP_Thu
+order by MAP_NO desc
+limit 1;
+-- nếu phiếu nợ chưa tồn tại
+if(conlai = 0 and ngayTra = '1970-01-02 00:00:00')
+then
+select laKhachQuen into checkKhachquen
+from khachhang as k
+where k.makh = maKH;
+-- nếu là khách quen
+if (checkKhachquen = 1)
+then
+select tongcong, Ngaylapphieu into conlai, ngayTra
+from p_thu as t
+where t.map_thu = maP_Thu;
+end if;
+end if;
+end//
+
+
+/* 
+	4. Lấy mã phiếu thu bởi mã phiếu bán hàng
+*/
+create procedure P_BanHang_getMaP_ThuByMaP_BH(in maP_BH varchar(10),out maP_Thu varchar(10))
+begin
+select b.MAP_THU into maP_Thu
+from p_banhang as b
+where b.MAP_BH = maP_BH;
+end//
+/***********************************************************************************/
 delimiter ;
