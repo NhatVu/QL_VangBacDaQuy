@@ -8,7 +8,10 @@ package DataAcessLayer;
 import DTO.SanPhamDTO;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -51,6 +54,11 @@ public class SanPhamDAO {
                     Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            try {
+                call.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return false;
     }
@@ -79,6 +87,11 @@ public class SanPhamDAO {
                     Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            try {
+                call.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return false;
     }
@@ -103,7 +116,45 @@ public class SanPhamDAO {
                     Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            
+            try {
+                call.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return false;
+    }
+    
+    public List<String> getMaSP(){
+         try {
+             List<String> result = new ArrayList<String>();
+            connection = DataSource.getInstance().getConnection();
+
+            call = connection.prepareCall("{call SanPham_getSanPham()}");
+            
+             ResultSet rs = call.executeQuery();
+             while(rs.next()){
+                 result.add(rs.getString(1));
+             }
+             return result;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            try {
+                call.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
     }
 }
