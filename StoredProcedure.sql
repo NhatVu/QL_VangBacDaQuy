@@ -64,35 +64,6 @@ where MACTP_BH = MACTP_BH;
 end//
 
 
-/*******************************************
-* Table: CTP_CHI
-**********************************************/
-
-
-
-create procedure CTP_CHI_Ins (MACTP_CHI varchar(10), MAP_CHI varchar(10), MAPHI varchar(10), TENPHI varchar(30), THANHTIEN decimal )
-begin
-insert into ctp_chi ( MACTP_CHI, MAP_CHI, MAPHI, TENPHI, THANHTIEN ) values ( MACTP_CHI, MAP_CHI, MAPHI, TENPHI, THANHTIEN );
-end//
-
-
-create procedure CTP_CHI_Upd (MACTP_CHI varchar(10), MAP_CHI varchar(10), MAPHI varchar(10), TENPHI varchar(30), THANHTIEN decimal )
-begin
-update ctp_chi as a 
-set 
-a.MAP_CHI = if(a.MAP_CHI <> MAP_CHI, MAP_CHI, a.MAP_CHI),
-a.MAPHI = if(a.MAPHI <> MAPHI, MAPHI, a.MAPHI),
-a.TENPHI = if(a.TENPHI <> TENPHI, TENPHI, a.TENPHI),
-a.THANHTIEN = if(a.THANHTIEN <> THANHTIEN, THANHTIEN, a.THANHTIEN)
-where a.MACTP_CHI = MACTP_CHI;
-end//
-
-
-create procedure CTP_CHI_Del (MACTP_CHI varchar(10) )
-begin
-delete from ctp_chi 
-where MACTP_CHI = MACTP_CHI;
-end//
 
 
 /*******************************************
@@ -336,21 +307,19 @@ end//
 /*******************************************
 * Table: P_CHI
 **********************************************/
-
-
-
-create procedure P_CHI_Ins (MAP_CHI varchar(10), NGAYBAOCAO timestamp, TONGCONG decimal )
+create procedure P_CHI_Ins (MAP_CHI varchar(10), NGAYBAOCAO timestamp, NOIDUNG varchar(300), SOTIENCHI decimal )
 begin
-insert into p_chi ( MAP_CHI, NGAYBAOCAO, TONGCONG ) values ( MAP_CHI, NGAYBAOCAO, TONGCONG );
+insert into p_chi ( MAP_CHI, NGAYBAOCAO,NOIDUNG, SOTIENCHI ) values ( MAP_CHI, NGAYBAOCAO,NOIDUNG, SOTIENCHI );
 end//
 
 
-create procedure P_CHI_Upd (MAP_CHI varchar(10), NGAYBAOCAO timestamp, TONGCONG decimal )
+create procedure P_CHI_Upd (MAP_CHI varchar(10), NGAYBAOCAO timestamp, NOIDUNG varchar(300),SOTIENCHI decimal )
 begin
 update p_chi as a 
 set 
 a.NGAYBAOCAO = if(a.NGAYBAOCAO <> NGAYBAOCAO, NGAYBAOCAO, a.NGAYBAOCAO),
-a.TONGCONG = if(a.TONGCONG <> TONGCONG, TONGCONG, a.TONGCONG)
+a.SOTIENCHI = if(a.SOTIENCHI <> SOTIENCHI, SOTIENCHI, a.SOTIENCHI),
+a.NOIDUNG = if(a.NOIDUNG <> NOIDUNG, NOIDUNG, a.NOIDUNG)
 where a.MAP_CHI = MAP_CHI;
 end//
 

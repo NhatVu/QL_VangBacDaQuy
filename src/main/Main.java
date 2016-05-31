@@ -2,6 +2,7 @@ package main;
 
 import MVCControllers.NhapSanPhamController;
 import MVCControllers.PhieuBanHangController;
+import MVCControllers.PhieuChiController;
 import MVCControllers.PhieuNoController;
 import MVCControllers.TonKhoController;
 import MVCModels.PhieuBanHangModel;
@@ -20,8 +21,10 @@ public class Main {
         //controller.startApplication();
         //PhieuNoController noController = new PhieuNoController();
         //noController.startApplication();
-        TonKhoController controller = new TonKhoController();
-        controller.startApplication();
+        //TonKhoController controller = new TonKhoController();
+        //controller.startApplication();
+        PhieuChiController controller = new PhieuChiController();
+        controller.stratApplication();
     }
     
 }
