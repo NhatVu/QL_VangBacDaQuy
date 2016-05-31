@@ -14,6 +14,7 @@ import javax.swing.border.TitledBorder;
 import com.toedter.calendar.JDateChooser;
 
 import MVCControllers.PhieuNoController;
+import TableModel.CT_TonKhoTableModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusAdapter;
@@ -83,6 +84,7 @@ public class PhieuNoView {
         		controller.btnLuuActionPerformed(arg0);
         	}
         });
+       
         btnLuu.setBounds(88, 411, 89, 23);
         frame.getContentPane().add(btnLuu);
 
@@ -274,8 +276,6 @@ public class PhieuNoView {
     public void setDateNgayTra(JDateChooser dateNgayTra) {
         this.dateNgayTra = dateNgayTra;
     }
-    
-    
-    
+       
     
 }

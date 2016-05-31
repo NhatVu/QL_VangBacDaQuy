@@ -3,6 +3,7 @@ package DataAcessLayer;
 import DTO.CT_TonKhoDTO;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,9 +31,9 @@ public class CT_TonKhoDAO {
             call.setString("MAP_TK", ct_TK.getMaP_TK());
             call.setString("MAHANG", ct_TK.getMaHang());
             call.setInt("TONDAUKY", ct_TK.getTonDauKy());
-            call.setInt("TONCUOIKY", ct_TK.getTonDauKy());
+            call.setInt("TONCUOIKY", ct_TK.getTonCuoiKy());
             call.setInt("SOLUONGBAN", ct_TK.getSoLuongBan());
-            call.setInt("SOLUONFMUA", ct_TK.getSoLuongMua());
+            call.setInt("SOLUONGMUA", ct_TK.getSoLuongMua());
             
             return call.execute();
                     
@@ -44,6 +45,12 @@ public class CT_TonKhoDAO {
             if(connection!= null)
                 try {
                     connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CT_TonKhoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            try {
+                call.close();
             } catch (SQLException ex) {
                 Logger.getLogger(CT_TonKhoDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -78,6 +85,11 @@ public class CT_TonKhoDAO {
             } catch (SQLException ex) {
                 Logger.getLogger(CT_TonKhoDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
+            try {
+                call.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CT_TonKhoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return false;
     }
@@ -101,7 +113,44 @@ public class CT_TonKhoDAO {
             } catch (SQLException ex) {
                 Logger.getLogger(CT_TonKhoDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
+            try {
+                call.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CT_TonKhoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return false;
+    }
+    
+    public String getLastID(){
+        try {
+            String lastID = null;
+            //procedure  CT_TonKho_getLastID()
+            connection = DataSource.getInstance().getConnection();
+            call = connection.prepareCall("{call CT_TonKho_getLastID()}");
+            
+            ResultSet rs = call.executeQuery();
+            while(rs.next()){
+                lastID = rs.getString(1);
+            }
+            return lastID;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(CT_TonKhoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally{
+            if(connection!=null)
+                try {
+                    connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CT_TonKhoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                call.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CT_TonKhoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
     }
 }

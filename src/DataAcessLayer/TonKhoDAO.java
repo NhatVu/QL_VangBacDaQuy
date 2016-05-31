@@ -10,7 +10,10 @@ import DTO.NguoiDTO;
 import DTO.TonKhoDTO;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -63,6 +66,11 @@ public class TonKhoDAO {
             } catch (SQLException ex) {
                 Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
             }
+            try {
+                call.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(TonKhoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return false;
     }
@@ -88,6 +96,11 @@ public class TonKhoDAO {
             } catch (SQLException ex) {
                 Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
             }
+            try {
+                call.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(TonKhoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return false;
     }
@@ -112,7 +125,83 @@ public class TonKhoDAO {
             } catch (SQLException ex) {
                 Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
             }
+            try {
+                call.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(TonKhoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return false;
+    }
+    
+    /*
+    1. Intent
+        - Lấy dòng cuối cùng trong bảng tồn kho
+        - lấy mã tồn kho và ngày báo cáo.
+    */
+    public void getLastRow(TonKhoDTO tk){
+        try {
+            //create procedure DICHVU_Del (MADV varchar(10) )
+            connection = DataSource.getInstance().getConnection();
+            call = connection.prepareCall("call TonKho_getLastRow()");
+            
+            ResultSet rs = call.executeQuery();
+            while(rs.next()){
+                tk.setMaP_TK(rs.getString(1));
+                tk.setNgayBaoCao(rs.getTimestamp(2));
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+        }
+        finally{
+            if(connection!=null)
+                try {
+                    connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+            }
+            try {
+                call.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(TonKhoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    /*
+    1. Intent
+        - Lấy mã sản phẩm + tồn cuối kỳ của tồn kho
+    2. Parameter 
+        Map<String, String> lResult. = Map<MaSP, TonCuoiKy>
+    */
+    public void getMaSPTonCuoiKyByMaTK(String maTK,Map<String, Integer> lResult ){
+        try {
+            //create procedure TonKho_getMaSPTonCuoiKyByMaTK(in MaTK varchar(10))
+            connection = DataSource.getInstance().getConnection();
+            call = connection.prepareCall("call TonKho_getMaSPTonCuoiKyByMaTK(?)");
+            call.setString(1, maTK);
+            
+            ResultSet rs = call.executeQuery();
+            while(rs.next()){
+                lResult.put(rs.getString(1), rs.getInt(2));
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+        }
+        finally{
+            if(connection!=null)
+                try {
+                    connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+            }
+            try {
+                call.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(TonKhoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

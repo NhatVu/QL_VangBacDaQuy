@@ -64,35 +64,6 @@ where MACTP_BH = MACTP_BH;
 end//
 
 
-/*******************************************
-* Table: CTP_CHI
-**********************************************/
-
-
-
-create procedure CTP_CHI_Ins (MACTP_CHI varchar(10), MAP_CHI varchar(10), MAPHI varchar(10), TENPHI varchar(30), THANHTIEN decimal )
-begin
-insert into ctp_chi ( MACTP_CHI, MAP_CHI, MAPHI, TENPHI, THANHTIEN ) values ( MACTP_CHI, MAP_CHI, MAPHI, TENPHI, THANHTIEN );
-end//
-
-
-create procedure CTP_CHI_Upd (MACTP_CHI varchar(10), MAP_CHI varchar(10), MAPHI varchar(10), TENPHI varchar(30), THANHTIEN decimal )
-begin
-update ctp_chi as a 
-set 
-a.MAP_CHI = if(a.MAP_CHI <> MAP_CHI, MAP_CHI, a.MAP_CHI),
-a.MAPHI = if(a.MAPHI <> MAPHI, MAPHI, a.MAPHI),
-a.TENPHI = if(a.TENPHI <> TENPHI, TENPHI, a.TENPHI),
-a.THANHTIEN = if(a.THANHTIEN <> THANHTIEN, THANHTIEN, a.THANHTIEN)
-where a.MACTP_CHI = MACTP_CHI;
-end//
-
-
-create procedure CTP_CHI_Del (MACTP_CHI varchar(10) )
-begin
-delete from ctp_chi 
-where MACTP_CHI = MACTP_CHI;
-end//
 
 
 /*******************************************
@@ -336,21 +307,19 @@ end//
 /*******************************************
 * Table: P_CHI
 **********************************************/
-
-
-
-create procedure P_CHI_Ins (MAP_CHI varchar(10), NGAYBAOCAO timestamp, TONGCONG decimal )
+create procedure P_CHI_Ins (MAP_CHI varchar(10), NGAYBAOCAO timestamp, NOIDUNG varchar(300), SOTIENCHI decimal )
 begin
-insert into p_chi ( MAP_CHI, NGAYBAOCAO, TONGCONG ) values ( MAP_CHI, NGAYBAOCAO, TONGCONG );
+insert into p_chi ( MAP_CHI, NGAYBAOCAO,NOIDUNG, SOTIENCHI ) values ( MAP_CHI, NGAYBAOCAO,NOIDUNG, SOTIENCHI );
 end//
 
 
-create procedure P_CHI_Upd (MAP_CHI varchar(10), NGAYBAOCAO timestamp, TONGCONG decimal )
+create procedure P_CHI_Upd (MAP_CHI varchar(10), NGAYBAOCAO timestamp, NOIDUNG varchar(300),SOTIENCHI decimal )
 begin
 update p_chi as a 
 set 
 a.NGAYBAOCAO = if(a.NGAYBAOCAO <> NGAYBAOCAO, NGAYBAOCAO, a.NGAYBAOCAO),
-a.TONGCONG = if(a.TONGCONG <> TONGCONG, TONGCONG, a.TONGCONG)
+a.SOTIENCHI = if(a.SOTIENCHI <> SOTIENCHI, SOTIENCHI, a.SOTIENCHI),
+a.NOIDUNG = if(a.NOIDUNG <> NOIDUNG, NOIDUNG, a.NOIDUNG)
 where a.MAP_CHI = MAP_CHI;
 end//
 
@@ -692,6 +661,107 @@ select b.MAP_THU into maP_Thu
 from p_banhang as b
 where b.MAP_BH = maP_BH;
 end//
+
+/* tồn kho*/
+/*
+* 5.Lấy id cuối cùng của bảng tồn kho
+*/
+delimiter //
+create procedure  TonKho_getLastRow()
+begin
+select *
+from tonkho
+order by Map_tk desc
+limit 1;
+end//
+
+/*
+* 6. Load tat cả sản phẩm 
+*/
+create procedure SanPham_getSanPham()
+begin
+select MaSP
+from sanpham
+order by MASP asc;
+end//
+
+/*
+*  7. lấy sản phẩm, tồn cuối kỳ theo mã tồn kho trong bảng chi tiết tồn kho
+*/
+delimiter //
+create procedure TonKho_getMaSPTonCuoiKyByMaTK(in MaTK varchar(10))
+begin
+select t.MAHANG, t.TONCUOIKY
+from ct_tonkho as t
+where t.MAP_TK = maTK
+order by t.MAHANG;
+end//
+
+/*
+* 8. Lấy mã sản phẩm, tổng số lượng bán nhóm theo mã sản phẩm trong bảng ctp_banHang
+1. từ ngày lập tồn kho gần nhất đến ngày lập tồn kho hiện tại, có bao nhiêu phiếu bán hàng được lập
+2. Dựa vào số phiếu bán hàng này -> lấy maSP và tổng lượng bán của sản phẩm
+*/
+delimiter //
+create procedure P_BanHang_getMaSPTongBan(in lastedNgayBC timestamp, in newNgayBC timestamp)
+begin
+
+-- lấy maSP và tổng lượng bán
+select masp, sum(soluong)
+from ctp_banhang as c
+where c.map_bh in (select distinct MAP_BH
+					from p_banhang as b inner join p_thu as t
+					on b.MAP_THU = t.map_thu
+					where t.ngaylapphieu > lastedNgayBC and t.NGAYLAPPHIEU <= newNgayBC)
+ group by masp
+order by masp asc;
+end//
+
+/*
+* 9. Lấy mã sản phẩm, tổng số lượng mua nhóm theo mã sản phẩm trong bảng ctp_muahang
+1. từ ngày lập tồn kho gần nhất đến ngày lập tồn kho hiện tại, có bao nhiêu phiếu mua hàng được lập
+2. Dựa vào số phiếu bán hàng này -> lấy maSP và tổng lượng mua của sản phẩm
+*/
+delimiter //
+create procedure P_MuaHang_getMaSPTongMua(in lastedNgayBC timestamp, in newNgayBC timestamp)
+begin
+
+-- lấy maSP và tổng lượng bán
+select masp, sum(soluong)
+from ctp_muahang as c
+where c.map_mh in (select distinct MAP_MH
+					from p_muahang as m
+					where m.ngayMua > lastedNgayBC and m.NGAYMUA <= newNgayBC)
+ group by masp
+order by masp asc;
+end//
+
+/*
+* 10. Lấy id cuối cùng của bảng chi tiết tồn kho
+*/
+delimiter //
+create procedure  CT_TonKho_getLastID()
+begin
+select MACTP_TK
+from ct_tonkho
+order by MACTP_TK desc
+limit 1;
+end//
+
+/* Phiếu chi*/
+/*
+11. Lấy id cuối cùng của phiếu chi
+*/
+delimiter //
+create procedure P_Chi_getLastID(out maxid varchar(10))
+begin
+select MAP_CHI
+into maxid
+from p_chi
+order by MAP_CHI desc
+limit 1; 
+end//
+
 /***********************************************************************************/
 delimiter ;
 

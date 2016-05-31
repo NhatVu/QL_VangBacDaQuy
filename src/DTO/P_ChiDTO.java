@@ -18,7 +18,8 @@ public class P_ChiDTO {
 
     private String maP_Chi = null;
     private Timestamp BaoCao = null;
-    private int tongCong = 0;
+    private String noiDung = null;
+    private double soTienChi = 0;
     
     /*
     * Constructor
@@ -47,15 +48,23 @@ public class P_ChiDTO {
         this.BaoCao = BaoCao;
     }
 
+    public String getNoiDung() {
+        return noiDung;
+    }
+
+    public void setNoiDung(String noiDung) {
+        this.noiDung = noiDung;
+    }
+
+    public double getSoTienChi() {
+        return soTienChi;
+    }
+
+    public void setSoTienChi(double soTienChi) {
+        this.soTienChi = soTienChi;
+    }
+
     
-
-    public int getTongCong() {
-        return tongCong;
-    }
-
-    public void setTongCong(int tongCong) {
-        this.tongCong = tongCong;
-    }
     
 
 }

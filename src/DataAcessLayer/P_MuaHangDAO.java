@@ -8,7 +8,11 @@ package DataAcessLayer;
 import DTO.P_MuaHangDTO;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -52,6 +56,12 @@ public class P_MuaHangDAO {
             } catch (SQLException ex) {
                 Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+            try {
+                call.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(P_MuaHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return false;
     }
@@ -81,6 +91,11 @@ public class P_MuaHangDAO {
             } catch (SQLException ex) {
                 Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
+            try {
+                call.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(P_MuaHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return false;
     }
@@ -104,7 +119,50 @@ public class P_MuaHangDAO {
             } catch (SQLException ex) {
                 Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+            try {
+                call.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(P_MuaHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return false;
+    }
+    
+    /*
+* Lấy mã sản phẩm, tổng số lượng mua nhóm theo mã sản phẩm trong bảng ctp_muahang
+1. từ ngày lập tồn kho gần nhất đến ngày lập tồn kho hiện tại, có bao nhiêu phiếu mua hàng được lập
+2. Dựa vào số phiếu bán hàng này -> lấy maSP và tổng lượng mua của sản phẩm
+*/
+     public void getMaSPTongMua(Timestamp lastedNgayBC, Timestamp newNgayBC,Map<String, Integer> lRs){
+        try {
+            //pcreate procedure P_MuaHang_getMaSPTongMua(in lastedNgayBC timestamp, in newNgayBC varchar(10))
+            connection = DataSource.getInstance().getConnection();
+            call = connection.prepareCall("{call P_MuaHang_getMaSPTongMua(?,?)}");
+            call.setTimestamp(1, lastedNgayBC);
+            call.setTimestamp(2, newNgayBC);
+            ResultSet rs = call.executeQuery();
+            
+            while(rs.next()){
+                lRs.put(rs.getString(1), rs.getInt(2));
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally{
+            if(connection!=null)
+                try {
+                    connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            try {
+                call.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(P_MuaHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }
