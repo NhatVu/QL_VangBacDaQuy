@@ -732,5 +732,19 @@ order by MACTP_TK desc
 limit 1;
 end//
 
+/* Phiếu chi*/
+/*
+11. Lấy id cuối cùng của phiếu chi
+*/
+delimiter //
+create procedure P_Chi_getLastID(out maxid varchar(10))
+begin
+select MAP_CHI
+into maxid
+from p_chi
+order by MAP_CHI desc
+limit 1; 
+end//
+
 /***********************************************************************************/
 delimiter ;
