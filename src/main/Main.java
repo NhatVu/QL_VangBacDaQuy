@@ -2,6 +2,7 @@ package main;
 
 import MVCControllers.NhapSanPhamController;
 import MVCControllers.PhieuBanHangController;
+import MVCControllers.PhieuDichVuController;
 import MVCControllers.PhieuNoController;
 import MVCModels.PhieuBanHangModel;
 import MVCViews.PhieuBanHangView;
@@ -19,8 +20,9 @@ public class Main {
 
 		//NhapSanPhamController controller = new NhapSanPhamController();
 		//controller.startApplication();
-		PhieuNoController noController = new PhieuNoController();
-		noController.startApplication();
+		          PhieuDichVuController controller = new PhieuDichVuController();
+                          controller.start();
+                                  
 
 	}
 

@@ -6,10 +6,14 @@
 package DataAcessLayer;
 
 import DTO.DichVuDTO;
+import DTO.KhachHangDTO;
 import DTO.NguoiDTO;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -119,5 +123,38 @@ public class NguoiDAO {
             }
         }
         return false;
+    }
+    
+    public NguoiDTO getNguoiFromMaNguoi(String maNguoi)
+    {
+        try {
+            //create procedure DICHVU_Del (MADV varchar(10) )
+            
+            connection = DataSource.getInstance().getConnection();
+            ArrayList<KhachHangDTO> result = new ArrayList();
+            String query = "select * from NGUOI WHERE NGUOI.MANGUOI ='" + maNguoi+"'";
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            if(rs.first()!=false)
+            {
+                String diachi = rs.getString("DIACHI");
+                String ten = rs.getString("HOTEN");
+                int shortId = rs.getInt("SHORTID");
+                NguoiDTO ng = new NguoiDTO(maNguoi,ten,diachi,shortId);
+                st.close();
+                return ng;
+            }           
+        } catch (SQLException ex) {
+            Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+        }
+        finally{
+            if(connection!=null)
+                try {
+                    connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
     }
 }

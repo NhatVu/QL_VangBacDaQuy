@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 public class P_DichVuDAO {
 	CallableStatement call = null;
-    Connection connection = null;
+        Connection connection = null;
     
     public P_DichVuDAO(){
         
@@ -94,4 +94,38 @@ public class P_DichVuDAO {
         }
         return false;
     }
+    
+    public String getLastID() {
+        try {
+            // procedure  P_No_getLastID(out maxid varchar(10))
+            connection = DataSource.getInstance().getConnection();
+            call = connection.prepareCall("{call P_DICHVU_getLastID(?)}");
+            call.registerOutParameter(1, java.sql.Types.VARCHAR);
+
+            call.execute();
+            return call.getString(1);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(P_NoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } //<editor-fold defaultstate="collapsed" desc="finally">
+        finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(P_NoDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            try {
+                call.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(P_NoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+//</editor-fold>
+        return null;
+    }
+    
+   
 }

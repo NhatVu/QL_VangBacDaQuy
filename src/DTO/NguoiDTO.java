@@ -13,10 +13,19 @@ public class NguoiDTO {
     /*
     * Property
     */
-    private String maLoaiNguoi = null;
-    private String hoTen = null;
-    private String diaChi = null;
-    private int shortID = 0;
+    private String maLoaiNguoi;
+    private String hoTen;
+    private String diaChi;
+    private int shortID;
+
+    public NguoiDTO(String maLoaiNguoi, String hoTen, String diaChi, int shortID) {
+        this.maLoaiNguoi = maLoaiNguoi;
+        this.hoTen = hoTen;
+        this.diaChi = diaChi;
+        this.shortID = shortID;
+    }
+    
+    
     
     /*
     * Constructor 

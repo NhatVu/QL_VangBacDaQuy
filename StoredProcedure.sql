@@ -389,6 +389,22 @@ delete from p_dichvu
 where MAP_DV = MAP_DV;
 end//
 
+create procedure  P_DICHVU_getLastID(out maxId varchar(10))
+begin
+select MAP_DV into maxid
+from p_dichvu
+order by MAP_DV desc
+limit 1;
+end//
+
+create procedure P_DICHVU_getAllKhachHangQuen()
+begin
+select * from NGUOI where NGUOI.LAKHACHQUEN=true
+end//
+
+
+
+
 
 /*******************************************
 * Table: P_GIACONG
@@ -678,3 +694,5 @@ where b.MAP_BH = maP_BH;
 end//
 /***********************************************************************************/
 delimiter ;
+
+

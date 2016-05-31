@@ -2,7 +2,6 @@
 /* DBMS name:      MySQL 5.0                                    */
 /* Created on:     5/24/2016 9:25:09 PM                         */
 /*==============================================================*/
-drop database vangbacdaquy;
 create database vangbacdaquy;
 use vangbacdaquy;
 

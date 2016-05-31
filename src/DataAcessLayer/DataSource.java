@@ -25,9 +25,9 @@ public class DataSource {
     private ComboPooledDataSource cpds = null;
     
     
-    private String username = null;
-    private String password = null;
-    private String databaseName = null;
+    private String username = "root";
+    private String password = "";
+    private String databaseName = "vangbacdaquy";
     
 
     private DataSource() throws SQLException {

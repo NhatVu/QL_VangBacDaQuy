@@ -88,7 +88,7 @@ public class PhieuNoController {
     */
     public void textMaPhieuBanFocusLost(FocusEvent e) {
         //btnXoaActionPerformed(null);
-         view.getTextConLai().setText(null);
+        view.getTextConLai().setText(null);
         view.getTextHoTen().setText(null);
         view.getTextMaKH().setText(null);
         view.getTextSoTienNo().setText(null);

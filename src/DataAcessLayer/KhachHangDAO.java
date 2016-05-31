@@ -9,7 +9,10 @@ import DTO.KhachHangDTO;
 import DTO.NguoiDTO;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -49,7 +52,7 @@ public class KhachHangDAO {
             
             call.setString(maKh, n.getMaKH());
             call.setString(maNguoi, n.getMaNguoi());
-            call.setInt(laKhachQuen, n.isLaKhachQuen());
+            call.setBoolean(laKhachQuen, n.isLaKhachQuen());
             
             
             return call.execute();
@@ -77,7 +80,7 @@ public class KhachHangDAO {
             call = connection.prepareCall(updateStatement);
             call.setString(maKh, n.getMaKH());
             call.setString(maNguoi, n.getMaNguoi());
-            call.setInt(laKhachQuen, n.isLaKhachQuen());
+            call.setBoolean(laKhachQuen, n.isLaKhachQuen());
             
             return call.execute();
            
@@ -118,4 +121,74 @@ public class KhachHangDAO {
         }
         return false;
     }
+    
+    public ArrayList<KhachHangDTO> getAllKhachHangQuen()
+    {
+        try {
+            //create procedure DICHVU_Del (MADV varchar(10) )
+            
+            connection = DataSource.getInstance().getConnection();
+            ArrayList<KhachHangDTO> result = new ArrayList();
+            String query = "select * from NGUOI,KHACHHANG WHERE NGUOi.MANGUOI = KHACHHANG.MANGUOI AND KHACHHANG.LAKHACHQUEN = true";
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next())
+            {
+                String maKh = rs.getString("MAKH");
+                String maNg = rs.getString("MANGUOI");
+                KhachHangDTO kh = new KhachHangDTO(maKh,maNg,true);
+                result.add(kh);
+            }           
+            st.close();
+
+            return result;
+        } catch (SQLException ex) {
+            Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+        }
+        finally{
+            if(connection!=null)
+                try {
+                    connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
+    }
+    
+    public NguoiDTO checkKhachHangQuen(int shortId)
+    {
+        try {
+            //create procedure DICHVU_Del (MADV varchar(10) )
+            
+            connection = DataSource.getInstance().getConnection();
+            ArrayList<KhachHangDTO> result = new ArrayList();
+            String query = "select * from NGUOI,KHACHHANG WHERE NGUOi.MANGUOI = KHACHHANG.MANGUOI AND KHACHHANG.LAKHACHQUEN = true AND NGUOI.SHORTID="+shortId;
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            if(rs.first())
+            {
+                String maNg = rs.getString("MANGUOI");
+                String diachi = rs.getString("DIACHI");
+                String ten = rs.getString("HOTEN");
+                NguoiDTO ng = new NguoiDTO(maNg,ten,diachi,shortId);
+                return ng;
+            }
+            st.close();
+            return null;
+        } catch (SQLException ex) {
+            Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+        }
+        finally{
+            if(connection!=null)
+                try {
+                    connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
+    }
+    
+    
 }
