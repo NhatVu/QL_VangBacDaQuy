@@ -15,11 +15,21 @@ public class CTP_DichVuDTO {
      * Properties
      */
 
-    private String maCTP_DV = null;
-    private String maP_DV = null;
-    private String maDV = null;
-    private int soLuong = 0;
-    private double thanhTien = 0;
+    private String maCTP_DV;
+    private String maP_DV;
+    private String maDV;
+    private int soLuong;
+    private double thanhTien;
+
+    public CTP_DichVuDTO(String maCTP_DV, String maP_DV, String maDV, int soLuong, double thanhTien) {
+        this.maCTP_DV = maCTP_DV;
+        this.maP_DV = maP_DV;
+        this.maDV = maDV;
+        this.soLuong = soLuong;
+        this.thanhTien = thanhTien;
+    }
+    
+    
     
     /*
     * Constructor

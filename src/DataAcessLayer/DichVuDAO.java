@@ -6,9 +6,14 @@
 package DataAcessLayer;
 
 import DTO.DichVuDTO;
+import DTO.KhachHangDTO;
+import DTO.NguoiDTO;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,6 +24,7 @@ import java.util.logging.Logger;
 public class DichVuDAO {
     CallableStatement call = null;
     Connection connection = null;
+    private String TAG = DichVuDAO.class.getSimpleName();
     
     public DichVuDAO(){
         
@@ -101,5 +107,39 @@ public class DichVuDAO {
             }
         }
         return false;
+    }
+    
+    public ArrayList<DichVuDTO> getAllDichVu()
+    {
+        try {
+            //create procedure DICHVU_Del (MADV varchar(10) )
+            
+            connection = DataSource.getInstance().getConnection();
+            ArrayList<DichVuDTO> result = new ArrayList();
+            String query = "SELECT * FROM HANGGIACONG";
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next())
+            {
+                String maGC = rs.getString("MALOAIGC");
+                String tenGC = rs.getString("TENLOAGC");
+                double dongia = Double.parseDouble(rs.getString("DONGIA"));
+                DichVuDTO dv = new DichVuDTO(maGC,tenGC,dongia);
+                result.add(dv);
+            }
+            st.close();
+            return result;
+        } catch (SQLException ex) {
+            Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+        }
+        finally{
+            if(connection!=null)
+                try {
+                    connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
     }
 }

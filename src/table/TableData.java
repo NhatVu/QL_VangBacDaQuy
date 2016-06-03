@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author Administrator
  */
-public class P_DichVuData extends TableDataAdapter{
+public class TableData{
     private ArrayList<String> data;
 
     public ArrayList<String> getData() {
@@ -23,16 +23,16 @@ public class P_DichVuData extends TableDataAdapter{
     }
     
 
-    public P_DichVuData(ArrayList<String> data) {
+    public TableData(ArrayList<String> data) {
         this.data = data;
     }
 
-    @Override
+    
     public String getDataAt(int index) {
         return this.data.get(index);
     }
 
-    @Override
+    
     public void setDataAt(int index, String s) {
         this.data.set(index, s);
     }

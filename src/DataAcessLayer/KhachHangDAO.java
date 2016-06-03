@@ -15,6 +15,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import main.Resource;
 
 /**
  *
@@ -173,6 +174,79 @@ public class KhachHangDAO {
                 String ten = rs.getString("HOTEN");
                 NguoiDTO ng = new NguoiDTO(maNg,ten,diachi,shortId);
                 return ng;
+            }
+            st.close();
+            return null;
+        } catch (SQLException ex) {
+            Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+        }
+        finally{
+            if(connection!=null)
+                try {
+                    connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
+    }
+    
+    public String getLastID() {
+        try {
+            // procedure  P_No_getLastID(out maxid varchar(10))
+            connection = DataSource.getInstance().getConnection();
+            call = connection.prepareCall("{call KHACHHANG_getLastID(?)}");
+            call.registerOutParameter(1, java.sql.Types.VARCHAR);
+
+            call.execute();
+            return call.getString(1);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+        } //<editor-fold defaultstate="collapsed" desc="finally">
+        finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            try {
+                call.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+            }
+        }
+//</editor-fold>
+        return null;
+    }
+    
+    public String getNexId()
+    {
+        String maPhieu = Resource.KHACHHANG+"1";
+        if(this.getLastID()!=null)
+        {
+            String curentId = getLastID();
+            maPhieu= Resource.KHACHHANG+(Integer.valueOf(curentId.substring(Resource.KHACHHANG.length()))+1)+"";
+        }
+        return maPhieu;
+    }
+    
+    public String getMaKhachHangByName(int shortId)
+    {
+        try {
+            //create procedure DICHVU_Del (MADV varchar(10) )
+            
+            connection = DataSource.getInstance().getConnection();
+            ArrayList<KhachHangDTO> result = new ArrayList();
+            String query = "select KHACHHANG.MAKH from KHACHHANG,NGUOI where NGUOI.MANGUOI = KHACHHANG.MANGUOI and NGUOI.SHORTID="+shortId;
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            if(rs.first())
+            {
+                return rs.getString("MAKH");
             }
             st.close();
             return null;

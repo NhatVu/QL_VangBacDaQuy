@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import main.Resource;
 
 public class P_ThuDAO {
 
@@ -152,5 +153,48 @@ public class P_ThuDAO {
             }
         }
 //</editor-fold>
+    }
+    
+    public String getLastID() {
+        try {
+            // procedure  P_No_getLastID(out maxid varchar(10))
+            connection = DataSource.getInstance().getConnection();
+            call = connection.prepareCall("{call P_THU_getLastID(?)}");
+            call.registerOutParameter(1, java.sql.Types.VARCHAR);
+
+            call.execute();
+            return call.getString(1);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(NguoiDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } //<editor-fold defaultstate="collapsed" desc="finally">
+        finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(P_NoDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            try {
+                call.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(P_NoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+//</editor-fold>
+        return null;
+    }
+    
+    public String getNexId()
+    {
+        String maPhieu = Resource.P_THU+"1";
+        if(this.getLastID()!=null)
+        {
+            String curentId = getLastID();
+            maPhieu= Resource.P_THU+(Integer.valueOf(curentId.substring(Resource.P_THU.length()))+1)+"";
+        }
+        return maPhieu;
     }
 }

@@ -14,11 +14,21 @@ public class CTP_GiaCongDTO {
      * Properties
      */
 
-    private String maCTP_GC = null;
-    private String maLoaiGC = null;
-    private String maP_GC = null;
-    private int soLuong = 0;
-    private double thanhTien = 0;
+    private String maCTP_GC;
+    private String maLoaiGC;
+    private String maP_GC;
+    private int soLuong;
+    private double thanhTien;
+
+    public CTP_GiaCongDTO(String maCTP_GC, String maLoaiGC, String maP_GC, int soLuong, double thanhTien) {
+        this.maCTP_GC = maCTP_GC;
+        this.maLoaiGC = maLoaiGC;
+        this.maP_GC = maP_GC;
+        this.soLuong = soLuong;
+        this.thanhTien = thanhTien;
+    }
+    
+    
     
     /*
     * Constructor

@@ -8,23 +8,27 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import table.TableDataAdapter;
 
 /**
  *
  * @author Administrator
  */
 public class TableModel extends AbstractTableModel {
-    private List<TableDataAdapter> mObjectList = new ArrayList();
+    private List<TableData> mObjectList = new ArrayList();
+    
     
     private String[] mColumnNames;
+    private boolean[] mEditColumns;
 
-    public TableModel(String[] mColumnNames) {
-        super();
+    public TableModel(String[] mColumnNames, boolean[] mEditColumns) {
         this.mColumnNames = mColumnNames;
+        this.mEditColumns = mEditColumns;
     }
 
-    public void addObject(TableDataAdapter obj)
+
+
+
+    public void addObject(TableData obj)
     {
     	mObjectList.add(obj);
     	fireTableDataChanged();
@@ -66,21 +70,21 @@ public class TableModel extends AbstractTableModel {
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        TableDataAdapter obj = mObjectList.get(rowIndex);
+        TableData obj = mObjectList.get(rowIndex);
         obj.setDataAt(columnIndex, (String) aValue);
         fireTableCellUpdated(rowIndex, columnIndex);
     }
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return true;
+        return mEditColumns[columnIndex];
     }
 
-    public List<TableDataAdapter> getmObjectList() {
+    public List<TableData> getmObjectList() {
         return mObjectList;
     }
 
-    public void setmObjectList(ArrayList<TableDataAdapter> mObjectList) {
+    public void setmObjectList(ArrayList<TableData> mObjectList) {
         this.mObjectList = mObjectList;
     }
 

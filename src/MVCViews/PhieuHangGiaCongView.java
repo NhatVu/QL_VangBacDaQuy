@@ -1,5 +1,9 @@
 package MVCViews;
 
+import DTO.NguoiDTO;
+import DTO.ThoGiaCongDTO;
+import DataAcessLayer.NguoiDAO;
+import DataAcessLayer.ThoGiaCongDAO;
 import java.awt.EventQueue;
 
 import javax.swing.JButton;
@@ -11,23 +15,137 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import com.toedter.calendar.JDateChooser;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.util.ArrayList;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JComboBox;
+import main.Resource;
+import javax.swing.JScrollPane;
+import javax.swing.JViewport;
+import javax.swing.SwingUtilities;
+import table.TableModel;
+import table.TableData;
+import table.TableScroller;
+
 
 public class PhieuHangGiaCongView {
+    ArrayList<JTextField> mAllTextField = new ArrayList<>();
+    ArrayList<JDateChooser> mAllDateChoolser = new ArrayList<>();
+    ArrayList<ThoGiaCongDTO> mAllThoGiaCong;
+    ArrayList<NguoiDTO> mAllNguoi;
 
+    public ArrayList<ThoGiaCongDTO> getmAllThoGiaCong() {
+        return mAllThoGiaCong;
+    }
+
+    public void setmAllThoGiaCong(ArrayList<ThoGiaCongDTO> mAllThoGiaCong) {
+        this.mAllThoGiaCong = mAllThoGiaCong;
+    }
+
+    public ArrayList<NguoiDTO> getmAllNguoi() {
+        return mAllNguoi;
+    }
+
+    public void setmAllNguoi(ArrayList<NguoiDTO> mAllNguoi) {
+        this.mAllNguoi = mAllNguoi;
+    }
+    
+    
+            
     private JFrame frame;
     private JTextField textMaPhieu;
     private JTextField textMaKH;
-    private JTextField textHoTen;
+    private JComboBox textHoTen;
     private JTextField textDiaChi;
     private JTextField textTongCong;
-    private JTable tableCTP_MH;
+  
+    private JScrollPane mScrollPane;
+    private JTable mTable;
+    private TableModel mTableModel;
 
+    public JTable getmTable() {
+        return mTable;
+    }
+
+    public TableModel getmTableModel() {
+        return mTableModel;
+    }
+
+    public JButton getmAddButton() {
+        return mAddButton;
+    }
+
+    public JButton getmRemoveButton() {
+        return mRemoveButton;
+    }
+
+    public JButton getmSaveButton() {
+        return mSaveButton;
+    }
+
+    public JButton getmClearButton() {
+        return mClearButton;
+    }
+
+    public JButton getmExitButton() {
+        return mExitButton;
+    }
+
+    public JDateChooser getDateNgayThanhToan() {
+        return dateNgayThanhToan;
+    }
+
+    public JDateChooser getDateNgayNhanHang() {
+        return dateNgayNhanHang;
+    }
+    
+        public ArrayList<JTextField> getmAllTextField() {
+        return mAllTextField;
+    }
+
+    public ArrayList<JDateChooser> getmAllDateChoolser() {
+        return mAllDateChoolser;
+    }
+    
+    
+    private static final String column1 = "Tên hàng gia công";
+    private static final String column2= "Số lượng";
+    private static final String column3 = "Đơn Giá";
+    private static final String column4 = "Thành tiền";
+    
+    private static final boolean colum1Editable = true;
+    private static final boolean colum2Editable = true;
+    private static final boolean colum3Editable = false;
+    private static final boolean colum4Editable = false;
+    
+    
+    
+    
+    private static final String[] columnNames = new String[]{column1,column2,column3,column4};
+    private static final boolean[] editColums = new boolean[]{colum1Editable,colum2Editable,colum3Editable,colum4Editable};
+    
+    
+    private JButton mAddButton;
+    private JButton mRemoveButton;
+    private JButton mSaveButton;
+    private JButton mClearButton;
+    private JButton mExitButton;
+    private JDateChooser dateNgayThanhToan;
+    private JDateChooser dateNgayNhanHang;
     /**
      * Launch the application.
      */
     /**
      * Create the application.
      */
+    
+    /**
+	 * @wbp.parser.constructor
+	 */
     public PhieuHangGiaCongView() {
         initialize();
     }
@@ -36,6 +154,16 @@ public class PhieuHangGiaCongView {
      * Initialize the contents of the frame.
      */
     private void initialize() {
+        registerWidgets();
+    }
+    
+    public void setVisible(boolean b)
+    {
+        frame.setVisible(b);
+        if(!b) frame.dispose();
+    }
+    private void registerWidgets()
+    {
         frame = new JFrame();
         frame.setBounds(100, 100, 792, 484);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,35 +175,53 @@ public class PhieuHangGiaCongView {
         lblSPhiu.setBounds(45, 71, 67, 14);
 
         textMaPhieu = new JTextField();
-        textMaPhieu.setBounds(146, 68, 86, 20);
+        textMaPhieu.setBounds(122, 68, 180, 20);
         textMaPhieu.setColumns(10);
+        mAllTextField.add(textMaPhieu);
 
         JLabel lblNgayMua = new JLabel("Ngày nhận hàng :");
-        lblNgayMua.setBounds(45, 111, 91, 14);
+        lblNgayMua.setBounds(393, 114, 121, 14);
 
         JLabel lblNgyThanhTon = new JLabel("Ngày thanh toán :");
-        lblNgyThanhTon.setBounds(341, 111, 99, 14);
+        lblNgyThanhTon.setBounds(393, 158, 121, 14);
 
-        JLabel labelMaKH = new JLabel("Mã Khách :");
+        JLabel labelMaKH = new JLabel("Mã thợ:");
         labelMaKH.setBounds(45, 158, 67, 14);
+        
+        textDiaChi = new JTextField();
+        textDiaChi.setBounds(122, 197, 588, 20);
+        textDiaChi.setColumns(10);
+        mAllTextField.add(textDiaChi);
 
         textMaKH = new JTextField();
-        textMaKH.setBounds(146, 155, 86, 20);
+        textMaKH.setBounds(122, 155, 180, 20);
         textMaKH.setColumns(10);
+        mAllTextField.add(textMaKH);
 
-        JLabel lblHTn = new JLabel("Họ tên :");
-        lblHTn.setBounds(373, 158, 67, 14);
+        JLabel lblHTn = new JLabel("Họ tên thợ:");
+        lblHTn.setBounds(45, 114, 67, 14);
+        
+        mAllNguoi = new ArrayList<>();
+        mAllThoGiaCong = new ThoGiaCongDAO().getAllThoGiaCong();
+        String[] thogiacongs = new String[mAllThoGiaCong.size()];
+        for(int i = 0;i<mAllThoGiaCong.size();i++)
+        {
+            NguoiDTO nguoi =new NguoiDAO().getNguoiFromMaNguoi(mAllThoGiaCong.get(i).getMaNguoi());
+            mAllNguoi.add(nguoi);
+            thogiacongs[i] = nguoi.getHoTen();
+        }
+        
+        textMaKH.setText(mAllThoGiaCong.get(0).getMaTho());
+        textDiaChi.setText(mAllNguoi.get(0).getDiaChi());
+            
+        textHoTen = new JComboBox(thogiacongs);
+        textHoTen.setBounds(122, 111, 180, 20);
 
-        textHoTen = new JTextField();
-        textHoTen.setBounds(455, 155, 121, 20);
-        textHoTen.setColumns(10);
 
         JLabel lblaCh = new JLabel("Địa chỉ :");
-        lblaCh.setBounds(40, 208, 74, 14);
+        lblaCh.setBounds(45, 200, 74, 14);
 
-        textDiaChi = new JTextField();
-        textDiaChi.setBounds(122, 205, 419, 20);
-        textDiaChi.setColumns(10);
+        
         frame.getContentPane().setLayout(null);
         frame.getContentPane().add(lblPhiuMuaHng);
         frame.getContentPane().add(lblSPhiu);
@@ -89,16 +235,6 @@ public class PhieuHangGiaCongView {
         frame.getContentPane().add(lblaCh);
         frame.getContentPane().add(textDiaChi);
 
-        JPanel panel_1 = new JPanel();
-        panel_1.setBorder(new TitledBorder(null, "Chi tiết phiếu hàng gia công", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-        panel_1.setBounds(39, 231, 703, 137);
-        frame.getContentPane().add(panel_1);
-        panel_1.setLayout(null);
-
-        tableCTP_MH = new JTable();
-        tableCTP_MH.setBounds(105, 70, 1, 1);
-        panel_1.add(tableCTP_MH);
-
         JLabel lblTngCng = new JLabel("Tổng cộng :");
         lblTngCng.setBounds(475, 386, 67, 14);
         frame.getContentPane().add(lblTngCng);
@@ -108,25 +244,59 @@ public class PhieuHangGiaCongView {
         frame.getContentPane().add(textTongCong);
         textTongCong.setColumns(10);
 
-        JButton btnLuu = new JButton("Lưu");
-        btnLuu.setBounds(88, 411, 89, 23);
-        frame.getContentPane().add(btnLuu);
+        mSaveButton = new JButton("Lưu");
+        mSaveButton.setActionCommand(Resource.SAVE);
+        mSaveButton.setBounds(425, 414, 89, 23);
+        frame.getContentPane().add(mSaveButton);
 
-        JButton btnXoa = new JButton("Xóa");
-        btnXoa.setBounds(309, 411, 89, 23);
-        frame.getContentPane().add(btnXoa);
+        mClearButton = new JButton("Xóa");
+        mClearButton.setActionCommand(Resource.CLEAR);
+        mClearButton.setBounds(524, 414, 89, 23);
+        frame.getContentPane().add(mClearButton);
 
-        JButton btnThoat = new JButton("Thoát");
-        btnThoat.setBounds(531, 411, 89, 23);
-        frame.getContentPane().add(btnThoat);
+        mExitButton = new JButton("Thoát");
+        mExitButton.setActionCommand(Resource.EXIT);
+        mExitButton.setBounds(621, 414, 89, 23);
+        frame.getContentPane().add(mExitButton);
 
-        JDateChooser dateNgayNhanHang = new JDateChooser();
-        dateNgayNhanHang.setBounds(146, 105, 91, 20);
+        dateNgayNhanHang = new JDateChooser();
+        dateNgayNhanHang.setBounds(530, 108, 180, 20);
         frame.getContentPane().add(dateNgayNhanHang);
+        mAllDateChoolser.add(dateNgayNhanHang);
+                
 
-        JDateChooser dateNgayThanhToan = new JDateChooser();
-        dateNgayThanhToan.setBounds(450, 105, 126, 20);
+        dateNgayThanhToan = new JDateChooser();
+        dateNgayThanhToan.setBounds(530, 152, 180, 20);
         frame.getContentPane().add(dateNgayThanhToan);
+        mAllDateChoolser.add(dateNgayThanhToan);
+        
+        mAddButton = new JButton("Thêm");
+        mAddButton.setActionCommand(Resource.ADD);
+        mAddButton.setBounds(45, 382, 89, 23);
+        frame.getContentPane().add(mAddButton);
+        
+        mRemoveButton = new JButton("Xóa");
+        mRemoveButton.setActionCommand(Resource.REMOVE);
+        mRemoveButton.setBounds(154, 382, 89, 23);
+        frame.getContentPane().add(mRemoveButton);
+        
+        mTableModel = new TableModel(columnNames,editColums);
+        
+        mScrollPane = new JScrollPane();
+        mScrollPane.setBounds(45, 239, 665, 136);
+        frame.getContentPane().add(mScrollPane);
+        
+        mTable = new JTable(mTableModel);
+        mScrollPane.setViewportView(mTable);
+        mTable.addComponentListener(new TableScroller(mTableModel,mTable));
+    }
+
+    public PhieuHangGiaCongView(JButton mAddButton, JButton mRemoveButton, JButton mSaveButton, JButton mClearButton, JButton mExitButton) {
+        this.mAddButton = mAddButton;
+        this.mRemoveButton = mRemoveButton;
+        this.mSaveButton = mSaveButton;
+        this.mClearButton = mClearButton;
+        this.mExitButton = mExitButton;
     }
     
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
@@ -155,11 +325,11 @@ public class PhieuHangGiaCongView {
         this.textMaKH = textMaKH;
     }
     
-    public JTextField getTextHoTen() {
+    public JComboBox getTextHoTen() {
         return textHoTen;
     }
     
-    public void setTextHoTen(JTextField textHoTen) {
+    public void setTextHoTen(JComboBox textHoTen) {
         this.textHoTen = textHoTen;
     }
     
@@ -179,14 +349,18 @@ public class PhieuHangGiaCongView {
         this.textTongCong = textTongCong;
     }
     
-    public JTable getTableCTP_MH() {
-        return tableCTP_MH;
+    public boolean isAllTextFilled()
+    {
+        for(JTextField textField:mAllTextField)
+        {
+            if(textField.getText().toString().trim().length()==0)
+                return false;
+        }
+        for(JDateChooser chooser :mAllDateChoolser)
+        {
+            if(chooser.getDate()==null)
+                return false;
+        }
+        return true;
     }
-    
-    public void setTableCTP_MH(JTable tableCTP_MH) {
-        this.tableCTP_MH = tableCTP_MH;
-    }
-    
-    
-//</editor-fold>
 }

@@ -6,6 +6,7 @@ import MVCControllers.PhieuBanHangController;
 import MVCControllers.PhieuDichVuController;
 
 import MVCControllers.PhieuChiController;
+import MVCControllers.PhieuGiaCongController;
 
 import MVCControllers.PhieuNoController;
 import MVCControllers.TonKhoController;

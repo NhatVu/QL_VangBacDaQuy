@@ -14,9 +14,16 @@ public class DichVuDTO {
      * Properties
      */
 
-    private String maDV = null;
-    private String tenDV = null;
-    private double donGia = 0;
+    private String maDV;
+    private String tenDV;
+    private double donGia;
+
+    public DichVuDTO(String maDV, String tenDV, double donGia) {
+        this.maDV = maDV;
+        this.tenDV = tenDV;
+        this.donGia = donGia;
+    }
+    
     
     /*
     * Constructor

@@ -10,7 +10,10 @@ import DTO.NguoiDTO;
 import DTO.ThoGiaCongDTO;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -117,4 +120,41 @@ public class ThoGiaCongDAO {
         }
         return false;
     }
+    
+    public ArrayList<ThoGiaCongDTO> getAllThoGiaCong()
+    {
+        try {
+            //create procedure DICHVU_Del (MADV varchar(10) )
+            
+            connection = DataSource.getInstance().getConnection();
+            ArrayList<ThoGiaCongDTO> result = new ArrayList();
+            String query = "SELECT * FROM THOGIACONG";
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next())
+            {
+                String maTho = rs.getString("MATHOGC");
+                String maNguoi = rs.getString("MANGUOI");
+                ThoGiaCongDTO dv = new ThoGiaCongDTO(maTho,maNguoi);
+                result.add(dv);
+            }
+            st.close();
+            return result;
+        } catch (SQLException ex) {
+            Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+        }
+        finally{
+            if(connection!=null)
+                try {
+                    connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
+    }
+    
+    
+    
+    
 }

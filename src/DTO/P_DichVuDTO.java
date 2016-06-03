@@ -14,8 +14,15 @@ public class P_DichVuDTO {
      * Properties
      */
 
-    private String maP_DV = null;
-    private String maP_Thu = null;
+    private String maP_DV;
+    private String maP_Thu;
+
+    public P_DichVuDTO(String maP_DV, String maP_Thu) {
+        this.maP_DV = maP_DV;
+        this.maP_Thu = maP_Thu;
+    }
+    
+    
     
     /*
     * Constructor

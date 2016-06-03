@@ -6,11 +6,14 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import main.Resource;
 
 
 public class P_DichVuDAO {
 	CallableStatement call = null;
         Connection connection = null;
+        
+    private String TAG = P_DichVuDAO.class.getSimpleName();
     
     public P_DichVuDAO(){
         
@@ -106,25 +109,36 @@ public class P_DichVuDAO {
             return call.getString(1);
 
         } catch (SQLException ex) {
-            Logger.getLogger(P_NoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
         } //<editor-fold defaultstate="collapsed" desc="finally">
         finally {
             if (connection != null) {
                 try {
                     connection.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(P_NoDAO.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
                 }
             }
 
             try {
                 call.close();
             } catch (SQLException ex) {
-                Logger.getLogger(P_NoDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
             }
         }
 //</editor-fold>
         return null;
+    }
+    
+    public String getNexId()
+    {
+        String maPhieu = Resource.P_GIACONG+"1";
+        if(this.getLastID()!=null)
+        {
+            String curentId = getLastID();
+            maPhieu= Resource.P_GIACONG+(Integer.valueOf(curentId.substring(Resource.P_GIACONG.length()))+1)+"";
+        }
+        return maPhieu;
     }
     
    

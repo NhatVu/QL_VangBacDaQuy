@@ -25,10 +25,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JViewport;
 import javax.swing.SwingUtilities;
 import table.TableModel;
-import table.P_DichVuData;
+import table.TableData;
+import table.TableScroller;
 
 public class PhieuDichVuView {
-
+    ArrayList<JTextField> mAllTextField = new ArrayList<>();
+    ArrayList<JDateChooser> mAllDateChoolser = new ArrayList<>();
     private JFrame frame;
     private JTextField textMaPhieu;
     private JTextField textMaKH;
@@ -58,12 +60,19 @@ public class PhieuDichVuView {
     private static final String column3 = "Đơn Giá";
     private static final String column4 = "Thành tiền";
     
+    private static final boolean colum1Editable = true;
+    private static final boolean colum2Editable = true;
+    private static final boolean colum3Editable = false;
+    private static final boolean colum4Editable = false;
+    
+    
     
     
     private static final String[] columnNames = new String[]{column1,column2,column3,column4};
+    private static final boolean[] editColums = new boolean[]{colum1Editable,colum2Editable,colum3Editable,colum4Editable};
     
     //fake
-    private String[] TenDichVu = new String[]{"Dich vu 1","Dich vu 2"};
+    
     
     public JButton getmRandomButton() {
         return mRandomButton;
@@ -203,12 +212,13 @@ public class PhieuDichVuView {
         textMaPhieu = new JTextField();
         textMaPhieu.setBounds(139, 68, 136, 20);
         textMaPhieu.setColumns(10);
+        mAllTextField.add(textMaPhieu);
 
         JLabel lblNgayMua = new JLabel("Ngày đăng ký :");
-        lblNgayMua.setBounds(475, 71, 80, 14);
+        lblNgayMua.setBounds(450, 71, 92, 14);
 
         JLabel lblNgyThanhTon = new JLabel("Ngày giao :");
-        lblNgyThanhTon.setBounds(475, 111, 55, 14);
+        lblNgyThanhTon.setBounds(450, 111, 92, 14);
 
         JLabel labelMaKH = new JLabel("Mã Khách :");
         labelMaKH.setBounds(45, 111, 67, 14);
@@ -216,20 +226,24 @@ public class PhieuDichVuView {
         textMaKH = new JTextField();
         textMaKH.setBounds(139, 108, 136, 20);
         textMaKH.setColumns(10);
+        mAllTextField.add(textMaKH);
 
         JLabel lblHTn = new JLabel("Họ tên :");
-        lblHTn.setBounds(475, 148, 39, 14);
+        lblHTn.setBounds(450, 148, 92, 14);
 
         textHoTen = new JTextField();
         textHoTen.setBounds(562, 145, 137, 20);
         textHoTen.setColumns(10);
+        mAllTextField.add(textHoTen);
 
         JLabel lblaCh = new JLabel("Địa chỉ :");
         lblaCh.setBounds(45, 181, 74, 14);
 
         textDiaChi = new JTextField();
-        textDiaChi.setBounds(139, 178, 450, 20);
+        textDiaChi.setBounds(139, 178, 560, 20);
         textDiaChi.setColumns(10);
+        mAllTextField.add(textDiaChi);
+        
         frame.getContentPane().setLayout(null);
         frame.getContentPane().add(lblPhiuMuaHng);
         frame.getContentPane().add(lblSPhiu);
@@ -255,7 +269,7 @@ public class PhieuDichVuView {
         
         mCheckButton = new JButton("Kiểm tra");
         mCheckButton.setActionCommand(Resource.CHECK);
-        mCheckButton.setBounds(235, 139, 86, 23);
+        mCheckButton.setBounds(277, 107, 133, 23);
         frame.getContentPane().add(mCheckButton);
             
         mSaveButton = new JButton("Lưu");
@@ -279,13 +293,15 @@ public class PhieuDichVuView {
         dateNgayDK = new JDateChooser();
         dateNgayDK.setBounds(563, 71, 136, 20);
         frame.getContentPane().add(dateNgayDK);
+        mAllDateChoolser.add(dateNgayDK);
 
         dateNgayGiao = new JDateChooser();
         dateNgayGiao.setBounds(563, 108, 136, 20);
         frame.getContentPane().add(dateNgayGiao);
+        mAllDateChoolser.add(dateNgayGiao);
         
-        mRandomButton = new JButton("Ngẫu nhiên");
-        mRandomButton.setBounds(139, 139, 86, 23);
+        mRandomButton = new JButton("Lấy mã khách hàng tiếp theo");
+        mRandomButton.setBounds(139, 139, 271, 23);
         mRandomButton.setActionCommand(Resource.RANDOM);
         frame.getContentPane().add(mRandomButton);
         
@@ -301,7 +317,7 @@ public class PhieuDichVuView {
         
         //
         
-        mTableModel = new TableModel(columnNames);
+        mTableModel = new TableModel(columnNames,editColums);
         
         
         
@@ -311,13 +327,7 @@ public class PhieuDichVuView {
         
         mTable = new JTable(mTableModel);
         mScrollPane.setViewportView(mTable);
-        mTable.addComponentListener(new TableScroller());
-        
-        JComboBox combo = new JComboBox<String>(TenDichVu);
-        mTable.getColumnModel().getColumn(0).setCellEditor(new DefaultCellEditor(combo));
-        mTable.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
-        //fake data
-        
+        mTable.addComponentListener(new TableScroller(mTableModel,mTable));
     }
 
     public JTable getmTable() {
@@ -328,22 +338,22 @@ public class PhieuDichVuView {
         return mTableModel;
     }
     
+    public boolean isAllTextFilled()
+    {
+        for(JTextField textField:mAllTextField)
+        {
+            if(textField.getText().toString().trim().length()==0)
+                return false;
+        }
+        for(JDateChooser chooser :mAllDateChoolser)
+        {
+            if(chooser.getDate()==null)
+                return false;
+        }
+        return true;
+    }
     
     
-    class TableScroller extends ComponentAdapter
-	{
-		public void componentResized( ComponentEvent event )
-		{
-			int lastRow = mTableModel.getRowCount() - 1;
-			int cellTop = mTable.getCellRect(lastRow, 0, true).y;
-			JScrollPane jsp = (JScrollPane) SwingUtilities.getAncestorOfClass(JScrollPane.class, mTable);
-			JViewport jvp = jsp.getViewport();
-			int portHeight = jvp.getSize().height;
-			int position  = cellTop - ( portHeight - mTable.getRowHeight() - mTable.getRowMargin());
-			if( position >= 0 )
-			{
-				jvp.setViewPosition(new Point(0, position));
-			}
-		}
-	}
+    
+    
 }

@@ -14,8 +14,15 @@ public class ThoGiaCongDTO {
     * Properties
     */
     
-    private String maTho = null;
-    private String maNguoi = null;
+    private String maTho;
+    private String maNguoi;
+
+    public ThoGiaCongDTO(String maTho, String maNguoi) {
+        this.maTho = maTho;
+        this.maNguoi = maNguoi;
+    }
+    
+    
     
     /*
     * Constructor

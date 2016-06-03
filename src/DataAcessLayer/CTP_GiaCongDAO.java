@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import main.Resource;
 
 /**
  *
@@ -123,5 +124,48 @@ public class CTP_GiaCongDAO {
             }
         }
         return false;
+    }
+    
+    public String getLastID() {
+        try {
+            // procedure  P_No_getLastID(out maxid varchar(10))
+            connection = DataSource.getInstance().getConnection();
+            call = connection.prepareCall("{call CTP_GIACONG_getLastID(?)}");
+            call.registerOutParameter(1, java.sql.Types.VARCHAR);
+
+            call.execute();
+            return call.getString(1);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(NguoiDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } //<editor-fold defaultstate="collapsed" desc="finally">
+        finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(P_NoDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            try {
+                call.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(P_NoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+//</editor-fold>
+        return null;
+    }
+    
+    public String getNexId()
+    {
+        String maPhieu = Resource.CTP_GIACONG+"1";
+        if(this.getLastID()!=null)
+        {
+            String curentId = getLastID();
+            maPhieu= Resource.CTP_GIACONG+(Integer.valueOf(curentId.substring(Resource.CTP_GIACONG.length()))+1)+"";
+        }
+        return maPhieu;
     }
 }

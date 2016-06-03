@@ -16,11 +16,21 @@ public class P_ThuDTO {
      * Properties
      */
 
-    private String maP_Thu = null;
-    private String maKH = null;
-    private Timestamp ngayLapPhieu = null;
-    private Timestamp ngayKetThuc = null;
-    private double tongCong = 0;
+    private String maP_Thu;
+    private String maKH;
+    private Timestamp ngayLapPhieu;
+    private Timestamp ngayKetThuc;
+    private double tongCong;
+
+    public P_ThuDTO(String maP_Thu, String maKH, Timestamp ngayLapPhieu, Timestamp ngayKetThuc, double tongCong) {
+        this.maP_Thu = maP_Thu;
+        this.maKH = maKH;
+        this.ngayLapPhieu = ngayLapPhieu;
+        this.ngayKetThuc = ngayKetThuc;
+        this.tongCong = tongCong;
+    }
+    
+    
     
     /*
     * Constructor

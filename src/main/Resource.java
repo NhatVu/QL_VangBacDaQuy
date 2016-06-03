@@ -17,4 +17,12 @@ public class Resource {
     public static final String RANDOM = "randomCommand";
     public static final String ADD = "addCommand";
     public static final String REMOVE = "removeCommand";
+    
+    public static final String NGUOI = "NGUOI";
+    public static final String KHACHHANG = "KHACHHANG";
+    public static final String P_DICHVU = "P_DICHVU";
+    public static final String P_THU = "P_THU";
+    public static final String P_GIACONG = "P_GIACONG";
+    public static final String CTP_DICHVU = "CTP_THU";
+    public static final String CTP_GIACONG = "CTP_GIACONG";
 }

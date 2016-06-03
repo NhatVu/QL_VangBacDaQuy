@@ -16,11 +16,20 @@ public class P_GiaCongDTO {
      * Properties
      */
 
-    private String maP_GC = null;
-    private String maThoGC = null;
-    private Timestamp ngayNhanHang = null;
-    private Timestamp ngayThanhToan = null;
-    private double tongCong = 0;
+    private String maP_GC;
+    private String maThoGC;
+    private Timestamp ngayNhanHang;
+    private Timestamp ngayThanhToan;
+    private double tongCong;
+
+    public P_GiaCongDTO(String maP_GC, String maThoGC, Timestamp ngayNhanHang, Timestamp ngayThanhToan, double tongCong) {
+        this.maP_GC = maP_GC;
+        this.maThoGC = maThoGC;
+        this.ngayNhanHang = ngayNhanHang;
+        this.ngayThanhToan = ngayThanhToan;
+        this.tongCong = tongCong;
+    }
+    
     
     /*
     * Constructor
@@ -72,6 +81,13 @@ public class P_GiaCongDTO {
     public void setTongCong(double tongCong) {
         this.tongCong = tongCong;
     }
+
+    @Override
+    public String toString() {
+        return maP_GC+"-"+maThoGC+"-"+ngayNhanHang.toString()+"-"+ngayThanhToan.toString()+"-"+tongCong+"";
+    }
+    
+    
 
     
     

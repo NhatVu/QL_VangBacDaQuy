@@ -14,9 +14,17 @@ public class HangGiaCongDTO {
      * Properties
      */
 
-    private String maLoaiGC = null;
-    private String tenLoaiGC = null;
-    private double donGia = 0;
+    private String maLoaiGC;
+    private String tenLoaiGC;
+    private double donGia;
+
+    public HangGiaCongDTO(String maLoaiGC, String tenLoaiGC, double donGia) {
+        this.maLoaiGC = maLoaiGC;
+        this.tenLoaiGC = tenLoaiGC;
+        this.donGia = donGia;
+    }
+    
+    
     /*
     * Constructor
     */

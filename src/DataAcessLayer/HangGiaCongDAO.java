@@ -10,7 +10,10 @@ import DTO.HangGiaCongDTO;
 import DTO.NguoiDTO;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -117,5 +120,39 @@ public class HangGiaCongDAO {
             }
         }
         return false;
+    }
+    
+    public ArrayList<HangGiaCongDTO> getAllHangGiaCong()
+    {
+        try {
+            //create procedure DICHVU_Del (MADV varchar(10) )
+            
+            connection = DataSource.getInstance().getConnection();
+            ArrayList<HangGiaCongDTO> result = new ArrayList();
+            String query = "SELECT * FROM HANGGIACONG";
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next())
+            {
+                String maGC = rs.getString("MALOAIGC");
+                String tenGC = rs.getString("TENLOAGC");
+                double dongia = Double.parseDouble(rs.getString("DONGIA"));
+                HangGiaCongDTO dv = new HangGiaCongDTO(maGC,tenGC,dongia);
+                result.add(dv);
+            }
+            st.close();
+            return result;
+        } catch (SQLException ex) {
+            Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+        }
+        finally{
+            if(connection!=null)
+                try {
+                    connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
     }
 }
