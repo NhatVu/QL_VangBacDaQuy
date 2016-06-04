@@ -13,6 +13,8 @@ import java.sql.Timestamp;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import main.CheckInput;
+import main.Resource;
 
 public class PhieuNoController {
 
@@ -115,6 +117,12 @@ public class PhieuNoController {
         - Tính số còn lại, khi đã có số tiền trả và số tiên nợ.
     */
     public void textSoTienTraFocusLost(FocusEvent e) {
+        if(!CheckInput.isDouble(view.getTextSoTienNo().getText())
+                || !CheckInput.isDouble(view.getTextSoTienTra().getText()))
+        {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập số");
+            return;
+        }
         double mTienNo = Double.parseDouble(view.getTextSoTienNo().getText());
         double mTienTra = Double.parseDouble(view.getTextSoTienTra().getText());
         double conlai = mTienNo - mTienTra;
@@ -126,6 +134,8 @@ public class PhieuNoController {
         - khi form load lên, load mã phiếu nợ sẽ thêm tiếp theo.
     */
     public void frameWindowOpened(WindowEvent arg) {
-        view.getTextMaPhieuNo().setText(model.getCurrentMaP_No());
+        String lastID = model.getLastID();
+        lastID = Resource.P_NO + (Integer.parseInt(lastID.substring(Resource.P_NO.length()))+ 1);
+        view.getTextMaPhieuNo().setText(lastID);
     }
 }

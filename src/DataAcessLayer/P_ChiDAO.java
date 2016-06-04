@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import main.Resource;
 
 
 public class P_ChiDAO {
@@ -125,7 +126,10 @@ public class P_ChiDAO {
             call = connection.prepareCall("{call P_Chi_getLastID(?)}");
             
             call.execute();
-            return call.getString(1);
+            String tempt = call.getString(1);
+            if(tempt == null)
+                tempt = Resource.P_CHI + "0";
+            return tempt;
             
             
         } catch (SQLException ex) {

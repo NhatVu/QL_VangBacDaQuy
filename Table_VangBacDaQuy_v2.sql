@@ -7,8 +7,6 @@ use vangbacdaquy;
 
 drop table if exists CTP_BANHANG;
 
-drop table if exists CTP_CHI;
-
 drop table if exists CTP_DICHVU;
 
 drop table if exists CTP_GIACONG;
@@ -58,18 +56,6 @@ create table CTP_BANHANG
    primary key (MACTP_BH)
 );
 
-/*==============================================================*/
-/* Table: CTP_CHI                                               */
-/*==============================================================*/
-create table CTP_CHI
-(
-   MACTP_CHI            varchar(20) not null,
-   MAP_CHI              varchar(20),
-   MAPHI                varchar(20) not null,
-   TENPHI               varchar(30),
-   THANHTIEN            decimal(10,3),
-   primary key (MACTP_CHI)
-);
 
 /*==============================================================*/
 /* Table: CTP_DICHVU                                            */
@@ -188,7 +174,8 @@ create table P_CHI
 (
    MAP_CHI              varchar(20) not null,
    NGAYBAOCAO           timestamp,
-   TONGCONG             decimal(10,3),
+   NOIDUNG				varchar(300),
+   SOTIENCHI             decimal(10,3),
    primary key (MAP_CHI)
 );
 
@@ -293,9 +280,6 @@ alter table CTP_BANHANG add constraint FK_CTP_BANHANG foreign key (MASP)
 
 alter table CTP_BANHANG add constraint FK_CTP_BANHANG2 foreign key (MAP_BH)
       references P_BANHANG (MAP_BH) on delete restrict on update restrict;
-
-alter table CTP_CHI add constraint FK_CO2 foreign key (MAP_CHI)
-      references P_CHI (MAP_CHI) on delete restrict on update restrict;
 
 alter table CTP_DICHVU add constraint FK_CTP_DICHVU foreign key (MADV)
       references DICHVU (MADV) on delete restrict on update restrict;

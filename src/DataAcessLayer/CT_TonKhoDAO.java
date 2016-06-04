@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import main.Resource;
 
 
 public class CT_TonKhoDAO {
@@ -133,6 +134,10 @@ public class CT_TonKhoDAO {
             while(rs.next()){
                 lastID = rs.getString(1);
             }
+            
+            if(lastID == null)
+            lastID = Resource.CT_TONKHO + "0";
+            
             return lastID;
             
         } catch (SQLException ex) {

@@ -9,7 +9,7 @@ import DTO.CT_TonKhoDTO;
 import DTO.TonKhoDTO;
 import MVCModels.TonKhoModel;
 import MVCViews.TonKhoView;
-import TableModel.CT_TonKhoTableModel;
+import table.CT_TonKhoTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.sql.Timestamp;
@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
+import main.Resource;
 
 /**
  *
@@ -49,9 +50,8 @@ public class TonKhoController {
         List<CT_TonKhoDTO> lCT_TK = view.getTableModel().getCT_TonKhoDTOList();
         for(int i = 0; i<lCT_TK.size(); i++){
             String lastID = model.getLastIDOfCT_TK();
-            if(lastID == null)
-                lastID = "0";
-            lCT_TK.get(i).setMaCTP_TK(String.valueOf(Integer.parseInt(lastID) + 1));
+            lastID = Resource.CT_TONKHO + (Integer.parseInt(lastID.substring(Resource.CT_TONKHO.length())) + 1);
+            lCT_TK.get(i).setMaCTP_TK(lastID);
             lCT_TK.get(i).setMaP_TK(tkDTO.getMaP_TK());
             model.insertCT_TonKho(lCT_TK.get(i));
         }
@@ -73,10 +73,8 @@ public class TonKhoController {
         model.init(new Timestamp(view.getDateNgayBaoCao().getDate().getTime()));
         
         String mMaP_TK = model.getLastID();
-        if(mMaP_TK == null)
-            view.getTextMaPhieu().setText("1");
-        else
-            view.getTextMaPhieu().setText(String.valueOf(Integer.parseInt(mMaP_TK) + 1));
+        mMaP_TK = Resource.TONKHO + (Integer.parseInt(mMaP_TK.substring(Resource.TONKHO.length())) + 1);
+        view.getTextMaPhieu().setText(mMaP_TK);
         
         fillDataToTableModel();
         

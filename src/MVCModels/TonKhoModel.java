@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import main.Resource;
 
 /**
  *
@@ -60,16 +61,12 @@ public class TonKhoModel {
     }
 
     public String getLastIDOfCT_TK(){
-        return ct_tkDAO.getLastID();
+        String lastID = ct_tkDAO.getLastID();
+        
+        return lastID;
     }
     private void getLastRow() {
         tkDAO.getLastRow(tkDTO);
-        if (tkDTO.getMaP_TK() == null) {
-            tkDTO.setMaP_TK("0");
-        }
-        if (tkDTO.getNgayBaoCao() == null) {
-            tkDTO.setNgayBaoCao(new Timestamp(1432876790));
-        }
     }
 
     public String getLastID() {

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.SQLType;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import main.Resource;
 
 
 
@@ -140,7 +141,10 @@ public class P_NoDAO {
             call.registerOutParameter(1, java.sql.Types.VARCHAR);
             
             call.execute();
-            return call.getString(1);
+            String tempt = call.getString(1);
+            if(tempt == null)
+                tempt = Resource.P_NO + "0";
+            return tempt;
             
         } catch (SQLException ex) {
             Logger.getLogger(P_NoDAO.class.getName()).log(Level.SEVERE, null, ex);

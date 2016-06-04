@@ -13,26 +13,23 @@ import MVCControllers.TonKhoController;
 import MVCModels.PhieuBanHangModel;
 import MVCViews.PhieuBanHangView;
 import MVCViews.PhieuDichVuView;
+import MVCViews.PhieuHangGiaCongView;
 
 public class Main {
 
     public static void main(String[] args) {
 		// TODO Auto-generated method stub
-//		PhieuBanHangModel modelPhieuBanHang = new PhieuBanHangModel();
-//		PhieuBanHangView viewPhieuBanHang = new PhieuBanHangView();
-//		PhieuBanHangController controllerPhieuBangHang = new PhieuBanHangController(modelPhieuBanHang, viewPhieuBanHang);
-//		
-//		viewPhieuBanHang.getFrame().setVisible(true);
-
-
-		//NhapSanPhamController controller = new NhapSanPhamController();
-		//controller.startApplication();
-		          PhieuDichVuController controller = new PhieuDichVuController();
-                          controller.start();
-                                  
-
-
+        //PhieuNoController controller = new PhieuNoController();
+        //controller.startApplication();
+        
+        //PhieuChiController controller = new PhieuChiController();
+        TonKhoController controller = new TonKhoController();
+        controller.startApplication();
+        
+        
+       // PhieuDichVuController controller = new PhieuDichVuController();
+        //PhieuGiaCongController controller = new PhieuGiaCongController();
+        //controller.start();
     }
-    
 
 }

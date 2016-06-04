@@ -13,17 +13,15 @@ import DataAcessLayer.P_ChiDAO;
  * @author Minh Nhat
  */
 public class PhieuChiModel {
+
     P_ChiDAO p_ChiDAO = new P_ChiDAO();
-    
-    public void insert(P_ChiDTO p_ChiDTO){
+
+    public void insert(P_ChiDTO p_ChiDTO) {
         p_ChiDAO.insert(p_ChiDTO);
     }
-    
-    public String getLastID(){
-        String tempt =  p_ChiDAO.getLastID();
-        if(tempt == null)
-            return "0";
-        return tempt;
+
+    public String getLastID() {
+        return p_ChiDAO.getLastID();
     }
-    
+
 }
