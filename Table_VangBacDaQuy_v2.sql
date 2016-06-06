@@ -79,7 +79,7 @@ create table CTP_GIACONG
    MAP_GC               varchar(20) not null,
    MALOAIGC             varchar(20) not null,
    SOLUONG              int,
-   THANHTIEN            decimal(10,3) not null,
+   THANHTIEN            decimal(10,3),
    primary key (MACTP_GC)
 );
 
@@ -89,8 +89,8 @@ create table CTP_GIACONG
 create table CTP_MUAHANG
 (
    MACTP_MH             varchar(20) not null,
-   MASP                 varchar(20) not null,
    MAP_MH               varchar(20) not null,
+   MASP                 varchar(20) not null,
    SOLUONG              int,
    THANHTIEN            decimal(10,3),
    primary key (MACTP_MH)
@@ -153,7 +153,6 @@ create table NGUOI
    SHORTID              int,
    HOTEN                varchar(20),
    DIACHI               varchar(100),
-   
    primary key (MANGUOI)
 );
 
@@ -173,9 +172,9 @@ create table P_BANHANG
 create table P_CHI
 (
    MAP_CHI              varchar(20) not null,
-   NGAYBAOCAO           timestamp,
+   NGAYCHI           	timestamp,
    NOIDUNG				varchar(300),
-   SOTIENCHI             decimal(10,3),
+   SOTIENCHI            decimal(10,3),
    primary key (MAP_CHI)
 );
 
@@ -299,28 +298,28 @@ alter table CTP_MUAHANG add constraint FK_CTP_MUAHANG foreign key (MAP_MH)
 alter table CTP_MUAHANG add constraint FK_CTP_MUAHANG2 foreign key (MASP)
       references SANPHAM (MASP) on delete restrict on update restrict;
 
-alter table CT_TONKHO add constraint FK_CO1 foreign key (MAP_TK)
+alter table CT_TONKHO add constraint FK_BAOGOM foreign key (MAP_TK)
       references TONKHO (MAP_TK) on delete restrict on update restrict;
 
 alter table KHACHHANG add constraint FK_LANGUOI1 foreign key (MANGUOI)
       references NGUOI (MANGUOI) on delete restrict on update restrict;
 
-alter table P_BANHANG add constraint FK_LAP_THU1 foreign key (MAP_THU)
+alter table P_BANHANG add constraint FK_BANHANG foreign key (MAP_THU)
       references P_THU (MAP_THU) on delete restrict on update restrict;
 
-alter table P_DICHVU add constraint FK_LAP_THU2 foreign key (MAP_THU)
+alter table P_DICHVU add constraint FK_CUNGCAPDICHVU foreign key (MAP_THU)
       references P_THU (MAP_THU) on delete restrict on update restrict;
 
-alter table P_GIACONG add constraint FK_THUOC2 foreign key (MATHOGC)
+alter table P_GIACONG add constraint FK_GIACONG foreign key (MATHOGC)
       references THOGIACONG (MATHOGC) on delete restrict on update restrict;
 
-alter table P_MUAHANG add constraint FK_THUOC1 foreign key (MAKH)
+alter table P_MUAHANG add constraint FK_MUAHANG foreign key (MAKH)
       references KHACHHANG (MAKH) on delete restrict on update restrict;
 
 alter table P_NO add constraint FK_NO foreign key (MAP_THU)
       references P_THU (MAP_THU) on delete restrict on update restrict;
 
-alter table P_THU add constraint FK_THUOC3 foreign key (MAKH)
+alter table P_THU add constraint FK_THUTIEN foreign key (MAKH)
       references KHACHHANG (MAKH) on delete restrict on update restrict;
 
 alter table THOGIACONG add constraint FK_LANGUOI2 foreign key (MANGUOI)

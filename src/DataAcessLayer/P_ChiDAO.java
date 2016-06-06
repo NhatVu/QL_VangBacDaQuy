@@ -22,14 +22,14 @@ public class P_ChiDAO {
     * CRUD
     */
     public boolean insert(P_ChiDTO p_C){
-        // procedure P_CHI_Ins (MAP_CHI varchar(10), NGAYBAOCAO timestamp, NOIDUNG varchar(300), SOTIENCHI decimal )
+        // procedure P_CHI_Ins (MAP_CHI varchar(10), NGAYCHI timestamp, NOIDUNG varchar(300), SOTIENCHI decimal )
       
     	
         try {
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall("{call P_CHI_Ins(?,?,?,?)}");
             call.setString("MAP_CHI", p_C.getMaP_Chi());
-            call.setTimestamp("NGAYBAOCAO", p_C.getBaoCao());
+            call.setTimestamp("NGAYCHI", p_C.getNgayChi());
             call.setString("NOIDUNG", p_C.getNoiDung());
             call.setDouble("SOTIENCHI", p_C.getSoTienChi());
     
@@ -64,9 +64,9 @@ public class P_ChiDAO {
             
             call = connection.prepareCall("{call P_CHI_Upd(?,?,?,?)}");
             call.setString("MAP_CHI", p_C.getMaP_Chi());
-            call.setTimestamp("NGAYBAOCAO", p_C.getBaoCao());
+            call.setTimestamp("NGAYCHI", p_C.getNgayChi());
             call.setString("NOIDUNG", p_C.getNoiDung());
-            call.setDouble("TONGCONG", p_C.getSoTienChi());
+            call.setDouble("SOTIENCHI", p_C.getSoTienChi());
             
             return call.execute();
            

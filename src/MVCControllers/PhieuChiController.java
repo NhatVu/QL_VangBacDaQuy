@@ -33,7 +33,7 @@ public class PhieuChiController {
     public void btnLuuActionPerformed(ActionEvent e) {
         P_ChiDTO p_ChiDTO = new P_ChiDTO();
         p_ChiDTO.setMaP_Chi(view.getTextMaPhieu().getText());
-        p_ChiDTO.setBaoCao(new Timestamp(view.getDateNgayChi().getDate().getTime()));
+        p_ChiDTO.setNgayChi(new Timestamp(view.getDateNgayChi().getDate().getTime()));
 
 //        if (!CheckInput.isCharacter(view.getTextNoiDung().getText())) {
 //            JOptionPane.showMessageDialog(null, "Vui lòng không nhập ký tự đặc biệt");
