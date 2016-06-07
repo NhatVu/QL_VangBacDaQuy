@@ -31,7 +31,7 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import main.Resource;
-import sun.net.www.MimeTable;
+//import sun.net.www.MimeTable;
 import table.TableData;
 
 /**
