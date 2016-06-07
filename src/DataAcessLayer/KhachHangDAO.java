@@ -160,7 +160,6 @@ public class KhachHangDAO {
     public NguoiDTO checkKhachHangQuen(int shortId)
     {
         try {
-            //create procedure DICHVU_Del (MADV varchar(10) )
             
             connection = DataSource.getInstance().getConnection();
             ArrayList<KhachHangDTO> result = new ArrayList();

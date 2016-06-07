@@ -173,19 +173,20 @@ public class P_ThuDAO {
                 try {
                     connection.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(P_NoDAO.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(P_ThuDAO.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 
             try {
                 call.close();
             } catch (SQLException ex) {
-                Logger.getLogger(P_NoDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(P_ThuDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 //</editor-fold>
         return null;
     }
+    
     
     public String getNexId()
     {

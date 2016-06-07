@@ -7,6 +7,8 @@ package DataAcessLayer;
 
 import DTO.CTP_BanHangDTO;
 import DTO.P_BanHangDTO;
+import main.Resource;
+
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -246,5 +248,47 @@ public class P_BanHangDAO {
             }
         }
 //</editor-fold>
+    }
+    
+    public String getLastID() {
+        try {
+            connection = DataSource.getInstance().getConnection();
+            call = connection.prepareCall("{call P_BANHANG_getLastID(?)}");
+            call.registerOutParameter(1, java.sql.Types.VARCHAR);
+
+            call.execute();
+            return call.getString(1);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(P_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(P_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            try {
+                call.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(P_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return null;
+    }
+    
+    public String getNexId()
+    {
+        String maPhieu = Resource.P_BANHANG+"1";
+        if(this.getLastID()!=null)
+        {
+            String curentId = getLastID();
+            maPhieu= Resource.P_BANHANG+(Integer.valueOf(curentId.substring(Resource.P_BANHANG.length()))+1)+"";
+        }
+        return maPhieu;
     }
 }

@@ -25,4 +25,6 @@ public class Resource {
     public static final String P_GIACONG = "P_GIACONG";
     public static final String CTP_DICHVU = "CTP_THU";
     public static final String CTP_GIACONG = "CTP_GIACONG";
+    public static final String P_BANHANG = "P_BANHANG";
+    public static final String CTP_BANHANG = "CTP_BANHANG";
 }

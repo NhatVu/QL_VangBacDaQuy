@@ -18,20 +18,15 @@ public class Main {
 
     public static void main(String[] args) {
 		// TODO Auto-generated method stub
-//		PhieuBanHangModel modelPhieuBanHang = new PhieuBanHangModel();
-//		PhieuBanHangView viewPhieuBanHang = new PhieuBanHangView();
-//		PhieuBanHangController controllerPhieuBangHang = new PhieuBanHangController(modelPhieuBanHang, viewPhieuBanHang);
-//		
-//		viewPhieuBanHang.getFrame().setVisible(true);
 
-
-		//NhapSanPhamController controller = new NhapSanPhamController();
-		//controller.startApplication();
-		          PhieuDichVuController controller = new PhieuDichVuController();
-                          controller.start();
+//		NhapSanPhamController controller = new NhapSanPhamController();
+//		controller.startApplication();
+		          
+//    	PhieuDichVuController controller = new PhieuDichVuController();
+//    	controller.start();
                                   
-
-
+    	PhieuBanHangController controller = new PhieuBanHangController();
+    	controller.startApplication();
     }
     
 

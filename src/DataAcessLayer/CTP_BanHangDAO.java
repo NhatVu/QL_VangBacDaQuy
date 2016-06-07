@@ -7,6 +7,8 @@ package DataAcessLayer;
 
 
 import DTO.*;
+import main.Resource;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -110,4 +112,46 @@ public class CTP_BanHangDAO {
         return false;
     }
 
+    
+    public String getLastID() {
+        try {
+            connection = DataSource.getInstance().getConnection();
+            call = connection.prepareCall("{call CTP_BANHANG_getLastID(?)}");
+            call.registerOutParameter(1, java.sql.Types.VARCHAR);
+
+            call.execute();
+            return call.getString(1);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            try {
+                call.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return null;
+    }
+    
+    public String getNexId()
+    {
+        String maPhieu = Resource.CTP_BANHANG+"1";
+        if(this.getLastID()!=null)
+        {
+            String curentId = getLastID();
+            maPhieu= Resource.CTP_BANHANG+(Integer.valueOf(curentId.substring(Resource.CTP_BANHANG.length()))+1)+"";
+        }
+        return maPhieu;
+    }
 }
