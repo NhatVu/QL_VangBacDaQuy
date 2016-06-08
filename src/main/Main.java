@@ -23,7 +23,7 @@ public class Main {
         //controller.startApplication();
         
         //PhieuChiController controller = new PhieuChiController();
-        PhieuChiController controller = new PhieuChiController();
+        TonKhoController controller = new TonKhoController();
         controller.startApplication();
         
         

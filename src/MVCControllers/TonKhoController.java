@@ -60,10 +60,6 @@ public class TonKhoController {
         view.getBtnLuu().setEnabled(false);
     }
     
-    public void btnXoaActionPerformed(ActionEvent e){
-        
-    }
-    
     public void btnThoatActionEvent(ActionEvent e){
         view.getFrame().dispatchEvent(new WindowEvent(view.getFrame(), WindowEvent.WINDOW_CLOSING));
     }
