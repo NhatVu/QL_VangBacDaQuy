@@ -811,6 +811,58 @@ limit 1;
 end//
 
 /***********************************************************************************/
+/*********************** 		Hậu procedure 		  ******************************/
+*			table:  SANPHAM
+/***********************************************************************************/
+/*
+	Lấy MaSP của table sanpham
+*/
+
+CREATE PROCEDURE SanPham_getSanPham()
+begin
+select MaSP
+from sanpham
+order by MASP asc;
+end//
+
+
+/*
+	Lấy dongiamua của sanpham
+*/
+CREATE PROCEDURE SanPham_getDonGiaMua(out SP_DONGIAMUA DOUBLE)
+begin 
+select DONGIAMUA into SP_DONGIAMUA
+from sanpham
+order by DONGIAMUA asc;
+end//
+
+
+/*
+	Lấy dongiaban của sanpham
+*/
+
+CREATE PROCEDURE SanPham_getDonGiaBan(out SP_DONGIABAN DOUBLE)
+begin 
+select DONGIABAN into SP_DONGIABAN
+from sanpham
+order by DONGIABAN asc;
+end//
+
+
+/*
+	Lấy soluongton của sanpham
+*/
+
+CREATE PROCEDURE SanPham_getSoLuongTon(out SP_SOLUONGTON INT)
+begin 
+select SOLUONGTON into SP_SOLUONGTON
+from sanpham
+order by SOLUONGTON asc;
+end//
+
+
+
+
 delimiter ;
 
 

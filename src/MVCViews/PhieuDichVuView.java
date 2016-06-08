@@ -315,7 +315,7 @@ public class PhieuDichVuView {
         mRemoveButton.setBounds(139, 382, 89, 23);
         frame.getContentPane().add(mRemoveButton);
         
-        //
+        
         
         mTableModel = new TableModel(columnNames,editColums);
         

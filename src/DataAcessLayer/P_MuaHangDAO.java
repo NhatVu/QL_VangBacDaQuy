@@ -136,7 +136,7 @@ public class P_MuaHangDAO {
 */
      public void getMaSPTongMua(Timestamp lastedNgayBC, Timestamp newNgayBC,Map<String, Integer> lRs){
         try {
-            //pcreate procedure P_MuaHang_getMaSPTongMua(in lastedNgayBC timestamp, in newNgayBC varchar(10))
+            // create procedure P_MuaHang_getMaSPTongMua(in lastedNgayBC timestamp, in newNgayBC varchar(10))
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall("{call P_MuaHang_getMaSPTongMua(?,?)}");
             call.setTimestamp(1, lastedNgayBC);

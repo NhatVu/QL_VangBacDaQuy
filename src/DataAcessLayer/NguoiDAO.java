@@ -177,14 +177,14 @@ public class NguoiDAO {
                 try {
                     connection.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(P_NoDAO.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(NguoiDAO.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 
             try {
                 call.close();
             } catch (SQLException ex) {
-                Logger.getLogger(P_NoDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(NguoiDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 //</editor-fold>

@@ -78,13 +78,7 @@ public class PhieuNoView {
         frame.getContentPane().add(textMaPhieuNo);
         frame.getContentPane().add(lblNgayMua);
 
-        JButton btnLuu = new JButton("Lưu");
-        btnLuu.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent arg0) {
-        		controller.btnLuuActionPerformed(arg0);
-        	}
-        });
-       
+        JButton btnLuu = new JButton("Lưu"); 
         btnLuu.setBounds(88, 411, 89, 23);
         frame.getContentPane().add(btnLuu);
 

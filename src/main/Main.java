@@ -13,7 +13,6 @@ import MVCControllers.TonKhoController;
 import MVCModels.PhieuBanHangModel;
 import MVCViews.PhieuBanHangView;
 import MVCViews.PhieuDichVuView;
-import MVCViews.PhieuHangGiaCongView;
 
 public class Main {
 
@@ -30,6 +29,7 @@ public class Main {
        // PhieuDichVuController controller = new PhieuDichVuController();
         //PhieuGiaCongController controller = new PhieuGiaCongController();
         //controller.start();
-    }
 
+    
+    }
 }

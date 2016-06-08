@@ -26,7 +26,7 @@ public class DataSource {
     
     
     private String username = "root";
-    private String password = "";
+    private String password = "mysqlroot";
     private String databaseName = "vangbacdaquy";
     
 
