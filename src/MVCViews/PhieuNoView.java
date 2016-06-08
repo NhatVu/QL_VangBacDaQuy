@@ -14,7 +14,7 @@ import javax.swing.border.TitledBorder;
 import com.toedter.calendar.JDateChooser;
 
 import MVCControllers.PhieuNoController;
-import TableModel.CT_TonKhoTableModel;
+import table.CT_TonKhoTableModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusAdapter;

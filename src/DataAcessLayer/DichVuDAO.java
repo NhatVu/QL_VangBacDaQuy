@@ -116,13 +116,13 @@ public class DichVuDAO {
             
             connection = DataSource.getInstance().getConnection();
             ArrayList<DichVuDTO> result = new ArrayList();
-            String query = "SELECT * FROM HANGGIACONG";
+            String query = "SELECT * FROM DICHVU";
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(query);
             while(rs.next())
             {
-                String maGC = rs.getString("MALOAIGC");
-                String tenGC = rs.getString("TENLOAGC");
+                String maGC = rs.getString("MADV");
+                String tenGC = rs.getString("TENDV");
                 double dongia = Double.parseDouble(rs.getString("DONGIA"));
                 DichVuDTO dv = new DichVuDTO(maGC,tenGC,dongia);
                 result.add(dv);

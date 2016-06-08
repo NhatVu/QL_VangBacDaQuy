@@ -6,5 +6,6 @@
 	<classpathentry kind="lib" path="ExternalLibrary/jcalendar-1.4.jar"/>
 	<classpathentry kind="lib" path="ExternalLibrary/mysql-connector-java-5.1.36-bin.jar"/>
 	<classpathentry kind="lib" path="ExternalLibrary/jdom.jar"/>
+	<classpathentry kind="lib" path="F:/Java_Android/Workshop/Git/QL_VangBacDaQuy/ExternalLibrary/mchange-commons-java-0.2.10.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

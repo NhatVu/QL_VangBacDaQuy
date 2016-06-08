@@ -133,12 +133,14 @@ public class PhieuDichVuController implements ActionListener{
     }
 
     private void saveData() {
+        
         if(this.isTableEmpty()!=true && mPhieuDichVuView.isAllTextFilled()==true)
         {
             double finalMoney = calculateFinalMoney();
             mPhieuDichVuView.getTextTongCong().setText(finalMoney+"");
             String shortId = mPhieuDichVuView.getTextMaKH().getText().toString().trim();
-            NguoiDTO nguoi= mPhieuDichVuModel.kiemtraKhachQuen(Integer.valueOf(shortId));
+            NguoiDTO nguoi= mPhieuDichVuModel.kiemtraKhachQuen(Integer.valueOf(shortId)); // 
+            // kiểm tra ở đây làm gì ta? khi ấn nút kiểm tra => rồi laod thông tin khách hàng. 
             String maKH = "";
             if(nguoi==null)
             {

@@ -17,7 +17,7 @@ public class P_ChiDTO {
      */
 
     private String maP_Chi = null;
-    private Timestamp BaoCao = null;
+    private Timestamp ngayChi = null;
     private String noiDung = null;
     private double soTienChi = 0;
     
@@ -40,13 +40,14 @@ public class P_ChiDTO {
         this.maP_Chi = maP_Chi;
     }
 
-    public Timestamp getBaoCao() {
-        return BaoCao;
+    public Timestamp getNgayChi() {
+        return ngayChi;
     }
 
-    public void setBaoCao(Timestamp BaoCao) {
-        this.BaoCao = BaoCao;
+    public void setNgayChi(Timestamp ngayChi) {
+        this.ngayChi = ngayChi;
     }
+
 
     public String getNoiDung() {
         return noiDung;

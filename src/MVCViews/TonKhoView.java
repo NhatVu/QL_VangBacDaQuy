@@ -2,7 +2,7 @@ package MVCViews;
 
 //import MVCControllers.TonKhoController;
 import MVCControllers.TonKhoController;
-import TableModel.CT_TonKhoTableModel;
+import table.CT_TonKhoTableModel;
 import java.awt.EventQueue;
 
 import javax.swing.JButton;

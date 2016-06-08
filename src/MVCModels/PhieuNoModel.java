@@ -39,9 +39,8 @@ public class PhieuNoModel {
     
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     // lấy mã phiếu nợ của phiếu hiện tại. 
-    public String getCurrentMaP_No(){
-        String lastID = mP_NoDAO.getLastID();
-        return String.valueOf(Integer.parseInt(lastID ) + 1);
+    public String getLastID(){
+        return mP_NoDAO.getLastID();
     }
     
     public String getMaKH(){

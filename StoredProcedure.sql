@@ -345,17 +345,17 @@ end//
 /*******************************************
 * Table: P_CHI
 **********************************************/
-create procedure P_CHI_Ins (MAP_CHI varchar(20), NGAYBAOCAO timestamp, NOIDUNG varchar(300), SOTIENCHI decimal )
+create procedure P_CHI_Ins (MAP_CHI varchar(20), NGAYCHI timestamp, NOIDUNG varchar(300), SOTIENCHI decimal )
 begin
-insert into p_chi ( MAP_CHI, NGAYBAOCAO,NOIDUNG, SOTIENCHI ) values ( MAP_CHI, NGAYBAOCAO,NOIDUNG, SOTIENCHI );
+insert into p_chi ( MAP_CHI, NGAYCHI,NOIDUNG, SOTIENCHI ) values ( MAP_CHI, NGAYCHI,NOIDUNG, SOTIENCHI );
 end//
 
 
-create procedure P_CHI_Upd (MAP_CHI varchar(20), NGAYBAOCAO timestamp, NOIDUNG varchar(300),SOTIENCHI decimal )
+create procedure P_CHI_Upd (MAP_CHI varchar(20), NGAYCHI timestamp, NOIDUNG varchar(300),SOTIENCHI decimal )
 begin
 update p_chi as a 
 set 
-a.NGAYBAOCAO = if(a.NGAYBAOCAO <> NGAYBAOCAO, NGAYBAOCAO, a.NGAYBAOCAO),
+a.NGAYCHI = if(a.NGAYCHI <> NGAYCHI, NGAYCHI, a.NGAYCHI),
 a.SOTIENCHI = if(a.SOTIENCHI <> SOTIENCHI, SOTIENCHI, a.SOTIENCHI),
 a.NOIDUNG = if(a.NOIDUNG <> NOIDUNG, NOIDUNG, a.NOIDUNG)
 where a.MAP_CHI = MAP_CHI;
