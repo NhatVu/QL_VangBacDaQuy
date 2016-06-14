@@ -88,8 +88,8 @@ public class PhieuDichVuModel {
     
     public void insertKhachHang(KhachHangDTO kh,NguoiDTO nguoi)
     {
+    	mNguoiDAO.insert(nguoi);
         mKhachHangDAO.insert(kh);
-        mNguoiDAO.insert(nguoi);
     }
     
     public void insertP_Thu(P_ThuDTO pThu)

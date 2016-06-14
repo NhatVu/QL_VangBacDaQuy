@@ -182,10 +182,6 @@ public class PhieuMuaHangController {
 	
 	
 	
-	
-	
-	
-
 	/*
 	 *  Xử lý sự kiện
 	 */

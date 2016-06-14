@@ -94,7 +94,7 @@ public class NhapSanPhamView {
         JButton btnThem = new JButton("Thêm");
         btnThem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-            	controller.btnThemActionPerformed(arg0);
+            	//controller.btnThemActionPerformed(arg0);
             }
         });
         btnThem.setBounds(316, 51, 89, 23);
@@ -103,7 +103,7 @@ public class NhapSanPhamView {
         JButton btnCapNhat = new JButton("Cập nhật");
         btnCapNhat.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
-        		controller.btnCapNhatActionPerformed(arg0);
+        		//controller.btnCapNhatActionPerformed(arg0);
         	}
         });
         btnCapNhat.setBounds(316, 145, 89, 23);

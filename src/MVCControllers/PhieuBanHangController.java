@@ -133,6 +133,7 @@ public class PhieuBanHangController
 	view.getTextMaPhieu().setText(model.getNextIdOfPhieuBanHang());
 	view.getTextMaPhieu().setEditable(false);
 	view.getDateNgayBan().setDate(getCurrentDate());
+	view.getTextTongCong().setEditable(false);
 	}
 
 	private Date getCurrentDate() {

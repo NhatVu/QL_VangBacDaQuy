@@ -30,7 +30,7 @@ public class PhieuMuaHangView {
     private JTextField textHoTen;
     private JTextField textDiaChi;
     private JTextField textTongCong;
-    private JTable table;
+    private JTable tableCTP_MuaHang;
     private TableModel tableModel;
     
     private static final String column1 = "Tên Sản Phẩm";
@@ -135,9 +135,9 @@ public class PhieuMuaHangView {
         scrollPane.setBounds(45, 262, 665, 110);
         frame.getContentPane().add(scrollPane);
         
-        table = new JTable(tableModel);
-        scrollPane.setViewportView(table);
-        table.addComponentListener(new TableScroller(tableModel, table));
+        tableCTP_MuaHang = new JTable(tableModel);
+        scrollPane.setViewportView(tableCTP_MuaHang);
+        tableCTP_MuaHang.addComponentListener(new TableScroller(tableModel, tableCTP_MuaHang));
         
         JLabel lblTngCng = new JLabel("Tổng cộng :");
         lblTngCng.setBounds(492, 386, 67, 14);
@@ -293,11 +293,11 @@ public class PhieuMuaHangView {
 	}
 	
 	public JTable getTable() {
-		return table;
+		return tableCTP_MuaHang;
 	}
 
 	public void setTable(JTable table) {
-		this.table = table;
+		this.tableCTP_MuaHang = table;
 	}
 
 	public TableModel getTableModel() {
