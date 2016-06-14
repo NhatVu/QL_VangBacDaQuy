@@ -1,36 +1,23 @@
 package MVCViews;
 
 import MVCControllers.PhieuBanHangController;
-import TableModel.CTP_BanHangTableModel;
+import table.TableModel;
 import table.TableScroller;
 
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
-import javax.swing.JViewport;
-import javax.swing.JComboBox;
 
-import java.awt.EventQueue;
-import java.awt.Point;
-import java.awt.SystemColor;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
-import javax.swing.ListSelectionModel;
-import javax.swing.SwingUtilities;
-import javax.swing.border.TitledBorder;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.Font;
 
 public class PhieuBanHangView {
 
@@ -43,8 +30,21 @@ public class PhieuBanHangView {
     private JTextField textHoTen;
     private JTextField textDiaChi;
     private JTextField textTongCong;
-    private JTable tableCTP_BanHang;
-    private CTP_BanHangTableModel ct_PhieuBanHangTableModel;
+    private JTable table;
+    private TableModel tableModel;
+    
+    private static final String column1 = "Tên Sản Phẩm";
+    private static final String column2 = "Số Lượng";
+    private static final String column3 = "Đơn Giá Bán";
+    private static final String column4 = "Thành Tiền";
+    
+    private static final boolean colum1Editable = true;
+    private static final boolean colum2Editable = true;
+    private static final boolean colum3Editable = false;
+    private static final boolean colum4Editable = false;
+    
+    private static final String[] columnNames = new String[]{column1,column2,column3,column4};
+    private static final boolean[] editColums = new boolean[]{colum1Editable,colum2Editable,colum3Editable,colum4Editable};
 
     private PhieuBanHangController controller = null;
     private JDateChooser dateNgayBan;
@@ -57,30 +57,26 @@ public class PhieuBanHangView {
     private JButton btnXoa;
     private JButton btnThoat;
   
-//    public PhieuBanHangView()
-//    {
-//    	initialize();
-//    }
     
     public PhieuBanHangView(PhieuBanHangController controller) {
         initialize();
         this.controller = controller;
     }
 
+    public void setVisible(boolean b)
+    {
+        frame.setVisible(b);
+        if(!b) frame.dispose();
+    }
+    
     private void initialize() {
         frame = new JFrame();
-        frame.addWindowListener(new WindowAdapter() {
-        	@Override
-        	public void windowClosed(WindowEvent arg0) {
-        		JOptionPane.showMessageDialog(null, "Window listener started");
-        		textMaPhieu.setText("Hi Hi Hi");
-        	}
-        });
         frame.setBounds(100, 100, 769, 484);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JLabel lblPhiuMuaHng = new JLabel("PHIẾU BÁN HÀNG");
-        lblPhiuMuaHng.setBounds(294, 32, 116, 14);
+        lblPhiuMuaHng.setFont(new Font("Times New Roman", Font.BOLD, 15));
+        lblPhiuMuaHng.setBounds(312, 11, 162, 14);
 
         JLabel lblSPhiu = new JLabel("Mã phiếu :");
         lblSPhiu.setBounds(45, 71, 67, 14);
@@ -133,14 +129,15 @@ public class PhieuBanHangView {
         frame.getContentPane().add(lblaCh);
         frame.getContentPane().add(textDiaChi);
         
-        ct_PhieuBanHangTableModel = new CTP_BanHangTableModel(); 
-        tableCTP_BanHang = new JTable(ct_PhieuBanHangTableModel);
-        tableCTP_BanHang.addComponentListener(new TableScroller());
+        tableModel = new TableModel(columnNames, editColums);
        
-        JScrollPane scrollPane = new JScrollPane(tableCTP_BanHang);
+        JScrollPane scrollPane = new JScrollPane();
         scrollPane.setBounds(45, 262, 665, 110);
-        
         frame.getContentPane().add(scrollPane);
+        
+        table = new JTable(tableModel);
+        scrollPane.setViewportView(table);
+        table.addComponentListener(new TableScroller(tableModel, table));
         
         JLabel lblTngCng = new JLabel("Tổng cộng :");
         lblTngCng.setBounds(492, 386, 67, 14);
@@ -163,7 +160,7 @@ public class PhieuBanHangView {
         btnXoa = new JButton("Xóa");
         btnXoa.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
-        		controller.btnXoaKhoiDbActionPerformed(arg0);
+        		controller.btnXoaActionPerformed(arg0);
         	}
         });
         btnXoa.setBounds(475, 411, 89, 23);
@@ -216,7 +213,7 @@ public class PhieuBanHangView {
         		controller.btnCheckKhachQuenActionPerformed(arg0);
         	}
         });
-        btnCheckKhachQuen.setBounds(249, 135, 74, 23);
+        btnCheckKhachQuen.setBounds(249, 135, 89, 23);
         frame.getContentPane().add(btnCheckKhachQuen);
         
         btnLayMaKHTiepTheo = new JButton("Lấy mã khách hàng tiếp theo");
@@ -225,7 +222,7 @@ public class PhieuBanHangView {
         		controller.btnLayMaKHTiepTheoActionPerformed(arg0);
         	}
         });
-        btnLayMaKHTiepTheo.setBounds(122, 171, 201, 23);
+        btnLayMaKHTiepTheo.setBounds(122, 171, 216, 23);
         frame.getContentPane().add(btnLayMaKHTiepTheo);
     }
 
@@ -278,22 +275,6 @@ public class PhieuBanHangView {
     public void setTextTongCong(JTextField textTongCong) {
         this.textTongCong = textTongCong;
     }
-    
-    public JTable getTableCTP_MH() {
-        return tableCTP_BanHang;
-    }
-    
-    public void setTableCTP_MH(JTable tableCTP_MH) {
-        this.tableCTP_BanHang = tableCTP_MH;
-    }    
-    
-    public CTP_BanHangTableModel getCt_PhieuBanHangTableModel() {
-		return ct_PhieuBanHangTableModel;
-	}
-
-	public void setCt_PhieuBanHangTableModel(CTP_BanHangTableModel ct_PhieuBanHangTableModel) {
-		this.ct_PhieuBanHangTableModel = ct_PhieuBanHangTableModel;
-	}
 
 	public JDateChooser getDateNgayBan() {
 		return dateNgayBan;
@@ -311,60 +292,20 @@ public class PhieuBanHangView {
 		this.dateNgayThanhToan = dateNgayThanhToan;
 	}
 	
-	public JButton getBtnCheckKhachQuen() {
-		return btnCheckKhachQuen;
+	public JTable getTable() {
+		return table;
 	}
 
-	public void setBtnCheckKhachQuen(JButton btnCheckKhachQuen) {
-		this.btnCheckKhachQuen = btnCheckKhachQuen;
+	public void setTable(JTable table) {
+		this.table = table;
 	}
 
-	public JButton getBtnLayMaKHTiepTheo() {
-		return btnLayMaKHTiepTheo;
+	public TableModel getTableModel() {
+		return tableModel;
 	}
 
-	public void setBtnLayMaKHTiepTheo(JButton btnLayMaKHTiepTheo) {
-		this.btnLayMaKHTiepTheo = btnLayMaKHTiepTheo;
-	}
-
-	public JButton getBtnThm() {
-		return btnThm;
-	}
-
-	public void setBtnThm(JButton btnThm) {
-		this.btnThm = btnThm;
-	}
-
-	public JButton getBtnXa() {
-		return btnXa;
-	}
-
-	public void setBtnXa(JButton btnXa) {
-		this.btnXa = btnXa;
-	}
-
-	public JButton getBtnLuu() {
-		return btnLuu;
-	}
-
-	public void setBtnLuu(JButton btnLuu) {
-		this.btnLuu = btnLuu;
-	}
-
-	public JButton getBtnXoa() {
-		return btnXoa;
-	}
-
-	public void setBtnXoa(JButton btnXoa) {
-		this.btnXoa = btnXoa;
-	}
-
-	public JButton getBtnThoat() {
-		return btnThoat;
-	}
-
-	public void setBtnThoat(JButton btnThoat) {
-		this.btnThoat = btnThoat;
+	public void setTableModel(TableModel tableModel) {
+		this.tableModel = tableModel;
 	}
 
 	public boolean isAllTextFilled()
@@ -381,25 +322,15 @@ public class PhieuBanHangView {
         }
         return true;
     }
+	
+	
+	public static void main( String[] args )
+	{
+		PhieuBanHangController controller = new PhieuBanHangController();
+		PhieuBanHangView view = new PhieuBanHangView(controller);
+		view.setVisible(true);
+	}
 
-
-	// this class helps the scroll move to Bottom Position
- 	class TableScroller extends ComponentAdapter
- 	{
- 		public void componentResized( ComponentEvent event )
- 		{
- 			int lastRow = ct_PhieuBanHangTableModel.getRowCount() - 1;
- 			int cellTop = tableCTP_BanHang.getCellRect(lastRow, 0, true).y;
- 			JScrollPane jsp = (JScrollPane) SwingUtilities.getAncestorOfClass(JScrollPane.class, tableCTP_BanHang);
- 			JViewport jvp = jsp.getViewport();
- 			int portHeight = jvp.getSize().height;
- 			int position  = cellTop - ( portHeight - tableCTP_BanHang.getRowHeight() - tableCTP_BanHang.getRowMargin());
- 			if( position >= 0 )
- 			{
- 				jvp.setViewPosition(new Point(0, position));
- 			}
- 		}
- 	}
 }
 
 

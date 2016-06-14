@@ -6,6 +6,8 @@
 package DataAcessLayer;
 
 import DTO.P_MuaHangDTO;
+import main.Resource;
+
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -165,4 +167,47 @@ public class P_MuaHangDAO {
             }
         }
     }
+     
+     public String getLastID() {
+         try {
+             connection = DataSource.getInstance().getConnection();
+             call = connection.prepareCall("{call P_MUAHANG_getLastID(?)}");
+             call.registerOutParameter(1, java.sql.Types.VARCHAR);
+
+             call.execute();
+             return call.getString(1);
+
+         } catch (SQLException ex) {
+             Logger.getLogger(P_MuaHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+         }
+         finally {
+             if (connection != null) {
+                 try {
+                     connection.close();
+                 } catch (SQLException ex) {
+                     Logger.getLogger(P_MuaHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+             }
+
+             try {
+                 call.close();
+             } catch (SQLException ex) {
+                 Logger.getLogger(P_MuaHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+             }
+         }
+
+         return null;
+     }
+     
+     public String getNexId()
+     {
+         String maPhieu = Resource.P_MUAHANG+"1";
+         if(this.getLastID()!=null)
+         {
+             String curentId = getLastID();
+             maPhieu= Resource.P_MUAHANG+(Integer.valueOf(curentId.substring(Resource.P_MUAHANG.length()))+1)+"";
+         }
+         return maPhieu;
+     }
+     
 }

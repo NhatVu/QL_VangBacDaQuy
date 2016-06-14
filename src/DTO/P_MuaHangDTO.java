@@ -29,7 +29,20 @@ public class P_MuaHangDTO {
         
     }
     
-    /*
+    
+    
+    public P_MuaHangDTO(String maP_MH, String maKH, Timestamp ngayMua, Timestamp ngayThanhToan, double tongCong) {
+		super();
+		this.maP_MH = maP_MH;
+		this.maKH = maKH;
+		this.ngayMua = ngayMua;
+		this.ngayThanhToan = ngayThanhToan;
+		this.tongCong = tongCong;
+	}
+
+
+
+	/*
     * Getters and Setters
     */
 

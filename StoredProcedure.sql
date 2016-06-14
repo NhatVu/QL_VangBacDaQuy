@@ -814,53 +814,55 @@ end//
 /*********************** 		Hậu procedure 		  ******************************/
 *			table:  SANPHAM
 /***********************************************************************************/
-/*
-	Lấy MaSP của table sanpham
-*/
 
-CREATE PROCEDURE SanPham_getSanPham()
+/*
+	Lấy Id cuối cùng của P_BANHANG
+*/
+delimiter //
+create procedure  P_BANHANG_getLastID(out maxId varchar(20))
 begin
-select MaSP
-from sanpham
-order by MASP asc;
+select MAP_BH into maxId
+from P_BANHANG
+order by MAP_BH desc
+limit 1;
 end//
 
 
 /*
-	Lấy dongiamua của sanpham
+	Lấy Id cuối cùng của CTP_BANHANG
 */
-CREATE PROCEDURE SanPham_getDonGiaMua(out SP_DONGIAMUA DOUBLE)
-begin 
-select DONGIAMUA into SP_DONGIAMUA
-from sanpham
-order by DONGIAMUA asc;
+delimiter //
+create procedure  CTP_BANHANG_getLastID(out maxId varchar(20))
+begin
+select MACTP_BH into maxId
+from CTP_BANHANG
+order by MACTP_BH desc
+limit 1;
 end//
-
 
 /*
-	Lấy dongiaban của sanpham
+	Lấy Id cuôi cùng của P_MUAHANG
 */
-
-CREATE PROCEDURE SanPham_getDonGiaBan(out SP_DONGIABAN DOUBLE)
-begin 
-select DONGIABAN into SP_DONGIABAN
-from sanpham
-order by DONGIABAN asc;
+delimiter //
+create procedure P_MUAHANG_getLastID(out maxId varchar(20))
+begin
+select MAP_MH into maxId
+from P_MUAHANG
+order by MAP_MH desc
+limit 1;
 end//
-
 
 /*
-	Lấy soluongton của sanpham
+	Lấy Id cuối cùng của CTP_MUAHANG
 */
-
-CREATE PROCEDURE SanPham_getSoLuongTon(out SP_SOLUONGTON INT)
-begin 
-select SOLUONGTON into SP_SOLUONGTON
-from sanpham
-order by SOLUONGTON asc;
+delimiter //
+create procedure CTP_MUAHANG_getLastID( out maxId varchar(20) )
+begin
+select MACTP_MH into maxId 
+from CTP_MUAHANG
+order by MACTP_MH desc
+limit 1;
 end//
-
-
 
 
 delimiter ;

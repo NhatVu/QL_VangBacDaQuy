@@ -1,5 +1,6 @@
 package MVCModels;
 
+import java.awt.color.ICC_ColorSpace;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -28,82 +29,21 @@ import DataAcessLayer.SanPhamDAO;
 
 public class PhieuBanHangModel {
 	
-	private SanPhamDAO sanPhamDAO;
-	private CTP_BanHangDAO ctp_BanHangDAO;
-	private P_BanHangDAO p_BanHangDAO;
-	private P_ThuDAO p_ThuDAO;
-	private KhachHangDAO khachHangDAO;
 	private NguoiDAO nguoiDAO;
-	
+	private KhachHangDAO khachHangDAO;
+	private P_ThuDAO p_ThuDAO;
+	private P_BanHangDAO p_BanHangDAO;
+	private CTP_BanHangDAO ctp_BanHangDAO;
+	private SanPhamDAO sanPhamDAO;
 	
 	public PhieuBanHangModel() {
-		super();
-		sanPhamDAO = new SanPhamDAO();
-		ctp_BanHangDAO = new CTP_BanHangDAO();
-		p_BanHangDAO = new P_BanHangDAO();
-		p_ThuDAO = new P_ThuDAO();
-		khachHangDAO = new KhachHangDAO();
+		// TODO Auto-generated constructor stub
 		nguoiDAO = new NguoiDAO();
-	}
-
-
-	public SanPhamDAO getSanPhamDAO() {
-		return sanPhamDAO;
-	}
-
-
-	public void setSanPhamDAO(SanPhamDAO sanPhamDAO) {
-		this.sanPhamDAO = sanPhamDAO;
-	}
-
-
-	public CTP_BanHangDAO getCtp_BanHangDAO() {
-		return ctp_BanHangDAO;
-	}
-
-
-	public void setCtp_BanHangDAO(CTP_BanHangDAO ctp_BanHangDAO) {
-		this.ctp_BanHangDAO = ctp_BanHangDAO;
-	}
-
-
-	public P_BanHangDAO getP_BanHangDAO() {
-		return p_BanHangDAO;
-	}
-
-
-	public void setP_BanHangDAO(P_BanHangDAO p_BanHangDAO) {
-		this.p_BanHangDAO = p_BanHangDAO;
-	}
-
-
-	public P_ThuDAO getP_ThuDAO() {
-		return p_ThuDAO;
-	}
-
-
-	public void setP_ThuDAO(P_ThuDAO p_ThuDAO) {
-		this.p_ThuDAO = p_ThuDAO;
-	}
-
-
-	public KhachHangDAO getKhachHangDAO() {
-		return khachHangDAO;
-	}
-
-
-	public void setKhachHangDAO(KhachHangDAO khachHangDAO) {
-		this.khachHangDAO = khachHangDAO;
-	}
-
-
-	public NguoiDAO getNguoiDAO() {
-		return nguoiDAO;
-	}
-
-
-	public void setNguoiDAO(NguoiDAO nguoiDAO) {
-		this.nguoiDAO = nguoiDAO;
+		khachHangDAO = new KhachHangDAO();
+		p_ThuDAO = new P_ThuDAO();
+		p_BanHangDAO = new P_BanHangDAO();
+		ctp_BanHangDAO = new CTP_BanHangDAO();
+		sanPhamDAO = new SanPhamDAO();
 	}
 	
 	public String getNextIdOfNguoi()
@@ -116,77 +56,61 @@ public class PhieuBanHangModel {
 		return khachHangDAO.getNexId();
 	}
 	
-	public String getNextIdOfP_Thu()
+	public String getNextIdOfPhieuThu()
 	{
 		return p_ThuDAO.getNexId();
 	}
 	
-	public String getNextIdOfP_BanHang()
+	public String getNextIdOfPhieuBanHang()
 	{
 		return p_BanHangDAO.getNexId();
 	}
 	
-	public String getNextIdOfCTP_BanHang()
+	public String getNextIdOfChiTietPhieuBanHang()
 	{
 		return ctp_BanHangDAO.getNexId();
 	}
 	
-	public NguoiDTO kiemtraKhachQuen(int shortId)
-    {
-        return khachHangDAO.checkKhachHangQuen(shortId);
-    }
-	
-	public String getMaKhByName(int id)
-    {
-        return khachHangDAO.getMaKhachHangByName(id);
-    }
-	
-	public List<String> getDanhSacMaSP()
+	public NguoiDTO kiemTraKhachQuen( int shortId )
 	{
-		return sanPhamDAO.getMaSP();
+		return khachHangDAO.checkKhachHangQuen(shortId);
 	}
 	
-	public List<Double> getDsDonGiaBanSP()
-	{
-		return sanPhamDAO.getDonGiaBan();
+	public ArrayList<SanPhamDTO> getAllSanPham()
+	{	
+		return sanPhamDAO.getAllSanPham();
 	}
 	
-	public List<Double> getDsDonGiaMuaSP()
+	public boolean updateSoLuongTonOfSanPham(int updateSoLuongTon, String maSP)
 	{
-		return sanPhamDAO.getDonGiaMua();
+		return sanPhamDAO.updateSLTSanPham(updateSoLuongTon, maSP);
 	}
 	
-	public List<Integer> getDsSoLuongTonSP()
-	{
-		return sanPhamDAO.getSoLuongTon();
-	}
-	
-	
-	
-	
-	public void insertNguoi( NguoiDTO nguoiDTO )
+	public void insertKhachHang( NguoiDTO nguoiDTO, KhachHangDTO khachHangDTO )
 	{
 		nguoiDAO.insert(nguoiDTO);
-	}
-
-	public void insertKhachHang( KhachHangDTO khachHangDTO )
-	{
 		khachHangDAO.insert(khachHangDTO);
 	}
 	
-	public void insertP_Thu( P_ThuDTO p_ThuDTO )
+	public void insertPhieuThu( P_ThuDTO p_ThuDTO )
 	{
 		p_ThuDAO.insert(p_ThuDTO);
 	}
 	
-	public void insertP_BanHang( P_BanHangDTO p_BanHangDTO )
+	public void insertPhieuBanHang( P_BanHangDTO p_BanHangDTO )
 	{
 		p_BanHangDAO.insert(p_BanHangDTO);
 	}
 	
-	public void insertCTP_BanHang( CTP_BanHangDTO ctp_BanHangDTO )
+	public void insertChiTietPhieuBanHang( CTP_BanHangDTO ctp_BanHangDTO )
 	{
 		ctp_BanHangDAO.insert(ctp_BanHangDTO);
 	}
+	
+	public String getMaKhById( int id )
+	{
+		return khachHangDAO.getMaKhachHangByName(id);
+	}
+	
 	
 }

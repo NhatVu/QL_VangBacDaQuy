@@ -27,11 +27,29 @@ public class CTP_BanHangDTO {
         
     }
     
+    
+    
     /*
     * Getters and Setters
     */
 
-    public String getMaCTP_BH() {
+    public CTP_BanHangDTO(String maCTP_BH, String maP_BH, String maSP, int soLuong, double thanhTien) {
+		super();
+		this.maCTP_BH = maCTP_BH;
+		this.maP_BH = maP_BH;
+		this.maSP = maSP;
+		this.soLuong = soLuong;
+		this.thanhTien = thanhTien;
+	}
+
+
+
+	private String maCTP_BH(String string, String string2, int i, double d) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getMaCTP_BH() {
         return maCTP_BH;
     }
 

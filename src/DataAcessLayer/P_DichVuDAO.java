@@ -106,6 +106,7 @@ public class P_DichVuDAO {
             call.registerOutParameter(1, java.sql.Types.VARCHAR);
 
             call.execute();
+            
             return call.getString(1);
 
         } catch (SQLException ex) {
@@ -132,11 +133,11 @@ public class P_DichVuDAO {
     
     public String getNexId()
     {
-        String maPhieu = Resource.P_GIACONG+"1";
+        String maPhieu = Resource.P_DICHVU +"1";
         if(this.getLastID()!=null)
         {
             String curentId = getLastID();
-            maPhieu= Resource.P_GIACONG+(Integer.valueOf(curentId.substring(Resource.P_GIACONG.length()))+1)+"";
+            maPhieu= Resource.P_DICHVU+(Integer.valueOf(curentId.substring(Resource.P_DICHVU.length()))+1)+"";
         }
         return maPhieu;
     }

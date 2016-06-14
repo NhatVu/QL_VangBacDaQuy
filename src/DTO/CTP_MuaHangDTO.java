@@ -29,11 +29,24 @@ public class CTP_MuaHangDTO {
     public CTP_MuaHangDTO() {
     }
     
+    
+    
     /*
     * Getters and Setters
     */
 
-    public String getMaCTP_MH() {
+    public CTP_MuaHangDTO(String maCTP_MH, String maP_MH, String maSP, int soLuong, double thanhTien) {
+		super();
+		this.maCTP_MH = maCTP_MH;
+		this.maP_MH = maP_MH;
+		this.maSP = maSP;
+		this.soLuong = soLuong;
+		this.thanhTien = thanhTien;
+	}
+
+
+
+	public String getMaCTP_MH() {
         return maCTP_MH;
     }
 

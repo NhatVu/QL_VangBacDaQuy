@@ -24,6 +24,12 @@ public class P_BanHangDTO {
         
     }
     
+    public P_BanHangDTO( String maP_BH, String maP_Thu )
+    {
+    	this.maP_BH = maP_BH;
+    	this.maP_Thu = maP_Thu;
+    }
+    
     /*
     * Getters and Setters
     */

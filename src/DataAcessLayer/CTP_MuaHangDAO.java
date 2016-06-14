@@ -6,6 +6,8 @@
 package DataAcessLayer;
 
 import DTO.CTP_MuaHangDTO;
+import main.Resource;
+
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -106,5 +108,47 @@ public class CTP_MuaHangDAO {
             }
         }
         return false;
+    }
+
+    public String getLastID() {
+        try {
+            connection = DataSource.getInstance().getConnection();
+            call = connection.prepareCall("{call CTP_MUAHANG_getLastID(?)}");
+            call.registerOutParameter(1, java.sql.Types.VARCHAR);
+
+            call.execute();
+            return call.getString(1);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CTP_MuaHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(CTP_MuaHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            try {
+                call.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(CTP_MuaHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return null;
+    }
+    
+    public String getNexId()
+    {
+        String maPhieu = Resource.CTP_MUAHANG+"1";
+        if(this.getLastID()!=null)
+        {
+            String curentId = getLastID();
+            maPhieu= Resource.CTP_MUAHANG+(Integer.valueOf(curentId.substring(Resource.CTP_MUAHANG.length()))+1)+"";
+        }
+        return maPhieu;
     }
 }
