@@ -21,18 +21,18 @@ public class PhieuNoController {
     private PhieuNoModel model = new PhieuNoModel();
     private PhieuNoView view = null;
 
-    public void startApplication() {
+    public void start() {
         view = new PhieuNoView(this);
         view.getFrame().setVisible(true);
     }
 
     /*
-    1. Intent
-        - Xử lý sự kiện khi nút Lưu được bấm
-        - Kiểm tra thông tin trên form đã điền đầy đủ chưa ? Chỉ kiểm tra đầy đủ, k kiểm tra tính đúng đắn
-        - Insert phiếu nợ vào database. 
-        - Tự động xóa các thông tin trên form, và lấy mã phiếu mới.
-    */
+     1. Intent
+     - Xử lý sự kiện khi nút Lưu được bấm
+     - Kiểm tra thông tin trên form đã điền đầy đủ chưa ? Chỉ kiểm tra đầy đủ, k kiểm tra tính đúng đắn
+     - Insert phiếu nợ vào database. 
+     - Tự động xóa các thông tin trên form, và lấy mã phiếu mới.
+     */
     public void btnLuuActionPerformed(ActionEvent arg) {
         if (view.getDateNgayNo().getDate() == null || view.getDateNgayTra().getDate() == null
                 || view.getTextConLai().getText() == "" || view.getTextHoTen().getText() == null
@@ -43,7 +43,7 @@ public class PhieuNoController {
             JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin");
         } else {
             P_NoDTO noDTO = new P_NoDTO();
-            noDTO.setMaP_No(view.getTextMaPhieuNo().getText());
+            noDTO.setMaP_No(Integer.parseInt(view.getTextMaPhieuNo().getText()));
             noDTO.setMaP_Thu(model.getMaP_Thu());
             noDTO.setNgayNo(model.getLastNgayTra());
             noDTO.setNgayTra(new Timestamp(view.getDateNgayTra().getDate().getTime()));
@@ -59,9 +59,9 @@ public class PhieuNoController {
     }
 
     /*
-    1. Intent
-        - Xóa các thông tin trên form, trừ Mã phiếu nợ. 
-    */
+     1. Intent
+     - Xóa các thông tin trên form, trừ Mã phiếu nợ. 
+     */
     public void btnXoaActionPerformed(ActionEvent arg) {
         view.getTextConLai().setText(null);
         view.getTextHoTen().setText(null);
@@ -74,20 +74,20 @@ public class PhieuNoController {
     }
 
     /*
-    1. Intent
-        - Thoát khỏi form Phiếu nợ.
-    */
+     1. Intent
+     - Thoát khỏi form Phiếu nợ.
+     */
     public void btnThoatActionPerformed(ActionEvent arg) {
         JFrame mFrame = view.getFrame();
         mFrame.dispatchEvent(new WindowEvent(mFrame, WindowEvent.WINDOW_CLOSING));
     }
 
     /*
-    1. Intent
-        - Xử lý sự kiện khi textField Mã phiếu bán mất focus
-        1.1. Xóa tất cả thông tin, trừ phiếu bán và mã phiếu nợ. 
-        1.2. Lấy thông tin cần thiết và load lên form. 
-    */
+     1. Intent
+     - Xử lý sự kiện khi textField Mã phiếu bán mất focus
+     1.1. Xóa tất cả thông tin, trừ phiếu bán và mã phiếu nợ. 
+     1.2. Lấy thông tin cần thiết và load lên form. 
+     */
     public void textMaPhieuBanFocusLost(FocusEvent e) {
         //btnXoaActionPerformed(null);
         view.getTextConLai().setText(null);
@@ -97,15 +97,15 @@ public class PhieuNoController {
         view.getTextSoTienTra().setText(null);
         view.getDateNgayNo().setDate(null);
         view.getDateNgayTra().setDate(null);
-        
+
         JTextField mMaP_BH = view.getTextMaPhieuBan();
         // lấy thông tin liên quan đến mã phiếu bán hàng: phiếu thu, ngày trả, còn lại, mã khách hàng, họ tên
-        model.getInformationByMaP_BH(mMaP_BH.getText());
+        model.getInformationByMaP_BH(Integer.parseInt(mMaP_BH.getText()));
         if (model.getLastConLai() == 0) {
             JOptionPane.showMessageDialog(null, "Vui lòng kiểm tra lại thông tin khách hàng!");
             btnXoaActionPerformed(null);
         } else {
-            view.getTextMaKH().setText(model.getMaKH());
+            view.getTextMaKH().setText(String.valueOf(model.getMaKH()));
             view.getTextHoTen().setText(model.getHoTen());
             view.getDateNgayNo().setDate(new Date(model.getLastNgayTra().getTime()));
             view.getTextSoTienNo().setText(model.getLastConLai().toString());
@@ -113,13 +113,12 @@ public class PhieuNoController {
     }
 
     /*
-    1. Intent
-        - Tính số còn lại, khi đã có số tiền trả và số tiên nợ.
-    */
+     1. Intent
+     - Tính số còn lại, khi đã có số tiền trả và số tiên nợ.
+     */
     public void textSoTienTraFocusLost(FocusEvent e) {
-        if(!CheckInput.isDouble(view.getTextSoTienNo().getText())
-                || !CheckInput.isDouble(view.getTextSoTienTra().getText()))
-        {
+        if (!CheckInput.isDouble(view.getTextSoTienNo().getText())
+                || !CheckInput.isDouble(view.getTextSoTienTra().getText())) {
             JOptionPane.showMessageDialog(null, "Vui lòng nhập số");
             return;
         }
@@ -130,12 +129,10 @@ public class PhieuNoController {
     }
 
     /*
-    1. Intent
-        - khi form load lên, load mã phiếu nợ sẽ thêm tiếp theo.
-    */
+     1. Intent
+     - khi form load lên, load mã phiếu nợ sẽ thêm tiếp theo.
+     */
     public void frameWindowOpened(WindowEvent arg) {
-        String lastID = model.getLastID();
-        lastID = Resource.P_NO + (Integer.parseInt(lastID.substring(Resource.P_NO.length()))+ 1);
-        view.getTextMaPhieuNo().setText(lastID);
+        view.getTextMaPhieuNo().setText(String.valueOf(model.getNextID()));
     }
 }

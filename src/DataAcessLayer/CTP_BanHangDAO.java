@@ -5,7 +5,6 @@
  */
 package DataAcessLayer;
 
-
 import DTO.*;
 import main.Resource;
 
@@ -23,109 +22,106 @@ public class CTP_BanHangDAO {
 
     CallableStatement call = null;
     Connection connection = null;
-    
-    public CTP_BanHangDAO(){
-        
+
+    public CTP_BanHangDAO() {
+
     }
-    
+
     /*
-    * CRUD
-    */
-    public boolean insert(CTP_BanHangDTO ctp_BH){
+     * CRUD
+     */
+    public boolean insert(CTP_BanHangDTO ctp_BH) {
         // procedure CTP_BANHANG_Ins (MACTP_BH varchar(10), MAP_BH varchar(10), 
         // MASP varchar(10), SOLUONG int, THANHTIEN decimal )
         try {
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall("{call CTP_BANHANG_Ins(?,?,?,?,?)}");
-            call.setString("MACTP_BH", ctp_BH.getMaCTP_BH());
-            call.setString("MAP_BH", ctp_BH.getMaP_BH());
-            call.setString("MASP", ctp_BH.getMaSP());
+            call.setInt("MACTP_BH", ctp_BH.getMaCTP_BH());
+            call.setInt("MAP_BH", ctp_BH.getMaP_BH());
+            call.setInt("MASP", ctp_BH.getMaSP());
             call.setInt("SOLUONG", ctp_BH.getSoLuong());
             call.setDouble("THANHTIEN", ctp_BH.getThanhTien());
-            
+
             return call.execute();
-                    
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally{
-            if(connection!= null)
+        } finally {
+            if (connection != null) {
                 try {
                     connection.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return false;
-    }
-    
-    public boolean update(CTP_BanHangDTO ctp_BH){
-        try {
-            //CTP_BANHANG_Upd (MACTP_BH varchar(10), MAP_BH varchar(10),
-            //                  MASP varchar(10), SOLUONG int, THANHTIEN decimal )
-            connection = DataSource.getInstance().getConnection();
-            
-            call = connection.prepareCall("{call CTP_BANHANG_Upd(?,?,?,?,?)}");
-            call.setString("MACTP_BH", ctp_BH.getMaCTP_BH());
-            call.setString("MAP_BH", ctp_BH.getMaP_BH());
-            call.setString("MASP", ctp_BH.getMaSP());
-            call.setInt("SOLUONG", ctp_BH.getSoLuong());
-            call.setDouble("THANHTIEN", ctp_BH.getThanhTien());
-            
-            return call.execute();
-           
-        } catch (SQLException ex) {
-            Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally{
-            if(connection!= null)
-                try {
-                    connection.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return false;
-    }
-    
-    public boolean delete(CTP_BanHangDTO ctp_BH){
-        try {
-            //CTP_BANHANG_Del (MACTP_BH varchar(10) )
-            connection = DataSource.getInstance().getConnection();
-            call = connection.prepareCall("{call CTP_BANHANG_Del(?)}");
-            call.setString("MACTP_BH", ctp_BH.getMaCTP_BH());
-            
-            return call.execute();
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally{
-            if(connection!=null)
-                try {
-                    connection.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
         return false;
     }
 
-    
-    public String getLastID() {
+    public boolean update(CTP_BanHangDTO ctp_BH) {
+        try {
+            //CTP_BANHANG_Upd (MACTP_BH varchar(10), MAP_BH varchar(10),
+            //                  MASP varchar(10), SOLUONG int, THANHTIEN decimal )
+            connection = DataSource.getInstance().getConnection();
+
+            call = connection.prepareCall("{call CTP_BANHANG_Upd(?,?,?,?,?)}");
+            call.setInt("MACTP_BH", ctp_BH.getMaCTP_BH());
+            call.setInt("MAP_BH", ctp_BH.getMaP_BH());
+            call.setInt("MASP", ctp_BH.getMaSP());
+            call.setInt("SOLUONG", ctp_BH.getSoLuong());
+            call.setDouble("THANHTIEN", ctp_BH.getThanhTien());
+
+            return call.execute();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean delete(CTP_BanHangDTO ctp_BH) {
+        try {
+            //CTP_BANHANG_Del (MACTP_BH varchar(10) )
+            connection = DataSource.getInstance().getConnection();
+            call = connection.prepareCall("{call CTP_BANHANG_Del(?)}");
+            call.setInt("MACTP_BH", ctp_BH.getMaCTP_BH());
+
+            return call.execute();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return false;
+    }
+
+    public int getLastID() {
         try {
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall("{call CTP_BANHANG_getLastID(?)}");
             call.registerOutParameter(1, java.sql.Types.VARCHAR);
 
             call.execute();
-            return call.getString(1);
+            return call.getInt(1);
 
         } catch (SQLException ex) {
             Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally {
+        } finally {
             if (connection != null) {
                 try {
                     connection.close();
@@ -141,17 +137,11 @@ public class CTP_BanHangDAO {
             }
         }
 
-        return null;
+        return 0;
     }
-    
-    public String getNexId()
-    {
-        String maPhieu = Resource.CTP_BANHANG+"1";
-        if(this.getLastID()!=null)
-        {
-            String curentId = getLastID();
-            maPhieu= Resource.CTP_BANHANG+(Integer.valueOf(curentId.substring(Resource.CTP_BANHANG.length()))+1)+"";
-        }
-        return maPhieu;
+
+    public int getNexId() {
+        return getLastID() + 1;
+
     }
 }

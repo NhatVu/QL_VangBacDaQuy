@@ -81,6 +81,13 @@ public class PhieuNoView {
         JButton btnLuu = new JButton("Lưu"); 
         btnLuu.setBounds(88, 411, 89, 23);
         frame.getContentPane().add(btnLuu);
+        btnLuu.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.btnLuuActionPerformed(e);
+            }
+        });
 
         JButton btnXoa = new JButton("Xóa");
         btnXoa.setBounds(309, 411, 89, 23);

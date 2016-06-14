@@ -16,27 +16,26 @@ public class P_ChiDTO {
      * Properties
      */
 
-    private String maP_Chi = null;
+    private int maP_Chi;
     private Timestamp ngayChi = null;
     private String noiDung = null;
     private double soTienChi = 0;
-    
-    /*
-    * Constructor
-    */
-    public P_ChiDTO(){
-        
-    }
-    
-    /*
-    * Getters and Setters
-    */
 
-    public String getMaP_Chi() {
+    /*
+     * Constructor
+     */
+    public P_ChiDTO() {
+
+    }
+
+    /*
+     * Getters and Setters
+     */
+    public int getMaP_Chi() {
         return maP_Chi;
     }
 
-    public void setMaP_Chi(String maP_Chi) {
+    public void setMaP_Chi(int maP_Chi) {
         this.maP_Chi = maP_Chi;
     }
 
@@ -47,7 +46,6 @@ public class P_ChiDTO {
     public void setNgayChi(Timestamp ngayChi) {
         this.ngayChi = ngayChi;
     }
-
 
     public String getNoiDung() {
         return noiDung;
@@ -64,8 +62,5 @@ public class P_ChiDTO {
     public void setSoTienChi(double soTienChi) {
         this.soTienChi = soTienChi;
     }
-
-    
-    
 
 }

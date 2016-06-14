@@ -16,46 +16,43 @@ public class P_ThuDTO {
      * Properties
      */
 
-    private String maP_Thu;
-    private String maKH;
+    private int maP_Thu;
+    private int maKH;
     private Timestamp ngayLapPhieu;
     private Timestamp ngayKetThuc;
     private double tongCong;
 
-    public P_ThuDTO(String maP_Thu, String maKH, Timestamp ngayLapPhieu, Timestamp ngayKetThuc, double tongCong) {
+    public P_ThuDTO(int maP_Thu, int maKH, Timestamp ngayLapPhieu, Timestamp ngayKetThuc, double tongCong) {
         this.maP_Thu = maP_Thu;
         this.maKH = maKH;
         this.ngayLapPhieu = ngayLapPhieu;
         this.ngayKetThuc = ngayKetThuc;
         this.tongCong = tongCong;
     }
-    
-    
-    
-    /*
-    * Constructor
-    */
-    public P_ThuDTO(){
-        
-    }
-    
-    /*
-    * Getters and Setters
-    */
 
-    public String getMaP_Thu() {
+    /*
+     * Constructor
+     */
+    public P_ThuDTO() {
+
+    }
+
+    /*
+     * Getters and Setters
+     */
+    public int getMaP_Thu() {
         return maP_Thu;
     }
 
-    public void setMaP_Thu(String maP_Thu) {
+    public void setMaP_Thu(int maP_Thu) {
         this.maP_Thu = maP_Thu;
     }
 
-    public String getMaKH() {
+    public int getMaKH() {
         return maKH;
     }
 
-    public void setMaKH(String maKH) {
+    public void setMaKH(int maKH) {
         this.maKH = maKH;
     }
 
@@ -82,6 +79,5 @@ public class P_ThuDTO {
     public void setTongCong(double tongCong) {
         this.tongCong = tongCong;
     }
-    
 
 }

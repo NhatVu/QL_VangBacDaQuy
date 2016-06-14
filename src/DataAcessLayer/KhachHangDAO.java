@@ -22,175 +22,169 @@ import main.Resource;
  * @author Administrator
  */
 public class KhachHangDAO {
+
     CallableStatement call = null;
     Connection connection = null;
-    
+
     //Properties of table
     private static final String maKh = "MAKH";
     private static final String maNguoi = "MANGUOI";
     private static final String laKhachQuen = "LAKHACHQUEN";
-    
+
     private static final String insertStatement = "{call KHACHHANG_Ins(?,?,?)}";
     private static final String updateStatement = "{call KHACHHANG_Upd(?,?,?,?)}";
     private static final String deleteStatement = "{call KHACHHANG_Del(?)}";
-    
+
     //TAG
     private static final String TAG = KhachHangDAO.class.getSimpleName();
-    
-    
-    public KhachHangDAO(){
-        
+
+    public KhachHangDAO() {
+
     }
-    
+
     /*
-    * CRUD
-    */
-    public boolean insert(KhachHangDTO n){
+     * CRUD
+     */
+    public boolean insert(KhachHangDTO n) {
         //create procedure DICHVU_Ins (MADV varchar(10), TENDV varchar(30) )
         try {
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall(insertStatement);
-            
-            call.setString(maKh, n.getMaKH());
-            call.setString(maNguoi, n.getMaNguoi());
+
+            call.setInt(maKh, n.getMaKH());
+            call.setInt(maNguoi, n.getMaNguoi());
             call.setBoolean(laKhachQuen, n.isLaKhachQuen());
-            
-            
+
             return call.execute();
-                    
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-        }
-        finally{
-            if(connection!= null)
+        } finally {
+            if (connection != null) {
                 try {
                     connection.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+                }
             }
         }
         return false;
     }
-    
-    public boolean update(KhachHangDTO n){
+
+    public boolean update(KhachHangDTO n) {
         try {
             // procedure DICHVU_Upd (MADV varchar(10), TENDV varchar(30) )
             connection = DataSource.getInstance().getConnection();
-            
+
             call = connection.prepareCall(updateStatement);
-            call.setString(maKh, n.getMaKH());
-            call.setString(maNguoi, n.getMaNguoi());
+            call.setInt(maKh, n.getMaKH());
+            call.setInt(maNguoi, n.getMaNguoi());
             call.setBoolean(laKhachQuen, n.isLaKhachQuen());
-            
+
             return call.execute();
-           
+
         } catch (SQLException ex) {
             Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-        }
-        finally{
-            if(connection!= null)
+        } finally {
+            if (connection != null) {
                 try {
                     connection.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+                }
             }
         }
         return false;
     }
-    
-    public boolean delete(KhachHangDTO n){
+
+    public boolean delete(KhachHangDTO n) {
         try {
             //create procedure DICHVU_Del (MADV varchar(10) )
 
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall(deleteStatement);
-            call.setString(maKh, n.getMaKH());
-            
+            call.setInt(maKh, n.getMaKH());
+
             return call.execute();
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-        }
-        finally{
-            if(connection!=null)
+        } finally {
+            if (connection != null) {
                 try {
                     connection.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+                }
             }
         }
         return false;
     }
-    
-    public ArrayList<KhachHangDTO> getAllKhachHangQuen()
-    {
+
+    public ArrayList<KhachHangDTO> getAllKhachHangQuen() {
         try {
             //create procedure DICHVU_Del (MADV varchar(10) )
-            
+
             connection = DataSource.getInstance().getConnection();
             ArrayList<KhachHangDTO> result = new ArrayList();
             String query = "select * from NGUOI,KHACHHANG WHERE NGUOi.MANGUOI = KHACHHANG.MANGUOI AND KHACHHANG.LAKHACHQUEN = true";
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(query);
-            while(rs.next())
-            {
-                String maKh = rs.getString("MAKH");
-                String maNg = rs.getString("MANGUOI");
-                KhachHangDTO kh = new KhachHangDTO(maKh,maNg,true);
+            while (rs.next()) {
+                int maKh = rs.getInt("MAKH");
+                int maNg = rs.getInt("MANGUOI");
+                KhachHangDTO kh = new KhachHangDTO(maKh, maNg, true);
                 result.add(kh);
-            }           
+            }
             st.close();
 
             return result;
         } catch (SQLException ex) {
             Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-        }
-        finally{
-            if(connection!=null)
+        } finally {
+            if (connection != null) {
                 try {
                     connection.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+                }
             }
         }
         return null;
     }
-    
-    public NguoiDTO checkKhachHangQuen(int shortId)
-    {
+
+    public NguoiDTO checkKhachHangQuen(int shortId) {
         try {
-            
+
             connection = DataSource.getInstance().getConnection();
             ArrayList<KhachHangDTO> result = new ArrayList();
-            String query = "select * from NGUOI,KHACHHANG WHERE NGUOi.MANGUOI = KHACHHANG.MANGUOI AND KHACHHANG.LAKHACHQUEN = true AND NGUOI.SHORTID="+shortId;
+            String query = "select * from NGUOI,KHACHHANG WHERE NGUOi.MANGUOI = KHACHHANG.MANGUOI AND KHACHHANG.LAKHACHQUEN = true AND NGUOI.SHORTID=" + shortId;
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(query);
-            if(rs.first())
-            {
-                String maNg = rs.getString("MANGUOI");
+            if (rs.first()) {
+                int maNg = rs.getInt("MANGUOI");
                 String diachi = rs.getString("DIACHI");
                 String ten = rs.getString("HOTEN");
-                NguoiDTO ng = new NguoiDTO(maNg,ten,diachi,shortId);
+                NguoiDTO ng = new NguoiDTO(maNg, ten, diachi, shortId);
                 return ng;
             }
             st.close();
             return null;
         } catch (SQLException ex) {
             Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-        }
-        finally{
-            if(connection!=null)
+        } finally {
+            if (connection != null) {
                 try {
                     connection.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+                }
             }
         }
         return null;
     }
-    
-    public String getLastID() {
+
+    public int getLastID() {
         try {
             // procedure  P_No_getLastID(out maxid varchar(10))
             connection = DataSource.getInstance().getConnection();
@@ -198,7 +192,7 @@ public class KhachHangDAO {
             call.registerOutParameter(1, java.sql.Types.VARCHAR);
 
             call.execute();
-            return call.getString(1);
+            return call.getInt(1);
 
         } catch (SQLException ex) {
             Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
@@ -219,49 +213,40 @@ public class KhachHangDAO {
             }
         }
 //</editor-fold>
-        return null;
+        return 0;
     }
-    
-    public String getNexId()
-    {
-        String maPhieu = Resource.KHACHHANG+"1";
-        if(this.getLastID()!=null)
-        {
-            String curentId = getLastID();
-            maPhieu= Resource.KHACHHANG+(Integer.valueOf(curentId.substring(Resource.KHACHHANG.length()))+1)+"";
-        }
-        return maPhieu;
+
+    public int getNexId() {
+        return getLastID() + 1;
+
     }
-    
-    public String getMaKhachHangByName(int shortId)
-    {
+
+    public int getMaKhachHangByName(int shortId) {
         try {
             //create procedure DICHVU_Del (MADV varchar(10) )
-            
+
             connection = DataSource.getInstance().getConnection();
             ArrayList<KhachHangDTO> result = new ArrayList();
-            String query = "select KHACHHANG.MAKH from KHACHHANG,NGUOI where NGUOI.MANGUOI = KHACHHANG.MANGUOI and NGUOI.SHORTID="+shortId;
+            String query = "select KHACHHANG.MAKH from KHACHHANG,NGUOI where NGUOI.MANGUOI = KHACHHANG.MANGUOI and NGUOI.SHORTID=" + shortId;
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(query);
-            if(rs.first())
-            {
-                return rs.getString("MAKH");
+            if (rs.first()) {
+                return rs.getInt("MAKH");
             }
             st.close();
-            return null;
+            return 0;
         } catch (SQLException ex) {
             Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-        }
-        finally{
-            if(connection!=null)
+        } finally {
+            if (connection != null) {
                 try {
                     connection.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+                }
             }
         }
-        return null;
+        return 0;
     }
-    
-    
+
 }

@@ -9,8 +9,8 @@ public class PhieuNoModel {
     P_NoDAO mP_NoDAO = new P_NoDAO();
     P_BanHangDAO mP_BanHangDAO = new P_BanHangDAO();
     P_ThuDAO mP_ThuDAO = new P_ThuDAO();
-    private String maP_Thu = null;
-    String mMakh = null;
+    private int maP_Thu = 0;
+    int mMakh = 0;
     String mHoTen = null;
     Timestamp lastNgayTra = null;
     Double lastConLai = null;
@@ -24,13 +24,15 @@ public class PhieuNoModel {
     * Hàm lấy thông tin cần thiết cho việc tính toán. Sẽ gọi laoij khi thay
     đổi mã phiếu khách hàng. 
     */
-    public void getInformationByMaP_BH(String maP_BH){
+    public void getInformationByMaP_BH(int maP_BH){
        
          mP_BanHangDAO.getMaKHHoTenByMaP_BH(maP_BH, tmptList);
-         mMakh = tmptList[0];
+         if(tmptList[0] == null)
+             return;
+         mMakh = Integer.parseInt(tmptList[0]);
          mHoTen = tmptList[1];
          maP_Thu = mP_BanHangDAO.getMaP_ThuByMaP_BH(maP_BH);
-         mP_ThuDAO.getLastConLaiNgayTraByMaP_Thu(mMakh.toString(),maP_Thu,tmptList);
+         mP_ThuDAO.getLastConLaiNgayTraByMaP_Thu(mMakh,maP_Thu,tmptList);
          // nếu đã có phiếu nợ => load thông tin cũ lên.
          lastConLai = Double.parseDouble(tmptList[0]);
          lastNgayTra = new Timestamp(Long.parseLong(tmptList[1]));
@@ -39,11 +41,11 @@ public class PhieuNoModel {
     
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     // lấy mã phiếu nợ của phiếu hiện tại. 
-    public String getLastID(){
-        return mP_NoDAO.getLastID();
+    public int getNextID(){
+        return mP_NoDAO.getNexId();
     }
-    
-    public String getMaKH(){
+        
+    public int getMaKH(){
         return mMakh;
     }
     
@@ -52,7 +54,7 @@ public class PhieuNoModel {
     }
     
     
-    public String getMaP_Thu(){
+    public int getMaP_Thu(){
         return maP_Thu;
     }
     

@@ -31,8 +31,8 @@ public class P_ThuDAO {
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall("{call P_THU_Ins(?,?,?,?,?)}");
 
-            call.setString("MAP_THU", p_T.getMaP_Thu());
-            call.setString("MAKH", p_T.getMaKH());
+            call.setInt("MAP_THU", p_T.getMaP_Thu());
+            call.setInt("MAKH", p_T.getMaKH());
             call.setTimestamp("NGAYLAPPHIEU", p_T.getNgayLapPhieu());
             call.setTimestamp("NGAYKETTHUC", p_T.getNgayKetThuc());
             call.setDouble("TONGCONG", p_T.getTongCong());
@@ -55,14 +55,14 @@ public class P_ThuDAO {
 
     public boolean update(P_ThuDTO p_T) {
         try {
-        	// P_THU_Upd ( MAP_THU varchar(10), MAKH varchar(10),
+            // P_THU_Upd ( MAP_THU varchar(10), MAKH varchar(10),
             // NGAYLAPPHIEU time, NGAYKETTHUC time, TONGCONG decimal(10,3) )
 
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall("{call P_THU_Upd(?,?,?,?,?)}");
 
-            call.setString("MAP_THU", p_T.getMaP_Thu());
-            call.setString("MAKH", p_T.getMaKH());
+            call.setInt("MAP_THU", p_T.getMaP_Thu());
+            call.setInt("MAKH", p_T.getMaKH());
             call.setTimestamp("NGAYLAPPHIEU", p_T.getNgayLapPhieu());
             call.setTimestamp("NGAYKETTHUC", p_T.getNgayKetThuc());
             call.setDouble("TONGCONG", p_T.getTongCong());
@@ -88,7 +88,7 @@ public class P_ThuDAO {
             //P_THU_Del ( MAP_THU varchar(10) )
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall("{call P_THU_Del(?)}");
-            call.setString("MAP_THU", p_T.getMaP_Thu());
+            call.setInt("MAP_THU", p_T.getMaP_Thu());
 
             return call.execute();
 
@@ -108,25 +108,25 @@ public class P_ThuDAO {
 
     /*
      1. Intent: Lấy thông tin tiền còn lại, ngày thu
-        - Nếu phiếu thu đã lập => lấy theo bảng phiếu nợ
-        - Nếu phiếu thu chưa lập => kiểm tra , nếu là khách quen => cho lập
-        - 1,2 ko thỏa => trả về conLao = 0, ngayLap = "0000-00-00
+     - Nếu phiếu thu đã lập => lấy theo bảng phiếu nợ
+     - Nếu phiếu thu chưa lập => kiểm tra , nếu là khách quen => cho lập
+     - 1,2 ko thỏa => trả về conLao = 0, ngayLap = "0000-00-00
     
-    2. Paramiter :
-        - In : maKH = mã khách hàng ; maP_Thu = mã phiếu thu
-        - Out : tmpList[0] = tiền còn lại
-        - Out : tmpList[1] = ngày trả
+     2. Paramiter :
+     - In : maKH = mã khách hàng ; maP_Thu = mã phiếu thu
+     - Out : tmpList[0] = tiền còn lại
+     - Out : tmpList[1] = ngày trả
 
      */
-    public void getLastConLaiNgayTraByMaP_Thu(String maKH, String maP_Thu, String tmptList[]) {
+    public void getLastConLaiNgayTraByMaP_Thu(int maKH, int maP_Thu, String tmptList[]) {
         try {
 
             //  procedure  P_Thu_getLastConLaiNgayTraByMaP_Thu(in maKH varchar(10), in maP_Thu varchar(10),
             // out conLai decimal(10,3), out ngayTra timestamp)
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall("{call P_Thu_getLastConLaiNgayTraByMaP_Thu(?,?,?,?)}");
-            call.setString(1, maKH);
-            call.setString(2, maP_Thu);
+            call.setInt(1, maKH);
+            call.setInt(2, maP_Thu);
             call.registerOutParameter(3, Types.DECIMAL);
             call.registerOutParameter(4, Types.TIMESTAMP);
 
@@ -154,8 +154,8 @@ public class P_ThuDAO {
         }
 //</editor-fold>
     }
-    
-    public String getLastID() {
+
+    public int getLastID() {
         try {
             // procedure  P_No_getLastID(out maxid varchar(10))
             connection = DataSource.getInstance().getConnection();
@@ -163,7 +163,7 @@ public class P_ThuDAO {
             call.registerOutParameter(1, java.sql.Types.VARCHAR);
 
             call.execute();
-            return call.getString(1);
+            return call.getInt(1);
 
         } catch (SQLException ex) {
             Logger.getLogger(NguoiDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -184,18 +184,10 @@ public class P_ThuDAO {
             }
         }
 //</editor-fold>
-        return null;
+        return 0;
     }
-    
-    
-    public String getNexId()
-    {
-        String maPhieu = Resource.P_THU+"1";
-        if(this.getLastID()!=null)
-        {
-            String curentId = getLastID();
-            maPhieu= Resource.P_THU+(Integer.valueOf(curentId.substring(Resource.P_THU.length()))+1)+"";
-        }
-        return maPhieu;
+
+    public int getNexId() {
+        return getLastID() + 1;
     }
 }

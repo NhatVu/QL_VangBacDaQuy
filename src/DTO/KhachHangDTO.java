@@ -14,44 +14,35 @@ public class KhachHangDTO {
      * Properties
      */
 
-    private String maKH;
-    private String maNguoi;
+    private int maKH;
+    private int maNguoi;
     private boolean laKhachQuen;
-    
-    
-    
-    /*
-    * Constructor
-    */
 
-    public KhachHangDTO(String maKH, String maNguoi, boolean laKhachQuen) {
+    /*
+     * Constructor
+     */
+    public KhachHangDTO(int maKH, int maNguoi, boolean laKhachQuen) {
         this.maKH = maKH;
         this.maNguoi = maNguoi;
         this.laKhachQuen = laKhachQuen;
     }
 
- 
-
-    
-    
-    
-    /*
-    * Gettes and setters
-    */
-
-    public String getMaKH() {
+    public int getMaKH() {
         return maKH;
     }
 
-    public void setMaKH(String maKH) {
+    /*
+     * Gettes and setters
+     */
+    public void setMaKH(int maKH) {
         this.maKH = maKH;
     }
 
-    public String getMaNguoi() {
+    public int getMaNguoi() {
         return maNguoi;
     }
 
-    public void setMaNguoi(String maNguoi) {
+    public void setMaNguoi(int maNguoi) {
         this.maNguoi = maNguoi;
     }
 
@@ -62,7 +53,5 @@ public class KhachHangDTO {
     public void setLaKhachQuen(boolean laKhachQuen) {
         this.laKhachQuen = laKhachQuen;
     }
-
-   
 
 }

@@ -14,46 +14,45 @@ public class CT_TonKhoDTO {
      * Properties
      */
 
-    private String maCTP_TK = null;
-    private String maP_TK = null;
-    private String maHang = null;
+    private int maCTP_TK;
+    private int maP_TK;
+    private int maHang;
     private int tonDauKy = 0;
     private int tonCuoiKy = 0;
     private int soLuongBan = 0;
     private int soLuongMua = 0;
-    
+
     /*
-    * Constructor
-    */
-    public CT_TonKhoDTO(){
-        
+     * Constructor
+     */
+    public CT_TonKhoDTO() {
+
     }
 
     /*
-    * Getters and Setters
-    */
-
-    public String getMaCTP_TK() {
+     * Getters and Setters
+     */
+    public int getMaCTP_TK() {
         return maCTP_TK;
     }
 
-    public void setMaCTP_TK(String maCTP_TK) {
+    public void setMaCTP_TK(int maCTP_TK) {
         this.maCTP_TK = maCTP_TK;
     }
 
-    public String getMaP_TK() {
+    public int getMaP_TK() {
         return maP_TK;
     }
 
-    public void setMaP_TK(String maP_TK) {
+    public void setMaP_TK(int maP_TK) {
         this.maP_TK = maP_TK;
     }
 
-    public String getMaHang() {
+    public int getMaHang() {
         return maHang;
     }
 
-    public void setMaHang(String maHang) {
+    public void setMaHang(int maHang) {
         this.maHang = maHang;
     }
 
@@ -88,5 +87,5 @@ public class CT_TonKhoDTO {
     public void setSoLuongMua(int soLuongMua) {
         this.soLuongMua = soLuongMua;
     }
-    
+
 }

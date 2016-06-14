@@ -29,8 +29,8 @@ public class P_NoDAO {
         try {
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall("{call P_NO_Ins(?,?,?,?,?,?)}");
-            call.setString("MAP_NO", p_N.getMaP_No());
-            call.setString("MAP_THU", p_N.getMaP_Thu());
+            call.setInt("MAP_NO", p_N.getMaP_No());
+            call.setInt("MAP_THU", p_N.getMaP_Thu());
             call.setTimestamp("NGAYNO", p_N.getNgayNo());
             call.setDouble("SOTIENNO", p_N.getSoTienNo());
             call.setTimestamp("NGAYTRA", p_N.getNgayTra());
@@ -67,8 +67,8 @@ public class P_NoDAO {
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall("{call P_NO_Upd(?,?,?,?,?,?)}");
 
-            call.setString("MAP_NO", p_N.getMaP_No());
-            call.setString("MAP_THU", p_N.getMaP_Thu());
+            call.setInt("MAP_NO", p_N.getMaP_No());
+            call.setInt("MAP_THU", p_N.getMaP_Thu());
             call.setTimestamp("NGAYNO", p_N.getNgayNo());
             call.setDouble("SOTIENNO", p_N.getSoTienNo());
             call.setTimestamp("NGAYTRA", p_N.getNgayTra());
@@ -101,7 +101,7 @@ public class P_NoDAO {
             //P_NO_Del (MAP_NO varchar(10))
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall("{call P_NO_Del(?)}");
-            call.setString("MAP_NO", p_N.getMaP_No());
+            call.setInt("MAP_NO", p_N.getMaP_No());
             
             return call.execute();
             
@@ -133,7 +133,7 @@ public class P_NoDAO {
     2. Return
         - Trả về mã phiếu nợ.
     */
-    public String getLastID(){
+    public int getLastID(){
         try {
             // procedure  P_No_getLastID(out maxid varchar(10))
             connection = DataSource.getInstance().getConnection();
@@ -141,10 +141,7 @@ public class P_NoDAO {
             call.registerOutParameter(1, java.sql.Types.VARCHAR);
             
             call.execute();
-            String tempt = call.getString(1);
-            if(tempt == null)
-                tempt = Resource.P_NO + "0";
-            return tempt;
+            return call.getInt(1);
             
         } catch (SQLException ex) {
             Logger.getLogger(P_NoDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -165,6 +162,15 @@ public class P_NoDAO {
             }
         }
 //</editor-fold>
-          return null;  
+          return 0;  
+    }
+    
+      public int getNexId() {
+        int maPhieu = 1;
+        if (this.getLastID() != 0) {
+
+            maPhieu = getLastID() + 1;
+        }
+        return maPhieu;
     }
 }

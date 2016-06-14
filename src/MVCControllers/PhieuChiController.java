@@ -25,14 +25,14 @@ public class PhieuChiController {
     PhieuChiModel model = new PhieuChiModel();
     PhieuChiView view = null;
 
-    public void startApplication() {
+    public void start() {
         view = new PhieuChiView(this);
         view.getFrame().setVisible(true);
     }
 
     public void btnLuuActionPerformed(ActionEvent e) {
         P_ChiDTO p_ChiDTO = new P_ChiDTO();
-        p_ChiDTO.setMaP_Chi(view.getTextMaPhieu().getText());
+        p_ChiDTO.setMaP_Chi(Integer.parseInt(view.getTextMaPhieu().getText()));
         p_ChiDTO.setNgayChi(new Timestamp(view.getDateNgayChi().getDate().getTime()));
 
 //        if (!CheckInput.isCharacter(view.getTextNoiDung().getText())) {
@@ -63,9 +63,7 @@ public class PhieuChiController {
     }
 
     public void frameWindowOpened(WindowEvent e) {
-        String lastID = model.getLastID();
-        lastID = Resource.P_CHI + (Integer.parseInt(lastID.substring(Resource.P_CHI.length())) + 1);
-        view.getTextMaPhieu().setText(lastID);
+        view.getTextMaPhieu().setText(String.valueOf(model.getNextID()));
         view.getDateNgayChi().setDate(new Date());
     }
 }

@@ -19,7 +19,7 @@ import main.Resource;
  *
  * @author Minh Nhat
  */
-public class TonKhoModel { 
+public class TonKhoModel {
 
     SanPhamDAO spDAO = new SanPhamDAO();
     TonKhoDAO tkDAO = new TonKhoDAO();
@@ -28,10 +28,10 @@ public class TonKhoModel {
     P_MuaHangDAO mhDAO = new P_MuaHangDAO();
 
     TonKhoDTO tkDTO = new TonKhoDTO();
-    List<String> lMaSP = null;
-    Map<String, Integer> MaSPTongBan = new HashMap<String, Integer>();
-    Map<String, Integer> MaSPTongMua = new HashMap<String, Integer>();
-    Map<String, Integer> MaSPTonDauKy = new HashMap<String, Integer>();
+    List<Integer> lMaSP = null;
+    Map<Integer, Integer> MaSPTongBan = new HashMap<Integer, Integer>();
+    Map<Integer, Integer> MaSPTongMua = new HashMap<Integer, Integer>();
+    Map<Integer, Integer> MaSPTonDauKy = new HashMap<Integer, Integer>();
 
     public void init(Timestamp newNgayBC) {
         lMaSP = spDAO.getMaSP();
@@ -56,25 +56,24 @@ public class TonKhoModel {
     }
 
     public void insertCT_TonKho(CT_TonKhoDTO ct_tk) {
-        
+
         ct_tkDAO.insert(ct_tk);
     }
 
-    public String getLastIDOfCT_TK(){
-        String lastID = ct_tkDAO.getLastID();
-        
-        return lastID;
+  
+    public int getNextIDOfCT_TK(){
+        return ct_tkDAO.getNexId();
     }
     private void getLastRow() {
         tkDAO.getLastRow(tkDTO);
     }
-
-    public String getLastID() {
-        return tkDTO.getMaP_TK();
+    
+    public int getNextID(){
+        return tkDTO.getMaP_TK() + 1;
     }
 
     // trả về danh sách các sản phẩm cần lập báo cáo
-    public List<String> getListMaSP() {
+    public List<Integer> getListMaSP() {
         return lMaSP;
     }
 
@@ -90,15 +89,15 @@ public class TonKhoModel {
         mhDAO.getMaSPTongMua(tkDTO.getNgayBaoCao(), newNgayBC, MaSPTongMua);
     }
 
-    public Map<String, Integer> getMaSPTongBan() {
+    public Map<Integer, Integer> getMaSPTongBan() {
         return MaSPTongBan;
     }
 
-    public Map<String, Integer> getMaSPTongMua() {
+    public Map<Integer, Integer> getMaSPTongMua() {
         return MaSPTongMua;
     }
 
-    public Map<String, Integer> getMaSPTonDauKy() {
+    public Map<Integer, Integer> getMaSPTonDauKy() {
         return MaSPTonDauKy;
     }
 

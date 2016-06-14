@@ -32,7 +32,7 @@ public class PhieuBanHangController
     private String[] dsTenSanPham;
     private double donGiaBan = 0;
     
-    public void startApplication() {
+    public void start() {
         view = new PhieuBanHangView(this);
         view.setVisible(true);
         createAutoView();
@@ -130,7 +130,7 @@ public class PhieuBanHangController
 		}
 	});
 		
-	view.getTextMaPhieu().setText(model.getNextIdOfPhieuBanHang());
+	view.getTextMaPhieu().setText(String.valueOf(model.getNextIdOfPhieuBanHang()));
 	view.getTextMaPhieu().setEditable(false);
 	view.getDateNgayBan().setDate(getCurrentDate());
 	view.getTextTongCong().setEditable(false);
@@ -216,10 +216,10 @@ public class PhieuBanHangController
     		String shortId = view.getTextMaKH().getText().toString().trim();
     		NguoiDTO nguoi = model.kiemTraKhachQuen(Integer.valueOf(shortId));
     		
-    		String maKH = "";
+    		int maKH = 0;
     		if( nguoi == null )
     		{
-    			String nextNguoiId = model.getNextIdOfNguoi();
+    			int nextNguoiId = model.getNextIdOfNguoi();
     			maKH = model.getNextIdOfKhachHang();
     			NguoiDTO nguoiDTO = new NguoiDTO(
     					nextNguoiId,
@@ -240,7 +240,7 @@ public class PhieuBanHangController
     		/*
     		 *  insert P_ThuDTO
     		 */
-    		String nextIdPhieuThu = model.getNextIdOfPhieuThu();
+    		int nextIdPhieuThu = model.getNextIdOfPhieuThu();
     		P_ThuDTO p_ThuDTO = new P_ThuDTO(
     				nextIdPhieuThu, 
     				maKH, 
@@ -252,7 +252,7 @@ public class PhieuBanHangController
     		/*
     		 *  insert P_BanHangDTO
     		 */
-    		String nextIdPhieuBanHang = model.getNextIdOfPhieuBanHang();
+    		int nextIdPhieuBanHang = model.getNextIdOfPhieuBanHang();
     		P_BanHangDTO p_BanHangDTO = new P_BanHangDTO(nextIdPhieuBanHang, nextIdPhieuThu);
     		
     		/*
@@ -260,7 +260,7 @@ public class PhieuBanHangController
     		 */
     		for( TableData data : view.getTableModel().getmObjectList() )
     		{
-    			String maSP = ""; // được lấy lên từ Database 
+    			int maSP = 0 ;// được lấy lên từ Database 
     			int soLuongTon = 0; // được lấy lên từ Database 
     			String tenSP = data.getDataAt(0);
     			

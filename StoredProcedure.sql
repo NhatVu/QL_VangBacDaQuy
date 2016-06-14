@@ -8,13 +8,13 @@ delimiter //
 
 
 
-create procedure CT_TONKHO_Ins (MACTP_TK varchar(20), MAP_TK varchar(20), MAHANG varchar(20), TONDAUKY int, TONCUOIKY int, SOLUONGBAN int, SOLUONGMUA int )
+create procedure CT_TONKHO_Ins (MACTP_TK INT, MAP_TK INT, MAHANG INT, TONDAUKY int, TONCUOIKY int, SOLUONGBAN int, SOLUONGMUA int )
 begin
 insert into ct_tonkho ( MACTP_TK, MAP_TK, MAHANG, TONDAUKY, TONCUOIKY, SOLUONGBAN, SOLUONGMUA ) values ( MACTP_TK, MAP_TK, MAHANG, TONDAUKY, TONCUOIKY, SOLUONGBAN, SOLUONGMUA );
 end//
 
 
-create procedure CT_TONKHO_Upd (MACTP_TK varchar(20), MAP_TK varchar(20), MAHANG varchar(20), TONDAUKY int, TONCUOIKY int, SOLUONGBAN int, SOLUONGMUA int )
+create procedure CT_TONKHO_Upd (MACTP_TK INT, MAP_TK INT, MAHANG INT, TONDAUKY int, TONCUOIKY int, SOLUONGBAN int, SOLUONGMUA int )
 begin
 update ct_tonkho as a 
 set 
@@ -28,7 +28,7 @@ where a.MACTP_TK = MACTP_TK;
 end//
 
 
-create procedure CT_TONKHO_Del (MACTP_TK varchar(20) )
+create procedure CT_TONKHO_Del (MACTP_TK INT )
 begin
 delete from ct_tonkho 
 where MACTP_TK = MACTP_TK;
@@ -41,13 +41,13 @@ end//
 
 
 
-create procedure CTP_BANHANG_Ins (MACTP_BH varchar(20), MAP_BH varchar(20), MASP varchar(20), SOLUONG int, THANHTIEN decimal )
+create procedure CTP_BANHANG_Ins (MACTP_BH INT, MAP_BH INT, MASP INT, SOLUONG int, THANHTIEN decimal )
 begin
 insert into ctp_banhang ( MACTP_BH, MAP_BH, MASP, SOLUONG, THANHTIEN ) values ( MACTP_BH, MAP_BH, MASP, SOLUONG, THANHTIEN );
 end//
 
 
-create procedure CTP_BANHANG_Upd (MACTP_BH varchar(20), MAP_BH varchar(20), MASP varchar(20), SOLUONG int, THANHTIEN decimal )
+create procedure CTP_BANHANG_Upd (MACTP_BH INT, MAP_BH INT, MASP INT, SOLUONG int, THANHTIEN decimal )
 begin
 update ctp_banhang as a 
 set 
@@ -59,7 +59,7 @@ where a.MACTP_BH = MACTP_BH;
 end//
 
 
-create procedure CTP_BANHANG_Del (MACTP_BH varchar(20) )
+create procedure CTP_BANHANG_Del (MACTP_BH INT )
 begin
 delete from ctp_banhang 
 where MACTP_BH = MACTP_BH;
@@ -74,13 +74,13 @@ end//
 
 
 
-create procedure CTP_DICHVU_Ins (MACTP_DV varchar(20), MAP_DV varchar(20), MADV varchar(20), SOLUONG int, THANHTIEN decimal )
+create procedure CTP_DICHVU_Ins (MACTP_DV INT, MAP_DV INT, MADV INT, SOLUONG int, THANHTIEN decimal )
 begin
 insert into ctp_dichvu ( MACTP_DV, MAP_DV, MADV, SOLUONG, THANHTIEN ) values ( MACTP_DV, MAP_DV, MADV, SOLUONG, THANHTIEN );
 end//
 
 
-create procedure CTP_DICHVU_Upd (MACTP_DV varchar(20), MAP_DV varchar(20), MADV varchar(20), SOLUONG int, THANHTIEN decimal )
+create procedure CTP_DICHVU_Upd (MACTP_DV INT, MAP_DV INT, MADV INT, SOLUONG int, THANHTIEN decimal )
 begin
 update ctp_dichvu as a 
 set 
@@ -92,14 +92,14 @@ where a.MACTP_DV = MACTP_DV;
 end//
 
 
-create procedure CTP_DICHVU_Del (MACTP_DV varchar(20) )
+create procedure CTP_DICHVU_Del (MACTP_DV INT )
 begin
 delete from ctp_dichvu 
 where MACTP_DV = MACTP_DV;
 end//
 
 delimiter //
-create procedure  CTP_DICHVU_getLastID(out maxId varchar(20))
+create procedure  CTP_DICHVU_getLastID(out maxId INT)
 begin
 select MACTP_DV into maxid
 from ctp_dichvu
@@ -114,13 +114,13 @@ end//
 
 
 
-create procedure CTP_GIACONG_Ins (MACTP_GC varchar(20), MAP_GC varchar(20), MALOAIGC varchar(20), SOLUONG int, THANHTIEN decimal )
+create procedure CTP_GIACONG_Ins (MACTP_GC INT, MAP_GC INT, MALOAIGC INT, SOLUONG int, THANHTIEN decimal )
 begin
 insert into ctp_giacong ( MACTP_GC, MAP_GC, MALOAIGC, SOLUONG, THANHTIEN ) values ( MACTP_GC, MAP_GC, MALOAIGC, SOLUONG, THANHTIEN );
 end//
 
 
-create procedure CTP_GIACONG_Upd (MACTP_GC varchar(20), MAP_GC varchar(20), MALOAIGC varchar(20), SOLUONG int, THANHTIEN decimal )
+create procedure CTP_GIACONG_Upd (MACTP_GC INT, MAP_GC INT, MALOAIGC INT, SOLUONG int, THANHTIEN decimal )
 begin
 update ctp_giacong as a 
 set 
@@ -132,14 +132,14 @@ where a.MACTP_GC = MACTP_GC;
 end//
 
 
-create procedure CTP_GIACONG_Del (MACTP_GC varchar(20) )
+create procedure CTP_GIACONG_Del (MACTP_GC INT )
 begin
 delete from ctp_giacong 
 where MACTP_GC = MACTP_GC;
 end//
 
 delimiter //
-create procedure  CTP_GIACONG_getLastID(out maxId varchar(20))
+create procedure  CTP_GIACONG_getLastID(out maxId INT)
 begin
 select MACTP_GC into maxid
 from ctp_giacong
@@ -154,13 +154,13 @@ end//
 
 
 
-create procedure CTP_MUAHANG_Ins (MACTP_MH varchar(20), MASP varchar(20), MAP_MH varchar(20), SOLUONG int, THANHTIEN decimal )
+create procedure CTP_MUAHANG_Ins (MACTP_MH INT, MASP INT, MAP_MH INT, SOLUONG int, THANHTIEN decimal )
 begin
 insert into ctp_muahang ( MACTP_MH, MASP, MAP_MH, SOLUONG, THANHTIEN ) values ( MACTP_MH, MASP, MAP_MH, SOLUONG, THANHTIEN );
 end//
 
 
-create procedure CTP_MUAHANG_Upd (MACTP_MH varchar(20), MASP varchar(20), MAP_MH varchar(20), SOLUONG int, THANHTIEN decimal )
+create procedure CTP_MUAHANG_Upd (MACTP_MH INT, MASP INT, MAP_MH INT, SOLUONG int, THANHTIEN decimal )
 begin
 update ctp_muahang as a 
 set 
@@ -172,7 +172,7 @@ where a.MACTP_MH = MACTP_MH;
 end//
 
 
-create procedure CTP_MUAHANG_Del (MACTP_MH varchar(20) )
+create procedure CTP_MUAHANG_Del (MACTP_MH INT )
 begin
 delete from ctp_muahang 
 where MACTP_MH = MACTP_MH;
@@ -185,13 +185,13 @@ end//
 
 
 
-create procedure DICHVU_Ins (MADV varchar(20), TENDV varchar(30), DONGIA decimal )
+create procedure DICHVU_Ins (MADV INT, TENDV varchar(30), DONGIA decimal )
 begin
 insert into dichvu ( MADV, TENDV, DONGIA ) values ( MADV, TENDV, DONGIA );
 end//
 
 
-create procedure DICHVU_Upd (MADV varchar(20), TENDV varchar(30), DONGIA decimal )
+create procedure DICHVU_Upd (MADV INT, TENDV varchar(30), DONGIA decimal )
 begin
 update dichvu as a 
 set 
@@ -201,7 +201,7 @@ where a.MADV = MADV;
 end//
 
 
-create procedure DICHVU_Del (MADV varchar(20) )
+create procedure DICHVU_Del (MADV INT )
 begin
 delete from dichvu 
 where MADV = MADV;
@@ -214,23 +214,23 @@ end//
 
 
 
-create procedure HANGGIACONG_Ins (MALOAIGC varchar(20), TENLOAGC varchar(20), DONGIA decimal )
+create procedure HANGGIACONG_Ins (MALOAIGC INT, TENLOAIGC varchar(20), DONGIA decimal )
 begin
-insert into hanggiacong ( MALOAIGC, TENLOAGC, DONGIA ) values ( MALOAIGC, TENLOAGC, DONGIA );
+insert into hanggiacong ( MALOAIGC, TENLOAIGC, DONGIA ) values ( MALOAIGC, TENLOAIGC, DONGIA );
 end//
 
 
-create procedure HANGGIACONG_Upd (MALOAIGC varchar(20), TENLOAGC varchar(20), DONGIA decimal )
+create procedure HANGGIACONG_Upd (MALOAIGC INT, TENLOAIGC varchar(20), DONGIA decimal )
 begin
 update hanggiacong as a 
 set 
-a.TENLOAGC = if(a.TENLOAGC <> TENLOAGC, TENLOAGC, a.TENLOAGC),
+a.TENLOAIGC = if(a.TENLOAIGC <> TENLOAIGC, TENLOAIGC, a.TENLOAIGC),
 a.DONGIA = if(a.DONGIA <> DONGIA, DONGIA, a.DONGIA)
 where a.MALOAIGC = MALOAIGC;
 end//
 
 
-create procedure HANGGIACONG_Del (MALOAIGC varchar(20) )
+create procedure HANGGIACONG_Del (MALOAIGC INT )
 begin
 delete from hanggiacong 
 where MALOAIGC = MALOAIGC;
@@ -243,13 +243,13 @@ end//
 
 
 
-create procedure KHACHHANG_Ins (MAKH varchar(20), MANGUOI varchar(20), LAKHACHQUEN tinyint )
+create procedure KHACHHANG_Ins (MAKH INT, MANGUOI INT, LAKHACHQUEN tinyint )
 begin
 insert into khachhang ( MAKH, MANGUOI, LAKHACHQUEN ) values ( MAKH, MANGUOI, LAKHACHQUEN );
 end//
 
 
-create procedure KHACHHANG_Upd (MAKH varchar(20), MANGUOI varchar(20), LAKHACHQUEN tinyint )
+create procedure KHACHHANG_Upd (MAKH INT, MANGUOI INT, LAKHACHQUEN tinyint )
 begin
 update khachhang as a 
 set 
@@ -259,14 +259,14 @@ where a.MAKH = MAKH;
 end//
 
 
-create procedure KHACHHANG_Del (MAKH varchar(20) )
+create procedure KHACHHANG_Del (MAKH INT )
 begin
 delete from khachhang 
 where MAKH = MAKH;
 end//
 
 delimiter //
-create procedure  KHACHHANG_getLastID(out maxId varchar(20))
+create procedure  KHACHHANG_getLastID(out maxId INT)
 begin
 select MAKH into maxid
 from khachhang
@@ -281,13 +281,13 @@ end//
 
 
 
-create procedure NGUOI_Ins (MANGUOI varchar(20), SHORTID int, HOTEN varchar(50), DIACHI varchar(200) )
+create procedure NGUOI_Ins (MANGUOI INT, SHORTID int, HOTEN varchar(50), DIACHI varchar(200) )
 begin
 insert into nguoi ( MANGUOI, SHORTID, HOTEN, DIACHI ) values ( MANGUOI, SHORTID, HOTEN, DIACHI );
 end//
 
 
-create procedure NGUOI_Upd (MANGUOI varchar(20), SHORTID int, HOTEN varchar(50), DIACHI varchar(200) )
+create procedure NGUOI_Upd (MANGUOI INT, SHORTID int, HOTEN varchar(50), DIACHI varchar(200) )
 begin
 update nguoi as a 
 set 
@@ -298,14 +298,14 @@ where a.MANGUOI = MANGUOI;
 end//
 
 
-create procedure NGUOI_Del (MANGUOI varchar(20) )
+create procedure NGUOI_Del (MANGUOI INT )
 begin
 delete from nguoi 
 where MANGUOI = MANGUOI;
 end//
 
 delimiter //
-create procedure  NGUOI_getLastID(out maxId varchar(20))
+create procedure  NGUOI_getLastID(out maxId INT)
 begin
 select MANGUOI into maxid
 from nguoi
@@ -320,13 +320,13 @@ end//
 
 
 
-create procedure P_BANHANG_Ins (MAP_BH varchar(20), MAP_THU varchar(20) )
+create procedure P_BANHANG_Ins (MAP_BH INT, MAP_THU INT )
 begin
 insert into p_banhang ( MAP_BH, MAP_THU ) values ( MAP_BH, MAP_THU );
 end//
 
 
-create procedure P_BANHANG_Upd (MAP_BH varchar(20), MAP_THU varchar(20) )
+create procedure P_BANHANG_Upd (MAP_BH INT, MAP_THU INT )
 begin
 update p_banhang as a 
 set 
@@ -335,7 +335,7 @@ where a.MAP_BH = MAP_BH;
 end//
 
 
-create procedure P_BANHANG_Del (MAP_BH varchar(20) )
+create procedure P_BANHANG_Del (MAP_BH INT )
 begin
 delete from p_banhang 
 where MAP_BH = MAP_BH;
@@ -345,13 +345,13 @@ end//
 /*******************************************
 * Table: P_CHI
 **********************************************/
-create procedure P_CHI_Ins (MAP_CHI varchar(20), NGAYCHI timestamp, NOIDUNG varchar(300), SOTIENCHI decimal )
+create procedure P_CHI_Ins (MAP_CHI INT, NGAYCHI timestamp, NOIDUNG varchar(300), SOTIENCHI decimal )
 begin
 insert into p_chi ( MAP_CHI, NGAYCHI,NOIDUNG, SOTIENCHI ) values ( MAP_CHI, NGAYCHI,NOIDUNG, SOTIENCHI );
 end//
 
 
-create procedure P_CHI_Upd (MAP_CHI varchar(20), NGAYCHI timestamp, NOIDUNG varchar(300),SOTIENCHI decimal )
+create procedure P_CHI_Upd (MAP_CHI INT, NGAYCHI timestamp, NOIDUNG varchar(300),SOTIENCHI decimal )
 begin
 update p_chi as a 
 set 
@@ -362,7 +362,7 @@ where a.MAP_CHI = MAP_CHI;
 end//
 
 
-create procedure P_CHI_Del (MAP_CHI varchar(20) )
+create procedure P_CHI_Del (MAP_CHI INT )
 begin
 delete from p_chi 
 where MAP_CHI = MAP_CHI;
@@ -375,13 +375,13 @@ end//
 
 
 
-create procedure P_DICHVU_Ins (MAP_DV varchar(20), MAP_THU varchar(20) )
+create procedure P_DICHVU_Ins (MAP_DV INT, MAP_THU INT )
 begin
 insert into p_dichvu ( MAP_DV, MAP_THU ) values ( MAP_DV, MAP_THU );
 end//
 
 
-create procedure P_DICHVU_Upd (MAP_DV varchar(20), MAP_THU varchar(20) )
+create procedure P_DICHVU_Upd (MAP_DV INT, MAP_THU INT )
 begin
 update p_dichvu as a 
 set 
@@ -390,14 +390,14 @@ where a.MAP_DV = MAP_DV;
 end//
 
 
-create procedure P_DICHVU_Del (MAP_DV varchar(20) )
+create procedure P_DICHVU_Del (MAP_DV INT )
 begin
 delete from p_dichvu 
 where MAP_DV = MAP_DV;
 end//
 
 delimiter //
-create procedure  P_DICHVU_getLastID(out maxId varchar(20))
+create procedure  P_DICHVU_getLastID(out maxId INT)
 begin
 select MAP_DV into maxid
 from p_dichvu
@@ -411,13 +411,13 @@ end//
 
 
 
-create procedure P_GIACONG_Ins (MAP_GC varchar(20), MATHOGC varchar(20), NGAYNHANHANG timestamp, NGAYTHANHTOAN timestamp, TONGCONG decimal )
+create procedure P_GIACONG_Ins (MAP_GC INT, MATHOGC INT, NGAYNHANHANG timestamp, NGAYTHANHTOAN timestamp, TONGCONG decimal )
 begin
 insert into p_giacong ( MAP_GC, MATHOGC, NGAYNHANHANG, NGAYTHANHTOAN, TONGCONG ) values ( MAP_GC, MATHOGC, NGAYNHANHANG, NGAYTHANHTOAN, TONGCONG );
 end//
 
 
-create procedure P_GIACONG_Upd (MAP_GC varchar(20), MATHOGC varchar(20), NGAYNHANHANG timestamp, NGAYTHANHTOAN timestamp, TONGCONG decimal )
+create procedure P_GIACONG_Upd (MAP_GC INT, MATHOGC INT, NGAYNHANHANG timestamp, NGAYTHANHTOAN timestamp, TONGCONG decimal )
 begin
 update p_giacong as a 
 set 
@@ -429,14 +429,14 @@ where a.MAP_GC = MAP_GC;
 end//
 
 
-create procedure P_GIACONG_Del (MAP_GC varchar(20) )
+create procedure P_GIACONG_Del (MAP_GC INT )
 begin
 delete from p_giacong 
 where MAP_GC = MAP_GC;
 end//
 
 delimiter //
-create procedure  P_GIACONG_getLastID(out maxId varchar(20))
+create procedure  P_GIACONG_getLastID(out maxId INT)
 begin
 select MAP_GC into maxid
 from p_giacong
@@ -451,13 +451,13 @@ end//
 
 
 
-create procedure P_MUAHANG_Ins (MAP_MH varchar(20), MAKH varchar(20), NGAYMUA timestamp, NGAYTHANHTOAN timestamp, TONGCONG decimal )
+create procedure P_MUAHANG_Ins (MAP_MH INT, MAKH INT, NGAYMUA timestamp, NGAYTHANHTOAN timestamp, TONGCONG decimal )
 begin
 insert into p_muahang ( MAP_MH, MAKH, NGAYMUA, NGAYTHANHTOAN, TONGCONG ) values ( MAP_MH, MAKH, NGAYMUA, NGAYTHANHTOAN, TONGCONG );
 end//
 
 
-create procedure P_MUAHANG_Upd (MAP_MH varchar(20), MAKH varchar(20), NGAYMUA timestamp, NGAYTHANHTOAN timestamp, TONGCONG decimal )
+create procedure P_MUAHANG_Upd (MAP_MH INT, MAKH INT, NGAYMUA timestamp, NGAYTHANHTOAN timestamp, TONGCONG decimal )
 begin
 update p_muahang as a 
 set 
@@ -469,7 +469,7 @@ where a.MAP_MH = MAP_MH;
 end//
 
 
-create procedure P_MUAHANG_Del (MAP_MH varchar(20) )
+create procedure P_MUAHANG_Del (MAP_MH INT )
 begin
 delete from p_muahang 
 where MAP_MH = MAP_MH;
@@ -482,13 +482,13 @@ end//
 
 
 
-create procedure P_NO_Ins (MAP_NO varchar(20), MAP_THU varchar(20), NGAYNO timestamp, SOTIENNO decimal, NGAYTRA timestamp, SOTIENTRA decimal )
+create procedure P_NO_Ins (MAP_NO INT, MAP_THU INT, NGAYNO timestamp, SOTIENNO decimal, NGAYTRA timestamp, SOTIENTRA decimal )
 begin
 insert into p_no ( MAP_NO, MAP_THU, NGAYNO, SOTIENNO, NGAYTRA, SOTIENTRA ) values ( MAP_NO, MAP_THU, NGAYNO, SOTIENNO, NGAYTRA, SOTIENTRA );
 end//
 
 
-create procedure P_NO_Upd (MAP_NO varchar(20), MAP_THU varchar(20), NGAYNO timestamp, SOTIENNO decimal, NGAYTRA timestamp, SOTIENTRA decimal )
+create procedure P_NO_Upd (MAP_NO INT, MAP_THU INT, NGAYNO timestamp, SOTIENNO decimal, NGAYTRA timestamp, SOTIENTRA decimal )
 begin
 update p_no as a 
 set 
@@ -501,7 +501,7 @@ where a.MAP_NO = MAP_NO;
 end//
 
 
-create procedure P_NO_Del (MAP_NO varchar(20) )
+create procedure P_NO_Del (MAP_NO INT )
 begin
 delete from p_no 
 where MAP_NO = MAP_NO;
@@ -514,13 +514,13 @@ end//
 
 
 
-create procedure P_THU_Ins (MAP_THU varchar(20), MAKH varchar(20), NGAYLAPPHIEU timestamp, NGAYKETTHUC timestamp, TONGCONG decimal )
+create procedure P_THU_Ins (MAP_THU INT, MAKH INT, NGAYLAPPHIEU timestamp, NGAYKETTHUC timestamp, TONGCONG decimal )
 begin
 insert into p_thu ( MAP_THU, MAKH, NGAYLAPPHIEU, NGAYKETTHUC, TONGCONG ) values ( MAP_THU, MAKH, NGAYLAPPHIEU, NGAYKETTHUC, TONGCONG );
 end//
 
 
-create procedure P_THU_Upd (MAP_THU varchar(20), MAKH varchar(20), NGAYLAPPHIEU timestamp, NGAYKETTHUC timestamp, TONGCONG decimal )
+create procedure P_THU_Upd (MAP_THU INT, MAKH INT, NGAYLAPPHIEU timestamp, NGAYKETTHUC timestamp, TONGCONG decimal )
 begin
 update p_thu as a 
 set 
@@ -532,14 +532,14 @@ where a.MAP_THU = MAP_THU;
 end//
 
 
-create procedure P_THU_Del (MAP_THU varchar(20) )
+create procedure P_THU_Del (MAP_THU INT )
 begin
 delete from p_thu 
 where MAP_THU = MAP_THU;
 end//
 
 delimiter //
-create procedure  P_THU_getLastID(out maxId varchar(20))
+create procedure  P_THU_getLastID(out maxId INT)
 begin
 select MAP_THU into maxid
 from p_thu
@@ -554,13 +554,13 @@ end//
 
 
 
-create procedure SANPHAM_Ins (MASP varchar(20), TENLOAISP varchar(30), DONGIAMUA decimal, DONGIABAN decimal, SOLUONGTON int )
+create procedure SANPHAM_Ins (MASP INT, TENLOAISP varchar(30), DONGIAMUA decimal, DONGIABAN decimal, SOLUONGTON int )
 begin
 insert into sanpham ( MASP, TENLOAISP, DONGIAMUA, DONGIABAN, SOLUONGTON ) values ( MASP, TENLOAISP, DONGIAMUA, DONGIABAN, SOLUONGTON );
 end//
 
 
-create procedure SANPHAM_Upd (MASP varchar(20), TENLOAISP varchar(30), DONGIAMUA decimal, DONGIABAN decimal, SOLUONGTON int )
+create procedure SANPHAM_Upd (MASP INT, TENLOAISP varchar(30), DONGIAMUA decimal, DONGIABAN decimal, SOLUONGTON int )
 begin
 update sanpham as a 
 set 
@@ -572,7 +572,7 @@ where a.MASP = MASP;
 end//
 
 
-create procedure SANPHAM_Del (MASP varchar(20) )
+create procedure SANPHAM_Del (MASP INT )
 begin
 delete from sanpham 
 where MASP = MASP;
@@ -585,13 +585,13 @@ end//
 
 
 
-create procedure THOGIACONG_Ins (MATHOGC varchar(20), MANGUOI varchar(20) )
+create procedure THOGIACONG_Ins (MATHOGC INT, MANGUOI INT )
 begin
 insert into thogiacong ( MATHOGC, MANGUOI ) values ( MATHOGC, MANGUOI );
 end//
 
 
-create procedure THOGIACONG_Upd (MATHOGC varchar(20), MANGUOI varchar(20) )
+create procedure THOGIACONG_Upd (MATHOGC INT, MANGUOI INT )
 begin
 update thogiacong as a 
 set 
@@ -600,7 +600,7 @@ where a.MATHOGC = MATHOGC;
 end//
 
 
-create procedure THOGIACONG_Del (MATHOGC varchar(20) )
+create procedure THOGIACONG_Del (MATHOGC INT )
 begin
 delete from thogiacong 
 where MATHOGC = MATHOGC;
@@ -613,13 +613,13 @@ end//
 
 
 
-create procedure TONKHO_Ins (MAP_TK varchar(20), NGAYBAOCAO timestamp )
+create procedure TONKHO_Ins (MAP_TK INT, NGAYBAOCAO timestamp )
 begin
 insert into tonkho ( MAP_TK, NGAYBAOCAO ) values ( MAP_TK, NGAYBAOCAO );
 end//
 
 
-create procedure TONKHO_Upd (MAP_TK varchar(20), NGAYBAOCAO timestamp )
+create procedure TONKHO_Upd (MAP_TK INT, NGAYBAOCAO timestamp )
 begin
 update tonkho as a 
 set 
@@ -628,7 +628,7 @@ where a.MAP_TK = MAP_TK;
 end//
 
 
-create procedure TONKHO_Del (MAP_TK varchar(20) )
+create procedure TONKHO_Del (MAP_TK INT )
 begin
 delete from tonkho 
 where MAP_TK = MAP_TK;
@@ -640,7 +640,7 @@ end//
 /* 
 	1. Lấy mã khách hàng, họ tên bởi mã phiếu bán khi đã tồn tại phiếu nợ.
 */
-create procedure P_BanHang_getMaKHHoTenByMaP_BH(in maP_BH varchar(20))
+create procedure P_BanHang_getMaKHHoTenByMaP_BH(in maP_BH INT)
 begin
 select k.MAKH, n.HOTEN
 from ((p_banhang as b inner join p_thu as t
@@ -655,7 +655,7 @@ end//
 	2. Lấy index cuối cùng của phiếu nợ
 */
 
-create procedure  P_No_getLastID(out maxid varchar(20))
+create procedure  P_No_getLastID(out maxid INT)
 begin
 select MAP_NO into maxid
 from p_no
@@ -669,7 +669,7 @@ end//
 	3.2. Nếu phiếu thu chưa lập => kiểm tra , nếu là khách quen => cho lập
 	3.3 1,2 ko thỏa => trả về conLao = 0, ngayLap = "0000-00-00
 */
-create procedure  P_Thu_getLastConLaiNgayTraByMaP_Thu(in maKH varchar(20), in maP_Thu varchar(20),
+create procedure  P_Thu_getLastConLaiNgayTraByMaP_Thu(in maKH INT, in maP_Thu INT,
 out conLai decimal(20,3), out ngayTra timestamp)
 begin
 declare checkKhachquen bool;
@@ -703,7 +703,7 @@ end//
 /* 
 	4. Lấy mã phiếu thu bởi mã phiếu bán hàng
 */
-create procedure P_BanHang_getMaP_ThuByMaP_BH(in maP_BH varchar(20),out maP_Thu varchar(20))
+create procedure P_BanHang_getMaP_ThuByMaP_BH(in maP_BH INT,out maP_Thu INT)
 begin
 select b.MAP_THU into maP_Thu
 from p_banhang as b
@@ -737,7 +737,7 @@ end//
 *  7. lấy sản phẩm, tồn cuối kỳ theo mã tồn kho trong bảng chi tiết tồn kho
 */
 delimiter //
-create procedure TonKho_getMaSPTonCuoiKyByMaTK(in MaTK varchar(20))
+create procedure TonKho_getMaSPTonCuoiKyByMaTK(in MaTK INT)
 begin
 select t.MAHANG, t.TONCUOIKY
 from ct_tonkho as t
@@ -788,20 +788,22 @@ end//
 * 20. Lấy id cuối cùng của bảng chi tiết tồn kho
 */
 delimiter //
-create procedure  CT_TonKho_getLastID()
+create procedure  CT_TonKho_getLastID(out maxID int)
 begin
-select MACTP_TK
+select MACTP_TK into maxID
 from ct_tonkho
 order by MACTP_TK desc
 limit 1;
 end//
+
+
 
 /* Phiếu chi*/
 /*
 11. Lấy id cuối cùng của phiếu chi
 */
 delimiter //
-create procedure P_Chi_getLastID(out maxid varchar(20))
+create procedure P_Chi_getLastID(out maxid INT)
 begin
 select MAP_CHI
 into maxid
@@ -819,7 +821,7 @@ end//
 	Lấy Id cuối cùng của P_BANHANG
 */
 delimiter //
-create procedure  P_BANHANG_getLastID(out maxId varchar(20))
+create procedure  P_BANHANG_getLastID(out maxId INT)
 begin
 select MAP_BH into maxId
 from P_BANHANG
@@ -832,7 +834,7 @@ end//
 	Lấy Id cuối cùng của CTP_BANHANG
 */
 delimiter //
-create procedure  CTP_BANHANG_getLastID(out maxId varchar(20))
+create procedure  CTP_BANHANG_getLastID(out maxId INT)
 begin
 select MACTP_BH into maxId
 from CTP_BANHANG
@@ -844,7 +846,7 @@ end//
 	Lấy Id cuôi cùng của P_MUAHANG
 */
 delimiter //
-create procedure P_MUAHANG_getLastID(out maxId varchar(20))
+create procedure P_MUAHANG_getLastID(out maxId INT)
 begin
 select MAP_MH into maxId
 from P_MUAHANG
@@ -856,7 +858,7 @@ end//
 	Lấy Id cuối cùng của CTP_MUAHANG
 */
 delimiter //
-create procedure CTP_MUAHANG_getLastID( out maxId varchar(20) )
+create procedure CTP_MUAHANG_getLastID( out maxId INT )
 begin
 select MACTP_MH into maxId 
 from CTP_MUAHANG

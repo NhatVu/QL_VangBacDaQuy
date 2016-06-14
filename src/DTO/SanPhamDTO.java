@@ -14,35 +14,32 @@ public class SanPhamDTO {
      * Properties
      */
 
-    private String maSP = null;
-    private String tenSP = null;
+    private int maSP;
+    private String tenSP;
     private double donGiaMua = 0;
     private double donGiaBan = 0;
     private int soLuongTon = 0;
 
     /*
-    * Constructor
-    */
-    
-    
+     * Constructor
+     */
     /*
-    * Getters and Setters
-    */
+     * Getters and Setters
+     */
+    public SanPhamDTO(int maSP, String tenSP, double donGiaMua, double donGiaBan, int soLuongTon) {
+        super();
+        this.maSP = maSP;
+        this.tenSP = tenSP;
+        this.donGiaMua = donGiaMua;
+        this.donGiaBan = donGiaBan;
+        this.soLuongTon = soLuongTon;
+    }
 
-    public String getMaSP() {
+    public int getMaSP() {
         return maSP;
     }
 
-    public SanPhamDTO(String maSP, String tenSP, double donGiaMua, double donGiaBan, int soLuongTon) {
-		super();
-		this.maSP = maSP;
-		this.tenSP = tenSP;
-		this.donGiaMua = donGiaMua;
-		this.donGiaBan = donGiaBan;
-		this.soLuongTon = soLuongTon;
-	}
-
-	public void setMaSP(String maSP) {
+    public void setMaSP(int maSP) {
         this.maSP = maSP;
     }
 
@@ -77,7 +74,5 @@ public class SanPhamDTO {
     public void setSoLuongTon(int soLuongTon) {
         this.soLuongTon = soLuongTon;
     }
-    
-    
-    
+
 }

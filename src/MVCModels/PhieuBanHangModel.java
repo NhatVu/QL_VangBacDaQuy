@@ -46,27 +46,27 @@ public class PhieuBanHangModel {
 		sanPhamDAO = new SanPhamDAO();
 	}
 	
-	public String getNextIdOfNguoi()
+	public int getNextIdOfNguoi()
 	{
 		return nguoiDAO.getNexId();
 	}
 	
-	public String getNextIdOfKhachHang()
+	public int getNextIdOfKhachHang()
 	{
 		return khachHangDAO.getNexId();
 	}
 	
-	public String getNextIdOfPhieuThu()
+	public int getNextIdOfPhieuThu()
 	{
 		return p_ThuDAO.getNexId();
 	}
 	
-	public String getNextIdOfPhieuBanHang()
+	public int getNextIdOfPhieuBanHang()
 	{
 		return p_BanHangDAO.getNexId();
 	}
 	
-	public String getNextIdOfChiTietPhieuBanHang()
+	public int getNextIdOfChiTietPhieuBanHang()
 	{
 		return ctp_BanHangDAO.getNexId();
 	}
@@ -81,7 +81,7 @@ public class PhieuBanHangModel {
 		return sanPhamDAO.getAllSanPham();
 	}
 	
-	public boolean updateSoLuongTonOfSanPham(int updateSoLuongTon, String maSP)
+	public boolean updateSoLuongTonOfSanPham(int updateSoLuongTon, int maSP)
 	{
 		return sanPhamDAO.updateSLTSanPham(updateSoLuongTon, maSP);
 	}
@@ -107,7 +107,7 @@ public class PhieuBanHangModel {
 		ctp_BanHangDAO.insert(ctp_BanHangDTO);
 	}
 	
-	public String getMaKhById( int id )
+	public int getMaKhById( int id )
 	{
 		return khachHangDAO.getMaKhachHangByName(id);
 	}

@@ -52,7 +52,7 @@ public class TonKhoDAO {
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall(insertStatement);
 
-            call.setString(maTonKho, n.getMaP_TK());
+            call.setInt(maTonKho, n.getMaP_TK());
             call.setTimestamp(ngayBaoCao, n.getNgayBaoCao());
 
             return call.execute();
@@ -82,7 +82,7 @@ public class TonKhoDAO {
             connection = DataSource.getInstance().getConnection();
 
             call = connection.prepareCall(updateStatement);
-            call.setString(maTonKho, n.getMaP_TK());
+            call.setInt(maTonKho, n.getMaP_TK());
             call.setTimestamp(ngayBaoCao, n.getNgayBaoCao());
 
             return call.execute();
@@ -112,7 +112,7 @@ public class TonKhoDAO {
 
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall(deleteStatement);
-            call.setString(maTonKho, n.getMaP_TK());
+            call.setInt(maTonKho, n.getMaP_TK());
 
             return call.execute();
 
@@ -148,12 +148,12 @@ public class TonKhoDAO {
 
             ResultSet rs = call.executeQuery();
             while (rs.next()) {
-                tk.setMaP_TK(rs.getString(1));
+                tk.setMaP_TK(rs.getInt(1));
                 tk.setNgayBaoCao(rs.getTimestamp(2));
             }
 
-            if (tk.getMaP_TK() == null) {
-                tk.setMaP_TK(Resource.TONKHO + "0");
+            if (tk.getMaP_TK() == 0) {
+                tk.setMaP_TK(0);
             }
             if (tk.getNgayBaoCao() == null) {
                 tk.setNgayBaoCao(new Timestamp(1432876790));
@@ -182,16 +182,16 @@ public class TonKhoDAO {
      2. Parameter 
      Map<String, String> lResult. = Map<MaSP, TonCuoiKy>
      */
-    public void getMaSPTonCuoiKyByMaTK(String maTK, Map<String, Integer> lResult) {
+    public void getMaSPTonCuoiKyByMaTK(int maTK, Map<Integer, Integer> lResult) {
         try {
             //create procedure TonKho_getMaSPTonCuoiKyByMaTK(in MaTK varchar(10))
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall("call TonKho_getMaSPTonCuoiKyByMaTK(?)");
-            call.setString(1, maTK);
+            call.setInt(1, maTK);
 
             ResultSet rs = call.executeQuery();
             while (rs.next()) {
-                lResult.put(rs.getString(1), rs.getInt(2));
+                lResult.put(rs.getInt(1), rs.getInt(2));
             }
 
         } catch (SQLException ex) {

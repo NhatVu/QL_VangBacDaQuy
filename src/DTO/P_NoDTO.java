@@ -16,37 +16,36 @@ public class P_NoDTO {
      * Properties
      */
 
-    private String maP_No = null;
-    private String maP_Thu = null;
+    private int maP_No;
+    private int maP_Thu;
     private Timestamp ngayNo = null;
     private double soTienNo = 0;
     private Timestamp ngayTra = null;
     private double soTienTra = 0;
-    
-    /*
-    * Constructor
-    */
-    public P_NoDTO(){
-        
-    }
-    
-    /*
-    * Getters and Setters
-    */
 
-    public String getMaP_No() {
+    /*
+     * Constructor
+     */
+    public P_NoDTO() {
+
+    }
+
+    /*
+     * Getters and Setters
+     */
+    public int getMaP_No() {
         return maP_No;
     }
 
-    public void setMaP_No(String maP_No) {
+    public void setMaP_No(int maP_No) {
         this.maP_No = maP_No;
     }
 
-    public String getMaP_Thu() {
+    public int getMaP_Thu() {
         return maP_Thu;
     }
 
-    public void setMaP_Thu(String maP_Thu) {
+    public void setMaP_Thu(int maP_Thu) {
         this.maP_Thu = maP_Thu;
     }
 
@@ -81,6 +80,5 @@ public class P_NoDTO {
     public void setSoTienTra(double soTienTra) {
         this.soTienTra = soTienTra;
     }
-    
 
 }

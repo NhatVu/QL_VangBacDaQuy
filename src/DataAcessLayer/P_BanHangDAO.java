@@ -34,7 +34,6 @@ public class P_BanHangDAO {
     private final String insertProcedure = "{call P_BANHANG_Ins(?,?)}";
     private final String updateProcedure = "{call P_BANHANG_Upd(?,?)}";
     private final String deleteProcedure = "{call P_BANHANG_Del(?)}";
-    private final String getMKH_HoTenByMaP_BH = "{call P_BanHang_getMaKHHoTenByMaP_BH(?)}";
 
     public P_BanHangDAO() {
 
@@ -48,8 +47,8 @@ public class P_BanHangDAO {
         try {
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall(insertProcedure);
-            call.setString(maP_BH, p_BH.getMaP_BH());
-            call.setString(maP_Thu, p_BH.getMaP_Thu());
+            call.setInt(maP_BH, p_BH.getMaP_BH());
+            call.setInt(maP_Thu, p_BH.getMaP_Thu());
 
             return call.execute();
 
@@ -79,8 +78,8 @@ public class P_BanHangDAO {
             connection = DataSource.getInstance().getConnection();
 
             call = connection.prepareCall(updateProcedure);
-            call.setString(maP_BH, p_BH.getMaP_BH());
-            call.setString(maP_Thu, p_BH.getMaP_Thu());
+            call.setInt(maP_BH, p_BH.getMaP_BH());
+            call.setInt(maP_Thu, p_BH.getMaP_Thu());
 
             return call.execute();
 
@@ -108,7 +107,7 @@ public class P_BanHangDAO {
             //procedure P_BANHANG_Del (MAP_BH varchar(10) )
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall(deleteProcedure);
-            call.setString(maP_BH, p_BH.getMaP_BH());
+            call.setInt(maP_BH, p_BH.getMaP_BH());
 
             return call.execute();
 
@@ -140,16 +139,16 @@ public class P_BanHangDAO {
      - Out: tmptList[0] = maKH
      - Out: tmptList[1] = HoTen
      */
-    public void getMaKHHoTenByMaP_BH(String maP_BH, String tmptList[]) {
+    public void getMaKHHoTenByMaP_BH(int maP_BH, String tmptList[]) {
         try {
             //procedure P_BANHANG_Del (MAP_BH varchar(10) )
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall("{call P_BanHang_getMaKHHoTenByMaP_BH(?)}");
-            call.setString(1, maP_BH);
+            call.setInt(1, maP_BH);
 
             ResultSet rs = call.executeQuery();
             while (rs.next()) {
-                tmptList[0] = rs.getString(1);
+                tmptList[0] = String.valueOf(rs.getInt(1));
                 tmptList[1] = rs.getString(2);
             }
 
@@ -178,16 +177,16 @@ public class P_BanHangDAO {
      2. Return
      - Trả về mã phiếu bán hàng
      */
-    public String getMaP_ThuByMaP_BH(String maP_BH) {
+    public int getMaP_ThuByMaP_BH(int maP_BH) {
         try {
             // procedure P_BanHang_getMaP_ThuByMaP_BH(in maP_BH varchar(10),out maP_Thu varchar(10))
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall("{call P_BanHang_getMaP_ThuByMaP_BH(?,?)}");
-            call.setString(1, maP_BH);
-            call.registerOutParameter(2, java.sql.Types.VARCHAR);
+            call.setInt(1, maP_BH);
+            call.registerOutParameter(2, java.sql.Types.INTEGER);
 
             call.execute();
-            return call.getString(2);
+            return call.getInt(2);
 
         } catch (SQLException ex) {
             Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -208,7 +207,7 @@ public class P_BanHangDAO {
             }
         }
 //</editor-fold>
-        return null;
+        return 0;
     }
 
     /*
@@ -216,17 +215,17 @@ public class P_BanHangDAO {
      1. từ ngày lập tồn kho gần nhất đến ngày lập tồn kho hiện tại, có bao nhiêu phiếu bán hàng được lập
      2. Dựa vào số phiếu bán hàng này -> lấy maSP và tổng lượng bán của sản phẩm
      */
-    public void getMaSPTongBan(Timestamp lastedNgayBC, Timestamp newNgayBC,Map<String, Integer> lRs ){
+    public void getMaSPTongBan(Timestamp lastedNgayBC, Timestamp newNgayBC, Map<Integer, Integer> lRs) {
         //    create   procedure P_BanHang_getMaSPTongBan(in lastedNgayBC timestamp, in newNgayBC varchar(10))
-         try {
+        try {
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall("{call P_BanHang_getMaSPTongBan(?,?)}");
             call.setTimestamp(1, lastedNgayBC);
             call.setTimestamp(2, newNgayBC);
 
             ResultSet rs = call.executeQuery();
-            while(rs.next()){
-                lRs.put(rs.getString(1), rs.getInt(2));
+            while (rs.next()) {
+                lRs.put(rs.getInt(1), rs.getInt(2));
             }
 
         } catch (SQLException ex) {
@@ -249,20 +248,19 @@ public class P_BanHangDAO {
         }
 //</editor-fold>
     }
-    
-    public String getLastID() {
+
+    public int getLastID() {
         try {
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall("{call P_BANHANG_getLastID(?)}");
             call.registerOutParameter(1, java.sql.Types.VARCHAR);
 
             call.execute();
-            return call.getString(1);
+            return call.getInt(1);
 
         } catch (SQLException ex) {
             Logger.getLogger(P_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally {
+        } finally {
             if (connection != null) {
                 try {
                     connection.close();
@@ -278,17 +276,11 @@ public class P_BanHangDAO {
             }
         }
 
-        return null;
+        return 0;
     }
-    
-    public String getNexId()
-    {
-        String maPhieu = Resource.P_BANHANG+"1";
-        if(this.getLastID()!=null)
-        {
-            String curentId = getLastID();
-            maPhieu= Resource.P_BANHANG+(Integer.valueOf(curentId.substring(Resource.P_BANHANG.length()))+1)+"";
-        }
-        return maPhieu;
+
+    public int getNexId() {
+        return getLastID() + 1;
+
     }
 }

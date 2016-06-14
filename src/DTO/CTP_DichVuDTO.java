@@ -10,59 +10,54 @@ package DTO;
  * @author Minh Nhat
  */
 public class CTP_DichVuDTO {
- 
+
     /*
      * Properties
      */
-
-    private String maCTP_DV;
-    private String maP_DV;
-    private String maDV;
+    private int maCTP_DV;
+    private int maP_DV;
+    private int maDV;
     private int soLuong;
     private double thanhTien;
 
-    public CTP_DichVuDTO(String maCTP_DV, String maP_DV, String maDV, int soLuong, double thanhTien) {
+    public CTP_DichVuDTO(int maCTP_DV, int maP_DV, int maDV, int soLuong, double thanhTien) {
         this.maCTP_DV = maCTP_DV;
         this.maP_DV = maP_DV;
         this.maDV = maDV;
         this.soLuong = soLuong;
         this.thanhTien = thanhTien;
     }
-    
-    
-    
-    /*
-    * Constructor
-    */
 
+    /*
+     * Constructor
+     */
     public CTP_DichVuDTO() {
     }
-    
-    /*
-    * Getters and Setters
-    */
 
-    public String getMaCTP_DV() {
+    /*
+     * Getters and Setters
+     */
+    public int getMaCTP_DV() {
         return maCTP_DV;
     }
 
-    public void setMaCTP_DV(String maCTP_DV) {
+    public void setMaCTP_DV(int maCTP_DV) {
         this.maCTP_DV = maCTP_DV;
     }
 
-    public String getMaP_DV() {
+    public int getMaP_DV() {
         return maP_DV;
     }
 
-    public void setMaP_DV(String maP_DV) {
+    public void setMaP_DV(int maP_DV) {
         this.maP_DV = maP_DV;
     }
 
-    public String getMaDV() {
+    public int getMaDV() {
         return maDV;
     }
 
-    public void setMaDV(String maDV) {
+    public void setMaDV(int maDV) {
         this.maDV = maDV;
     }
 
@@ -81,5 +76,5 @@ public class CTP_DichVuDTO {
     public void setThanhTien(double thanhTien) {
         this.thanhTien = thanhTien;
     }
-    
+
 }

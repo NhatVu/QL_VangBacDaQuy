@@ -10,63 +10,55 @@ package DTO;
  * @author Minh Nhat
  */
 public class CTP_MuaHangDTO {
-     /*
+    /*
      * Properties
      */
 
-    private String maCTP_MH = null;
-    private String maP_MH = null;
-    private String maSP = null;
+    private int maCTP_MH;
+    private int maP_MH;
+    private int maSP;
     private int soLuong = 0;
     private double thanhTien = 0;
-    
-    /*
-    * Constructor
-    */
-    
-    
 
+    /*
+     * Constructor
+     */
     public CTP_MuaHangDTO() {
     }
-    
-    
-    
+
     /*
-    * Getters and Setters
-    */
+     * Getters and Setters
+     */
+    public CTP_MuaHangDTO(int maCTP_MH, int maP_MH, int maSP, int soLuong, double thanhTien) {
+        super();
+        this.maCTP_MH = maCTP_MH;
+        this.maP_MH = maP_MH;
+        this.maSP = maSP;
+        this.soLuong = soLuong;
+        this.thanhTien = thanhTien;
+    }
 
-    public CTP_MuaHangDTO(String maCTP_MH, String maP_MH, String maSP, int soLuong, double thanhTien) {
-		super();
-		this.maCTP_MH = maCTP_MH;
-		this.maP_MH = maP_MH;
-		this.maSP = maSP;
-		this.soLuong = soLuong;
-		this.thanhTien = thanhTien;
-	}
-
-
-
-	public String getMaCTP_MH() {
+    public int getMaCTP_MH() {
         return maCTP_MH;
     }
 
-    public void setMaCTP_MH(String maCTP_MH) {
+    public void setMaCTP_MH(int maCTP_MH) {
         this.maCTP_MH = maCTP_MH;
     }
 
-    public String getMaP_MH() {
+    public int getMaP_MH() {
         return maP_MH;
     }
 
-    public void setMaP_MH(String maP_MH) {
+    public void setMaP_MH(int maP_MH) {
         this.maP_MH = maP_MH;
     }
 
-    public String getMaSP() {
+    public int getMaSP() {
         return maSP;
     }
 
-    public void setMaSP(String maSP) {
+    public void setMaSP(int maSP) {
         this.maSP = maSP;
     }
 
@@ -85,5 +77,5 @@ public class CTP_MuaHangDTO {
     public void setThanhTien(double thanhTien) {
         this.thanhTien = thanhTien;
     }
-    
+
 }

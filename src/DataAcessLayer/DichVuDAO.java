@@ -38,7 +38,7 @@ public class DichVuDAO {
         try {
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall("{call DICHVU_Ins(?,?,?)}");
-            call.setString("MADV", dv.getMaDV());
+            call.setInt("MADV", dv.getMaDV());
             call.setString("TENDV", dv.getTenDV());
             call.setDouble("DONGIA", dv.getDonGia());
             
@@ -65,7 +65,7 @@ public class DichVuDAO {
             connection = DataSource.getInstance().getConnection();
             
             call = connection.prepareCall("{call DICHVU_Upd(?,?,?)}");
-            call.setString("MADV", dv.getMaDV());
+            call.setInt("MADV", dv.getMaDV());
             call.setString("TENDV", dv.getTenDV());
             call.setDouble("DONGIA", dv.getDonGia());
             
@@ -91,7 +91,7 @@ public class DichVuDAO {
 
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall("{call DICHVU_Del(?)}");
-            call.setString("MADV", dv.getMaDV());
+            call.setInt("MADV", dv.getMaDV());
             
             return call.execute();
             
@@ -121,7 +121,7 @@ public class DichVuDAO {
             ResultSet rs = st.executeQuery(query);
             while(rs.next())
             {
-                String maGC = rs.getString("MADV");
+                int maGC = rs.getInt("MADV");
                 String tenGC = rs.getString("TENDV");
                 double dongia = Double.parseDouble(rs.getString("DONGIA"));
                 DichVuDTO dv = new DichVuDTO(maGC,tenGC,dongia);

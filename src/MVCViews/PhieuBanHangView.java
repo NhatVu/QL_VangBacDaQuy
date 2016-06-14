@@ -21,9 +21,9 @@ import java.awt.Font;
 
 public class PhieuBanHangView {
 
-	ArrayList<JTextField> mAllTextField = new ArrayList<>();
+    ArrayList<JTextField> mAllTextField = new ArrayList<>();
     ArrayList<JDateChooser> mAllDateChoolser = new ArrayList<>();
-	
+
     private JFrame frame;
     private JTextField textMaPhieu;
     private JTextField textMaKH;
@@ -32,19 +32,19 @@ public class PhieuBanHangView {
     private JTextField textTongCong;
     private JTable tableCTP_BanHang;
     private TableModel tableModel;
-    
+
     private static final String column1 = "Tên Sản Phẩm";
     private static final String column2 = "Số Lượng";
     private static final String column3 = "Đơn Giá Bán";
     private static final String column4 = "Thành Tiền";
-    
+
     private static final boolean colum1Editable = true;
     private static final boolean colum2Editable = true;
     private static final boolean colum3Editable = false;
     private static final boolean colum4Editable = false;
-    
-    private static final String[] columnNames = new String[]{column1,column2,column3,column4};
-    private static final boolean[] editColums = new boolean[]{colum1Editable,colum2Editable,colum3Editable,colum4Editable};
+
+    private static final String[] columnNames = new String[]{column1, column2, column3, column4};
+    private static final boolean[] editColums = new boolean[]{colum1Editable, colum2Editable, colum3Editable, colum4Editable};
 
     private PhieuBanHangController controller = null;
     private JDateChooser dateNgayBan;
@@ -56,19 +56,19 @@ public class PhieuBanHangView {
     private JButton btnLuu;
     private JButton btnXoa;
     private JButton btnThoat;
-  
-    
+
     public PhieuBanHangView(PhieuBanHangController controller) {
         initialize();
         this.controller = controller;
     }
 
-    public void setVisible(boolean b)
-    {
+    public void setVisible(boolean b) {
         frame.setVisible(b);
-        if(!b) frame.dispose();
+        if (!b) {
+            frame.dispose();
+        }
     }
-    
+
     private void initialize() {
         frame = new JFrame();
         frame.setBounds(100, 100, 769, 484);
@@ -115,7 +115,7 @@ public class PhieuBanHangView {
         textDiaChi.setBounds(122, 205, 588, 20);
         textDiaChi.setColumns(10);
         this.mAllTextField.add(textDiaChi);
-        
+
         frame.getContentPane().setLayout(null);
         frame.getContentPane().add(lblPhiuMuaHng);
         frame.getContentPane().add(lblSPhiu);
@@ -128,17 +128,17 @@ public class PhieuBanHangView {
         frame.getContentPane().add(textHoTen);
         frame.getContentPane().add(lblaCh);
         frame.getContentPane().add(textDiaChi);
-        
+
         tableModel = new TableModel(columnNames, editColums);
-       
+
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setBounds(45, 262, 665, 110);
         frame.getContentPane().add(scrollPane);
-        
+
         tableCTP_BanHang = new JTable(tableModel);
         scrollPane.setViewportView(tableCTP_BanHang);
         tableCTP_BanHang.addComponentListener(new TableScroller(tableModel, tableCTP_BanHang));
-        
+
         JLabel lblTngCng = new JLabel("Tổng cộng :");
         lblTngCng.setBounds(492, 386, 67, 14);
         frame.getContentPane().add(lblTngCng);
@@ -148,29 +148,29 @@ public class PhieuBanHangView {
         frame.getContentPane().add(textTongCong);
         textTongCong.setColumns(10);
 
-        btnLuu = new JButton("Lưu");  
+        btnLuu = new JButton("Lưu");
         btnLuu.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent arg0) {
-        		controller.btnLuuVaoDbActionPerformed(arg0);
-        	}
+            public void actionPerformed(ActionEvent arg0) {
+                controller.btnLuuVaoDbActionPerformed(arg0);
+            }
         });
         btnLuu.setBounds(330, 411, 89, 23);
         frame.getContentPane().add(btnLuu);
 
         btnXoa = new JButton("Xóa");
         btnXoa.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent arg0) {
-        		controller.btnXoaActionPerformed(arg0);
-        	}
+            public void actionPerformed(ActionEvent arg0) {
+                controller.btnXoaActionPerformed(arg0);
+            }
         });
         btnXoa.setBounds(475, 411, 89, 23);
         frame.getContentPane().add(btnXoa);
 
         btnThoat = new JButton("Thoát");
         btnThoat.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent arg0) {
-        		controller.btnThoatActionPerformed(arg0);
-        	}
+            public void actionPerformed(ActionEvent arg0) {
+                controller.btnThoatActionPerformed(arg0);
+            }
         });
         btnThoat.setBounds(621, 411, 89, 23);
         frame.getContentPane().add(btnThoat);
@@ -184,154 +184,141 @@ public class PhieuBanHangView {
         dateNgayThanhToan.setBounds(579, 105, 131, 20);
         frame.getContentPane().add(dateNgayThanhToan);
         this.mAllDateChoolser.add(dateNgayThanhToan);
-        
+
         JLabel lblNewLabel = new JLabel("Danh Sách Chi Tiết Phiếu Bán Hàng");
         lblNewLabel.setBounds(45, 246, 176, 14);
         frame.getContentPane().add(lblNewLabel);
-        
+
         btnThm = new JButton("Thêm");
         btnThm.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent arg0) {
-        		controller.btnThemRowActionPerformed(arg0);
-        	}
+            public void actionPerformed(ActionEvent arg0) {
+                controller.btnThemRowActionPerformed(arg0);
+            }
         });
         btnThm.setBounds(45, 383, 67, 23);
         frame.getContentPane().add(btnThm);
-        
+
         btnXa = new JButton("Xóa");
         btnXa.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent arg0) {
-        		controller.btnXoaRowActionPerformed(arg0);
-        	}
+            public void actionPerformed(ActionEvent arg0) {
+                controller.btnXoaRowActionPerformed(arg0);
+            }
         });
         btnXa.setBounds(132, 382, 74, 23);
         frame.getContentPane().add(btnXa);
-        
+
         btnCheckKhachQuen = new JButton("Kiểm tra");
         btnCheckKhachQuen.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent arg0) {
-        		controller.btnCheckKhachQuenActionPerformed(arg0);
-        	}
+            public void actionPerformed(ActionEvent arg0) {
+                controller.btnCheckKhachQuenActionPerformed(arg0);
+            }
         });
         btnCheckKhachQuen.setBounds(249, 135, 89, 23);
         frame.getContentPane().add(btnCheckKhachQuen);
-        
+
         btnLayMaKHTiepTheo = new JButton("Lấy mã khách hàng tiếp theo");
         btnLayMaKHTiepTheo.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent arg0) {
-        		controller.btnLayMaKHTiepTheoActionPerformed(arg0);
-        	}
+            public void actionPerformed(ActionEvent arg0) {
+                controller.btnLayMaKHTiepTheoActionPerformed(arg0);
+            }
         });
         btnLayMaKHTiepTheo.setBounds(122, 171, 216, 23);
         frame.getContentPane().add(btnLayMaKHTiepTheo);
     }
 
-    
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     public JFrame getFrame() {
         return frame;
     }
-    
+
     public void setFrame(JFrame frame) {
         this.frame = frame;
     }
-    
+
     public JTextField getTextMaPhieu() {
         return textMaPhieu;
     }
-    
+
     public void setTextMaPhieu(JTextField textMaPhieu) {
         this.textMaPhieu = textMaPhieu;
     }
-    
+
     public JTextField getTextMaKH() {
         return textMaKH;
     }
-    
+
     public void setTextMaKH(JTextField textMaKH) {
         this.textMaKH = textMaKH;
     }
-    
+
     public JTextField getTextHoTen() {
         return textHoTen;
     }
-    
+
     public void setTextHoTen(JTextField textHoTen) {
         this.textHoTen = textHoTen;
     }
-    
+
     public JTextField getTextDiaChi() {
         return textDiaChi;
     }
-    
+
     public void setTextDiaChi(JTextField textDiaChi) {
         this.textDiaChi = textDiaChi;
     }
-    
+
     public JTextField getTextTongCong() {
         return textTongCong;
     }
-    
+
     public void setTextTongCong(JTextField textTongCong) {
         this.textTongCong = textTongCong;
     }
 
-	public JDateChooser getDateNgayBan() {
-		return dateNgayBan;
-	}
+    public JDateChooser getDateNgayBan() {
+        return dateNgayBan;
+    }
 
-	public void setDateNgayBan(JDateChooser dateNgayBan) {
-		this.dateNgayBan = dateNgayBan;
-	}
+    public void setDateNgayBan(JDateChooser dateNgayBan) {
+        this.dateNgayBan = dateNgayBan;
+    }
 
-	public JDateChooser getDateNgayThanhToan() {
-		return dateNgayThanhToan;
-	}
+    public JDateChooser getDateNgayThanhToan() {
+        return dateNgayThanhToan;
+    }
 
-	public void setDateNgayThanhToan(JDateChooser dateNgayThanhToan) {
-		this.dateNgayThanhToan = dateNgayThanhToan;
-	}
-	
-	public JTable getTable() {
-		return tableCTP_BanHang;
-	}
+    public void setDateNgayThanhToan(JDateChooser dateNgayThanhToan) {
+        this.dateNgayThanhToan = dateNgayThanhToan;
+    }
 
-	public void setTable(JTable table) {
-		this.tableCTP_BanHang = table;
-	}
+    public JTable getTable() {
+        return tableCTP_BanHang;
+    }
 
-	public TableModel getTableModel() {
-		return tableModel;
-	}
+    public void setTable(JTable table) {
+        this.tableCTP_BanHang = table;
+    }
 
-	public void setTableModel(TableModel tableModel) {
-		this.tableModel = tableModel;
-	}
+    public TableModel getTableModel() {
+        return tableModel;
+    }
 
-	public boolean isAllTextFilled()
-    {
-        for(JTextField textField:mAllTextField)
-        {
-            if(textField.getText().toString().trim().length()==0)
+    public void setTableModel(TableModel tableModel) {
+        this.tableModel = tableModel;
+    }
+
+    public boolean isAllTextFilled() {
+        for (JTextField textField : mAllTextField) {
+            if (textField.getText().toString().trim().length() == 0) {
                 return false;
+            }
         }
-        for(JDateChooser chooser :mAllDateChoolser)
-        {
-            if(chooser.getDate()==null)
+        for (JDateChooser chooser : mAllDateChoolser) {
+            if (chooser.getDate() == null) {
                 return false;
+            }
         }
         return true;
     }
-	
-	
-	public static void main( String[] args )
-	{
-		PhieuBanHangController controller = new PhieuBanHangController();
-		PhieuBanHangView view = new PhieuBanHangView(controller);
-		view.setVisible(true);
-	}
 
 }
-
-
-

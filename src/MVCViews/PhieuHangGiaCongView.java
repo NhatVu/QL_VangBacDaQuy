@@ -4,6 +4,7 @@ import DTO.NguoiDTO;
 import DTO.ThoGiaCongDTO;
 import DataAcessLayer.NguoiDAO;
 import DataAcessLayer.ThoGiaCongDAO;
+import MVCControllers.PhieuGiaCongController;
 import java.awt.EventQueue;
 
 import javax.swing.JButton;
@@ -136,6 +137,7 @@ public class PhieuHangGiaCongView {
     private JButton mExitButton;
     private JDateChooser dateNgayThanhToan;
     private JDateChooser dateNgayNhanHang;
+    private PhieuGiaCongController controller = null;
     /**
      * Launch the application.
      */
@@ -146,8 +148,9 @@ public class PhieuHangGiaCongView {
     /**
 	 * @wbp.parser.constructor
 	 */
-    public PhieuHangGiaCongView() {
+    public PhieuHangGiaCongView(PhieuGiaCongController controller) {
         initialize();
+        this.controller = controller;
     }
 
     /**
@@ -211,7 +214,7 @@ public class PhieuHangGiaCongView {
             thogiacongs[i] = nguoi.getHoTen();
         }
         
-        textMaKH.setText(mAllThoGiaCong.get(0).getMaTho());
+        textMaKH.setText(String.valueOf(mAllThoGiaCong.get(0).getMaTho()));
         textDiaChi.setText(mAllNguoi.get(0).getDiaChi());
             
         textHoTen = new JComboBox(thogiacongs);

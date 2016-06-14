@@ -31,22 +31,22 @@ public class PhieuMuaHangModel {
 	}
 	
 	
-	public String getNextIdOfNguoi()
+	public int getNextIdOfNguoi()
 	{
 		return nguoiDAO.getNexId();
 	}
 	
-	public String getNextIdOfKhacHang()
+	public int getNextIdOfKhacHang()
 	{
 		return khachHangDAO.getNexId();
 	}
 	
-	public String getNextIdOfPhieuMuaHang()
+	public int getNextIdOfPhieuMuaHang()
 	{
 		return p_MuaHangDAO.getNexId();
 	}
 	
-	public String getNextIdOfChiTietPhieuMuaHang()
+	public int getNextIdOfChiTietPhieuMuaHang()
 	{
 		return ctp_MuaHangDAO.getNexId();
 	}
@@ -61,7 +61,7 @@ public class PhieuMuaHangModel {
 		return sanPhamDAO.getAllSanPham();
 	}
 	
-	public boolean updateSoLuongTonOfSanPham(int updateSoLuongTon, String maSP)
+	public boolean updateSoLuongTonOfSanPham(int updateSoLuongTon, int maSP)
 	{
 		return sanPhamDAO.updateSLTSanPham(updateSoLuongTon, maSP);
 	}
@@ -82,7 +82,7 @@ public class PhieuMuaHangModel {
 		ctp_MuaHangDAO.insert(ctp_MuaHangDTO);
 	}
 	
-	public String getMaKhById( int id )
+	public int getMaKhById( int id )
 	{
 		return khachHangDAO.getMaKhachHangByName(id);
 	}

@@ -39,8 +39,8 @@ public class P_MuaHangDAO {
         try {
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall("{call P_MUAHANG_Ins(?,?,?,?,?)}");
-            call.setString("MAP_MH", p_MH.getMaP_MH());
-            call.setString("MAKH", p_MH.getMaKH());
+            call.setInt("MAP_MH", p_MH.getMaP_MH());
+            call.setInt("MAKH", p_MH.getMaKH());
             call.setTimestamp("NGAYMUA", p_MH.getNgayMua());
             call.setTimestamp("NGAYTHANHTOAN", p_MH.getNgayThanhToan());
             call.setDouble("TONGCONG", p_MH.getTongCong());
@@ -75,8 +75,8 @@ public class P_MuaHangDAO {
             connection = DataSource.getInstance().getConnection();
             
             call = connection.prepareCall("{call P_MUAHANG_Upd(?,?,?,?,?)}");
-            call.setString("MAP_MH", p_MH.getMaP_MH());
-            call.setString("MAKH", p_MH.getMaKH());
+            call.setInt("MAP_MH", p_MH.getMaP_MH());
+            call.setInt("MAKH", p_MH.getMaKH());
             call.setTimestamp("NGAYMUA", p_MH.getNgayMua());
             call.setTimestamp("NGAYTHANHTOAN", p_MH.getNgayThanhToan());
             call.setDouble("TONGCONG", p_MH.getTongCong());
@@ -107,7 +107,7 @@ public class P_MuaHangDAO {
             //procedure P_MUAHANG_Del (MAP_MH varchar(10) ))
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall("{call P_MUAHANG_Del(?)}");
-            call.setString("MAP_MH", p_MH.getMaP_MH());
+            call.setInt("MAP_MH", p_MH.getMaP_MH());
             
             return call.execute();
             
@@ -136,7 +136,7 @@ public class P_MuaHangDAO {
 1. từ ngày lập tồn kho gần nhất đến ngày lập tồn kho hiện tại, có bao nhiêu phiếu mua hàng được lập
 2. Dựa vào số phiếu bán hàng này -> lấy maSP và tổng lượng mua của sản phẩm
 */
-     public void getMaSPTongMua(Timestamp lastedNgayBC, Timestamp newNgayBC,Map<String, Integer> lRs){
+     public void getMaSPTongMua(Timestamp lastedNgayBC, Timestamp newNgayBC,Map<Integer, Integer> lRs){
         try {
             // create procedure P_MuaHang_getMaSPTongMua(in lastedNgayBC timestamp, in newNgayBC varchar(10))
             connection = DataSource.getInstance().getConnection();
@@ -146,7 +146,7 @@ public class P_MuaHangDAO {
             ResultSet rs = call.executeQuery();
             
             while(rs.next()){
-                lRs.put(rs.getString(1), rs.getInt(2));
+                lRs.put(rs.getInt(1), rs.getInt(2));
             }
             
         } catch (SQLException ex) {
@@ -168,14 +168,14 @@ public class P_MuaHangDAO {
         }
     }
      
-     public String getLastID() {
+     public int getLastID() {
          try {
              connection = DataSource.getInstance().getConnection();
              call = connection.prepareCall("{call P_MUAHANG_getLastID(?)}");
              call.registerOutParameter(1, java.sql.Types.VARCHAR);
 
              call.execute();
-             return call.getString(1);
+             return call.getInt(1);
 
          } catch (SQLException ex) {
              Logger.getLogger(P_MuaHangDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -196,18 +196,12 @@ public class P_MuaHangDAO {
              }
          }
 
-         return null;
+         return 0;
      }
      
-     public String getNexId()
-     {
-         String maPhieu = Resource.P_MUAHANG+"1";
-         if(this.getLastID()!=null)
-         {
-             String curentId = getLastID();
-             maPhieu= Resource.P_MUAHANG+(Integer.valueOf(curentId.substring(Resource.P_MUAHANG.length()))+1)+"";
-         }
-         return maPhieu;
-     }
+     public int getNexId() {
+      return getLastID() + 1;
+     
+    }
      
 }

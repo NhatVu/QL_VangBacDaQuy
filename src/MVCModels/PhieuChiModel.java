@@ -20,8 +20,8 @@ public class PhieuChiModel {
         p_ChiDAO.insert(p_ChiDTO);
     }
 
-    public String getLastID() {
-        return p_ChiDAO.getLastID();
+    public int getNextID() {
+        return p_ChiDAO.getNexId();
     }
-
+    
 }

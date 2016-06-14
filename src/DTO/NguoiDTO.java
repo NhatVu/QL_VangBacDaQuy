@@ -11,39 +11,36 @@ package DTO;
  */
 public class NguoiDTO {
     /*
-    * Property
-    */
-    private String maLoaiNguoi;
+     * Property
+     */
+
+    private int maLoaiNguoi;
     private String hoTen;
     private String diaChi;
     private int shortID;
 
-    public NguoiDTO(String maLoaiNguoi, String hoTen, String diaChi, int shortID) {
+    public NguoiDTO(int maLoaiNguoi, String hoTen, String diaChi, int shortID) {
         this.maLoaiNguoi = maLoaiNguoi;
         this.hoTen = hoTen;
         this.diaChi = diaChi;
         this.shortID = shortID;
     }
-    
-    
-    
-    /*
-    * Constructor 
-    */
-    
-    public NguoiDTO(){
-        
-    }
-    
-    /*
-    * Getters and setters
-    */
 
-    public String getMaLoaiNguoi() {
+    /*
+     * Constructor 
+     */
+    public NguoiDTO() {
+
+    }
+
+    /*
+     * Getters and setters
+     */
+    public int getMaLoaiNguoi() {
         return maLoaiNguoi;
     }
 
-    public void setMaLoaiNguoi(String maLoaiNguoi) {
+    public void setMaLoaiNguoi(int maLoaiNguoi) {
         this.maLoaiNguoi = maLoaiNguoi;
     }
 
@@ -70,7 +67,5 @@ public class NguoiDTO {
     public void setShortID(int shortID) {
         this.shortID = shortID;
     }
-       
-    
-    
+
 }

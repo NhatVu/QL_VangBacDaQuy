@@ -11,47 +11,41 @@ package DTO;
  */
 public class ThoGiaCongDTO {
     /*
-    * Properties
-    */
-    
-    private String maTho;
-    private String maNguoi;
+     * Properties
+     */
 
-    public ThoGiaCongDTO(String maTho, String maNguoi) {
+    private int maTho;
+    private int maNguoi;
+
+    public ThoGiaCongDTO(int maTho, int maNguoi) {
         this.maTho = maTho;
         this.maNguoi = maNguoi;
     }
-    
-    
-    
-    /*
-    * Constructor
-    */
-    public ThoGiaCongDTO(){
-        
-    }
-    
-    /*
-    * Getters and Setters
-    */
 
-    public String getMaTho() {
+    /*
+     * Constructor
+     */
+    public ThoGiaCongDTO() {
+
+    }
+
+    /*
+     * Getters and Setters
+     */
+    public int getMaTho() {
         return maTho;
     }
 
-    public void setMaTho(String maTho) {
+    public void setMaTho(int maTho) {
         this.maTho = maTho;
     }
 
-    
-
-    public String getMaNguoi() {
+    public int getMaNguoi() {
         return maNguoi;
     }
 
-    public void setMaNguoi(String maNguoi) {
+    public void setMaNguoi(int maNguoi) {
         this.maNguoi = maNguoi;
     }
-    
-    
+
 }

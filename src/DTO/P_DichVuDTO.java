@@ -14,42 +14,38 @@ public class P_DichVuDTO {
      * Properties
      */
 
-    private String maP_DV;
-    private String maP_Thu;
+    private int maP_DV;
+    private int maP_Thu;
 
-    public P_DichVuDTO(String maP_DV, String maP_Thu) {
+    public P_DichVuDTO(int maP_DV, int maP_Thu) {
         this.maP_DV = maP_DV;
         this.maP_Thu = maP_Thu;
     }
-    
-    
-    
-    /*
-    * Constructor
-    */
-    public P_DichVuDTO(){
-        
-    }
-    
-    /*
-    * Getters and Setters
-    */
 
-    public String getMaP_DV() {
+    /*
+     * Constructor
+     */
+    public P_DichVuDTO() {
+
+    }
+
+    /*
+     * Getters and Setters
+     */
+    public int getMaP_DV() {
         return maP_DV;
     }
 
-    public void setMaP_DV(String maP_DV) {
+    public void setMaP_DV(int maP_DV) {
         this.maP_DV = maP_DV;
     }
 
-    public String getMaP_Thu() {
+    public int getMaP_Thu() {
         return maP_Thu;
     }
 
-    public void setMaP_Thu(String maP_Thu) {
+    public void setMaP_Thu(int maP_Thu) {
         this.maP_Thu = maP_Thu;
     }
-    
 
 }

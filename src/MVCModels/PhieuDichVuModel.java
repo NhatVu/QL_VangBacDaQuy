@@ -41,27 +41,27 @@ public class PhieuDichVuModel {
         mPhieuThuDAO = new P_ThuDAO();
     }
     
-    public String getNextIdOfPhieuDichVu()
+    public int getNextIdOfPhieuDichVu()
     {
         return mPhieuDichVuDAO.getNexId();
     }
     
-    public String getNextIdOfKhachHang()
+    public int getNextIdOfKhachHang()
     {
         return mKhachHangDAO.getNexId();
     }
     
-    public String getNextIdOfNguoi()
+    public int getNextIdOfNguoi()
     {
         return mNguoiDAO.getNexId();
     }
     
-    public String getNextIdOfPhieuThu()
+    public int getNextIdOfPhieuThu()
     {
         return mPhieuThuDAO.getNexId();
     }
     
-    public String getNextIdOfCTPDV()
+    public int getNextIdOfCTPDV()
     {
         return mCTPDV.getNexId();
     }
@@ -97,7 +97,7 @@ public class PhieuDichVuModel {
         mPhieuThuDAO.insert(pThu);
     }
     
-    public String getMaKhByName(int id)
+    public int getMaKhByName(int id)
     {
         return mKhachHangDAO.getMaKhachHangByName(id);
     }

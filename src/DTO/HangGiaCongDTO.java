@@ -14,33 +14,31 @@ public class HangGiaCongDTO {
      * Properties
      */
 
-    private String maLoaiGC;
+    private int maLoaiGC;
     private String tenLoaiGC;
     private double donGia;
 
-    public HangGiaCongDTO(String maLoaiGC, String tenLoaiGC, double donGia) {
+    public HangGiaCongDTO(int maLoaiGC, String tenLoaiGC, double donGia) {
         this.maLoaiGC = maLoaiGC;
         this.tenLoaiGC = tenLoaiGC;
         this.donGia = donGia;
     }
-    
-    
-    /*
-    * Constructor
-    */
-    public HangGiaCongDTO(){
-        
-    }
-    
-    /*
-    * Getters and Setters
-    */
 
-    public String getMaLoaiGC() {
+    /*
+     * Constructor
+     */
+    public HangGiaCongDTO() {
+
+    }
+
+    /*
+     * Getters and Setters
+     */
+    public int getMaLoaiGC() {
         return maLoaiGC;
     }
 
-    public void setMaLoaiGC(String maLoaiGC) {
+    public void setMaLoaiGC(int maLoaiGC) {
         this.maLoaiGC = maLoaiGC;
     }
 
@@ -59,7 +57,5 @@ public class HangGiaCongDTO {
     public void setDonGia(double donGia) {
         this.donGia = donGia;
     }
-    
-    
 
 }

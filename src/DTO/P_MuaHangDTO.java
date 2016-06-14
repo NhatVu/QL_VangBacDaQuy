@@ -16,49 +16,44 @@ public class P_MuaHangDTO {
      * Properties
      */
 
-    private String maP_MH = null;
-    private String maKH = null;
+    private int maP_MH;
+    private int maKH;
     private Timestamp ngayMua = null;
     private Timestamp ngayThanhToan = null;
     private double tongCong = 0;
-    
+
     /*
-    * Constructor
-    */
-    public P_MuaHangDTO(){
-        
+     * Constructor
+     */
+    public P_MuaHangDTO() {
+
     }
-    
-    
-    
-    public P_MuaHangDTO(String maP_MH, String maKH, Timestamp ngayMua, Timestamp ngayThanhToan, double tongCong) {
-		super();
-		this.maP_MH = maP_MH;
-		this.maKH = maKH;
-		this.ngayMua = ngayMua;
-		this.ngayThanhToan = ngayThanhToan;
-		this.tongCong = tongCong;
-	}
 
+    public P_MuaHangDTO(int maP_MH, int maKH, Timestamp ngayMua, Timestamp ngayThanhToan, double tongCong) {
+        super();
+        this.maP_MH = maP_MH;
+        this.maKH = maKH;
+        this.ngayMua = ngayMua;
+        this.ngayThanhToan = ngayThanhToan;
+        this.tongCong = tongCong;
+    }
 
-
-	/*
-    * Getters and Setters
-    */
-
-    public String getMaP_MH() {
+    public int getMaP_MH() {
         return maP_MH;
     }
 
-    public void setMaP_MH(String maP_MH) {
+    public void setMaP_MH(int maP_MH) {
         this.maP_MH = maP_MH;
     }
 
-    public String getMaKH() {
+    public int getMaKH() {
         return maKH;
     }
 
-    public void setMaKH(String maKH) {
+    /*
+     * Getters and Setters
+     */
+    public void setMaKH(int maKH) {
         this.maKH = maKH;
     }
 
@@ -85,6 +80,5 @@ public class P_MuaHangDTO {
     public void setTongCong(double tongCong) {
         this.tongCong = tongCong;
     }
-    
 
 }

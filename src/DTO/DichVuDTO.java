@@ -14,33 +14,31 @@ public class DichVuDTO {
      * Properties
      */
 
-    private String maDV;
+    private int maDV;
     private String tenDV;
     private double donGia;
 
-    public DichVuDTO(String maDV, String tenDV, double donGia) {
+    public DichVuDTO(int maDV, String tenDV, double donGia) {
         this.maDV = maDV;
         this.tenDV = tenDV;
         this.donGia = donGia;
     }
-    
-    
-    /*
-    * Constructor
-    */
-    public DichVuDTO(){
-        
-    }
-    
-    /*
-    * Getters and Setters
-    */
 
-    public String getMaDV() {
+    /*
+     * Constructor
+     */
+    public DichVuDTO() {
+
+    }
+
+    /*
+     * Getters and Setters
+     */
+    public int getMaDV() {
         return maDV;
     }
 
-    public void setMaDV(String maDV) {
+    public void setMaDV(int maDV) {
         this.maDV = maDV;
     }
 
@@ -59,8 +57,5 @@ public class DichVuDTO {
     public void setDonGia(double donGia) {
         this.donGia = donGia;
     }
-    
-    
-    
 
 }

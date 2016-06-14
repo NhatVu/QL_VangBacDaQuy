@@ -14,62 +14,52 @@ public class CTP_BanHangDTO {
      * Properties
      */
 
-    private String maCTP_BH = null;
-    private String maP_BH = null;
-    private String maSP = null;
+    private int maCTP_BH = 0;
+    private int maP_BH = 0;
+    private int maSP = 0;
     private int soLuong = 0;
     private double thanhTien = 0;
-    
+
     /*
-    * Constructor
-    */
-    public CTP_BanHangDTO(){
-        
+     * Constructor
+     */
+    public CTP_BanHangDTO() {
+
     }
-    
-    
-    
+
     /*
-    * Getters and Setters
-    */
+     * Getters and Setters
+     */
+    public CTP_BanHangDTO(int maCTP_BH, int maP_BH, int maSP, int soLuong, double thanhTien) {
+        super();
+        this.maCTP_BH = maCTP_BH;
+        this.maP_BH = maP_BH;
+        this.maSP = maSP;
+        this.soLuong = soLuong;
+        this.thanhTien = thanhTien;
+    }
 
-    public CTP_BanHangDTO(String maCTP_BH, String maP_BH, String maSP, int soLuong, double thanhTien) {
-		super();
-		this.maCTP_BH = maCTP_BH;
-		this.maP_BH = maP_BH;
-		this.maSP = maSP;
-		this.soLuong = soLuong;
-		this.thanhTien = thanhTien;
-	}
-
-
-
-	private String maCTP_BH(String string, String string2, int i, double d) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String getMaCTP_BH() {
+    public int getMaCTP_BH() {
         return maCTP_BH;
     }
 
-    public void setMaCTP_BH(String maCTP_BH) {
+    public void setMaCTP_BH(int maCTP_BH) {
         this.maCTP_BH = maCTP_BH;
     }
 
-    public String getMaP_BH() {
+    public int getMaP_BH() {
         return maP_BH;
     }
 
-    public void setMaP_BH(String maP_BH) {
+    public void setMaP_BH(int maP_BH) {
         this.maP_BH = maP_BH;
     }
 
-    public String getMaSP() {
+    public int getMaSP() {
         return maSP;
     }
 
-    public void setMaSP(String maSP) {
+    public void setMaSP(int maSP) {
         this.maSP = maSP;
     }
 
@@ -88,6 +78,5 @@ public class CTP_BanHangDTO {
     public void setThanhTien(double thanhTien) {
         this.thanhTien = thanhTien;
     }
-    
 
 }

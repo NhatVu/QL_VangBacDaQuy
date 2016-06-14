@@ -24,7 +24,7 @@ public class CT_TonKhoTableModel extends AbstractTableModel {
         "Mã hàng", "Tồn đầu kỳ", "Số lượng bán", "Số lượng mua", "Tồn cuối kỳ"
     };
     private final static Class[] columnClass = new Class[]{
-        String.class, Integer.class, Integer.class, Integer.class, Integer.class
+        Integer.class, Integer.class, Integer.class, Integer.class, Integer.class
     };
 
     public CT_TonKhoTableModel() {
@@ -91,7 +91,7 @@ public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 	// TODO Auto-generated method stub
 	   CT_TonKhoDTO row = lCT_TK.get(rowIndex);
        if (0 == columnIndex) {
-           row.setMaHang((String) aValue);
+           row.setMaHang((int) aValue);
        } else if (1 == columnIndex) {
            row.setTonDauKy((int) aValue);
        } else if (2 == columnIndex) {

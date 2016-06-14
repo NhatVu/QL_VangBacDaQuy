@@ -32,7 +32,7 @@ public class PhieuGiaCongModel {
         return mHangGiaCong.getAllHangGiaCong();
     }
 
-    public String getNextIdOfPhieuGiaCong() {
+    public int getNextIdOfPhieuGiaCong() {
         return mPhieuGiaCong.getNexId();
     }
 
@@ -40,7 +40,7 @@ public class PhieuGiaCongModel {
         mPhieuGiaCong.insert(pGiaCong);
     }
     
-    public String getNextIdOfCTPGC()
+    public int getNextIdOfCTPGC()
     {
         return mCTPGiaCong.getNexId();
     }

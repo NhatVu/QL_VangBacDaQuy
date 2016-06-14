@@ -51,8 +51,8 @@ public class ThoGiaCongDAO {
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall(insertStatement);
             
-            call.setString(maTho, n.getMaTho());
-            call.setString(maNguoi, n.getMaNguoi());
+            call.setInt(maTho, n.getMaTho());
+            call.setInt(maNguoi, n.getMaNguoi());
            
             
             return call.execute();
@@ -78,8 +78,8 @@ public class ThoGiaCongDAO {
             connection = DataSource.getInstance().getConnection();
             
             call = connection.prepareCall(updateStatement);
-            call.setString(maTho, n.getMaTho());
-            call.setString(maNguoi, n.getMaNguoi());
+            call.setInt(maTho, n.getMaTho());
+            call.setInt(maNguoi, n.getMaNguoi());
             
             return call.execute();
            
@@ -103,7 +103,7 @@ public class ThoGiaCongDAO {
 
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall(deleteStatement);
-            call.setString(maTho, n.getMaTho());
+            call.setInt(maTho, n.getMaTho());
             
             return call.execute();
             
@@ -133,8 +133,8 @@ public class ThoGiaCongDAO {
             ResultSet rs = st.executeQuery(query);
             while(rs.next())
             {
-                String maTho = rs.getString("MATHOGC");
-                String maNguoi = rs.getString("MANGUOI");
+                int maTho = rs.getInt("MATHOGC");
+                int maNguoi = rs.getInt("MANGUOI");
                 ThoGiaCongDTO dv = new ThoGiaCongDTO(maTho,maNguoi);
                 result.add(dv);
             }

@@ -2,6 +2,7 @@
 /* DBMS name:      MySQL 5.0                                    */
 /* Created on:     5/24/2016 9:25:09 PM                         */
 /*==============================================================*/
+drop database vangbacdaquy;
 create database vangbacdaquy;
 use vangbacdaquy;
 
@@ -48,9 +49,9 @@ drop table if exists TONKHO;
 /*==============================================================*/
 create table CTP_BANHANG
 (
-   MACTP_BH             varchar(20) not null,
-   MAP_BH               varchar(20) not null,
-   MASP                 varchar(20) not null,
+   MACTP_BH             INT not null,
+   MAP_BH               INT not null,
+   MASP                 INT not null,
    SOLUONG              int,
    THANHTIEN            decimal(10,3),
    primary key (MACTP_BH)
@@ -62,9 +63,9 @@ create table CTP_BANHANG
 /*==============================================================*/
 create table CTP_DICHVU
 (
-   MACTP_DV             varchar(20) not null,
-   MAP_DV               varchar(20) not null,
-   MADV                 varchar(20) not null,
+   MACTP_DV             INT not null,
+   MAP_DV               INT not null,
+   MADV                 INT not null,
    SOLUONG              int,
    THANHTIEN            decimal(10,3),
    primary key (MACTP_DV)
@@ -75,9 +76,9 @@ create table CTP_DICHVU
 /*==============================================================*/
 create table CTP_GIACONG
 (
-   MACTP_GC             varchar(20) not null,
-   MAP_GC               varchar(20) not null,
-   MALOAIGC             varchar(20) not null,
+   MACTP_GC             INT not null,
+   MAP_GC               INT not null,
+   MALOAIGC             INT not null,
    SOLUONG              int,
    THANHTIEN            decimal(10,3),
    primary key (MACTP_GC)
@@ -88,9 +89,9 @@ create table CTP_GIACONG
 /*==============================================================*/
 create table CTP_MUAHANG
 (
-   MACTP_MH             varchar(20) not null,
-   MAP_MH               varchar(20) not null,
-   MASP                 varchar(20) not null,
+   MACTP_MH             INT not null,
+   MAP_MH               INT not null,
+   MASP                 INT not null,
    SOLUONG              int,
    THANHTIEN            decimal(10,3),
    primary key (MACTP_MH)
@@ -101,9 +102,9 @@ create table CTP_MUAHANG
 /*==============================================================*/
 create table CT_TONKHO
 (
-   MACTP_TK             varchar(20) not null,
-   MAP_TK               varchar(20),
-   MAHANG               varchar(20) not null,
+   MACTP_TK             INT not null,
+   MAP_TK               INT not null,
+   MAHANG               INT not null,
    TONDAUKY             int,
    TONCUOIKY            int,
    SOLUONGBAN           int,
@@ -116,7 +117,7 @@ create table CT_TONKHO
 /*==============================================================*/
 create table DICHVU
 (
-   MADV                 varchar(20) not null,
+   MADV                 INT not null,
    TENDV                varchar(30),
    DONGIA               decimal(10,3),
    primary key (MADV)
@@ -127,8 +128,8 @@ create table DICHVU
 /*==============================================================*/
 create table HANGGIACONG
 (
-   MALOAIGC             varchar(20) not null,
-   TENLOAGC             varchar(50),
+   MALOAIGC             INT not null,
+   TENLOAIGC             varchar(50),
    DONGIA               decimal(10,3),
    primary key (MALOAIGC)
 );
@@ -138,8 +139,8 @@ create table HANGGIACONG
 /*==============================================================*/
 create table KHACHHANG
 (
-   MAKH                 varchar(20) not null,
-   MANGUOI              varchar(20) not null,
+   MAKH                 INT not null,
+   MANGUOI              INT not null,
    LAKHACHQUEN          bool,
    primary key (MAKH)
 );
@@ -149,7 +150,7 @@ create table KHACHHANG
 /*==============================================================*/
 create table NGUOI
 (
-   MANGUOI              varchar(20) not null,
+   MANGUOI              INT not null,
    SHORTID              int,
    HOTEN                varchar(20),
    DIACHI               varchar(100),
@@ -161,8 +162,8 @@ create table NGUOI
 /*==============================================================*/
 create table P_BANHANG
 (
-   MAP_BH               varchar(20) not null,
-   MAP_THU              varchar(20) not null,
+   MAP_BH               INT not null,
+   MAP_THU              INT not null,
    primary key (MAP_BH)
 );
 
@@ -171,7 +172,7 @@ create table P_BANHANG
 /*==============================================================*/
 create table P_CHI
 (
-   MAP_CHI              varchar(20) not null,
+   MAP_CHI              INT not null,
    NGAYCHI           	timestamp,
    NOIDUNG				varchar(300),
    SOTIENCHI            decimal(10,3),
@@ -183,8 +184,8 @@ create table P_CHI
 /*==============================================================*/
 create table P_DICHVU
 (
-   MAP_DV               varchar(20) not null,
-   MAP_THU              varchar(20) not null,
+   MAP_DV               INT not null,
+   MAP_THU              INT not null,
    primary key (MAP_DV)
 );
 
@@ -193,8 +194,8 @@ create table P_DICHVU
 /*==============================================================*/
 create table P_GIACONG
 (
-   MAP_GC               varchar(20) not null,
-   MATHOGC              varchar(20) not null,
+   MAP_GC               INT not null,
+   MATHOGC              INT not null,
    NGAYNHANHANG         timestamp,
    NGAYTHANHTOAN        timestamp,
    TONGCONG             decimal(10,3),
@@ -206,8 +207,8 @@ create table P_GIACONG
 /*==============================================================*/
 create table P_MUAHANG
 (
-   MAP_MH               varchar(20) not null,
-   MAKH                 varchar(20) not null,
+   MAP_MH               INT not null,
+   MAKH                 INT not null,
    NGAYMUA              timestamp,
    NGAYTHANHTOAN        timestamp,
    TONGCONG             decimal(10,3),
@@ -219,8 +220,8 @@ create table P_MUAHANG
 /*==============================================================*/
 create table P_NO
 (
-   MAP_NO               varchar(20) not null,
-   MAP_THU              varchar(20),
+   MAP_NO               INT not null,
+   MAP_THU              INT,
    NGAYNO               timestamp,
    SOTIENNO             decimal(10,3),
    NGAYTRA              timestamp,
@@ -233,8 +234,8 @@ create table P_NO
 /*==============================================================*/
 create table P_THU
 (
-   MAP_THU              varchar(20) not null,
-   MAKH                 varchar(20) not null,
+   MAP_THU              INT not null,
+   MAKH                 INT not null,
    NGAYLAPPHIEU         timestamp,
    NGAYKETTHUC          timestamp,
    TONGCONG             decimal(10,3),
@@ -246,7 +247,7 @@ create table P_THU
 /*==============================================================*/
 create table SANPHAM
 (
-   MASP                 varchar(20) not null,
+   MASP                 INT not null,
    TENLOAISP            varchar(30),
    DONGIAMUA            decimal(10,3),
    DONGIABAN            decimal(10,3),
@@ -259,8 +260,8 @@ create table SANPHAM
 /*==============================================================*/
 create table THOGIACONG
 (
-   MATHOGC              varchar(20) not null,
-   MANGUOI              varchar(20) not null,
+   MATHOGC              INT not null,
+   MANGUOI              INT not null,
    primary key (MATHOGC)
 );
 
@@ -269,7 +270,7 @@ create table THOGIACONG
 /*==============================================================*/
 create table TONKHO
 (
-   MAP_TK               varchar(20) not null,
+   MAP_TK               INT not null,
    NGAYBAOCAO           timestamp,
    primary key (MAP_TK)
 );

@@ -1,4 +1,4 @@
-	package main;
+package main;
 
 import MVCControllers.NhapSanPhamController;
 import MVCControllers.PhieuBanHangController;
@@ -20,28 +20,21 @@ public class Main {
     public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
+        //PhieuChiController controller = new PhieuChiController(); //xong
+        //PhieuNoController controller = new PhieuNoController(); // xong
+        // NhapSanPhamController controller = new NhapSanPhamController();
+        //PhieuBanHangController controller = new PhieuBanHangController();
+       // TonKhoController controller = new TonKhoController();//xong
+        PhieuDichVuController controller = new PhieuDichVuController(); // xing 1 nua
+        controller.start();
 
-    	
-        //PhieuNoController controller = new PhieuNoController();
-        //controller.startApplication();
-        
-        //PhieuChiController controller = new PhieuChiController();
-//        PhieuChiController controller = new PhieuChiController();
-//       controller.startApplication();
-        
-//		NhapSanPhamController controller = new NhapSanPhamController();
-//		controller.startApplication();
-        
 //		PhieuBanHangController controller = new PhieuBanHangController();
 //		controller.startApplication();
-    	
-    	PhieuMuaHangController controller = new PhieuMuaHangController();
-    	controller.startApplication();
-		
-//        PhieuDichVuController controller = new PhieuDichVuController();
+//    	PhieuMuaHangController controller = new PhieuMuaHangController();
+//    	controller.startApplication();
+//       
         //PhieuGiaCongController controller = new PhieuGiaCongController();
-//        controller.start();
-
+        //controller.start();
     }
 
 }

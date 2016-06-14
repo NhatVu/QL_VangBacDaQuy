@@ -20,113 +20,112 @@ import main.Resource;
  * @author Administrator
  */
 public class P_GiaCongDAO {
+
     CallableStatement call = null;
     Connection connection = null;
-    
+
     //Properties of table
     private static final String maPhieuGiaCong = "MAP_GC";
     private static final String maThoGiaCong = "MATHOGC";
     private static final String ngayNhanHang = "NGAYNHANHANG";
     private static final String ngayThanhToan = "NGAYTHANHTOAN";
     private static final String tongCong = "TONGCONG";
-    
+
     private static final String insertStatement = "{call P_GIACONG_Ins(?,?,?,?,?)}";
     private static final String updateStatement = "{call P_GIACONG_Upd(?,?,?,?,?)}";
     private static final String deleteStatement = "{call P_GIACONG_Del(?)}";
-    
+
     //TAG
     private static final String TAG = P_GiaCongDAO.class.getSimpleName();
-    
-    
-    public P_GiaCongDAO(){
-        
+
+    public P_GiaCongDAO() {
+
     }
-    
+
     /*
-    * CRUD
-    */
-    public boolean insert(P_GiaCongDTO n){
+     * CRUD
+     */
+    public boolean insert(P_GiaCongDTO n) {
         //create procedure DICHVU_Ins (MADV varchar(10), TENDV varchar(30) )
         try {
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall(insertStatement);
-            
-            call.setString(maPhieuGiaCong, n.getMaP_GC());
-            call.setString(maThoGiaCong, n.getMaThoGC());
+
+            call.setInt(maPhieuGiaCong, n.getMaP_GC());
+            call.setInt(maThoGiaCong, n.getMaThoGC());
             call.setTimestamp(ngayNhanHang, n.getNgayNhanHang());
             call.setTimestamp(ngayThanhToan, n.getNgayThanhToan());
-            call.setDouble(tongCong,n.getTongCong());
-            
+            call.setDouble(tongCong, n.getTongCong());
+
             return call.execute();
-                    
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-        }
-        finally{
-            if(connection!= null)
+        } finally {
+            if (connection != null) {
                 try {
                     connection.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+                }
             }
         }
         return false;
     }
-    
-    public boolean update(P_GiaCongDTO n){
+
+    public boolean update(P_GiaCongDTO n) {
         try {
             // procedure DICHVU_Upd (MADV varchar(10), TENDV varchar(30) )
             connection = DataSource.getInstance().getConnection();
-            
+
             call = connection.prepareCall(updateStatement);
-            call.setString(maPhieuGiaCong, n.getMaP_GC());
-            call.setString(maThoGiaCong, n.getMaThoGC());
+            call.setInt(maPhieuGiaCong, n.getMaP_GC());
+            call.setInt(maThoGiaCong, n.getMaThoGC());
             call.setTimestamp(ngayNhanHang, n.getNgayNhanHang());
             call.setTimestamp(ngayThanhToan, n.getNgayThanhToan());
-            call.setDouble(tongCong,n.getTongCong());
-            
+            call.setDouble(tongCong, n.getTongCong());
+
             return call.execute();
-           
+
         } catch (SQLException ex) {
             Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-        }
-        finally{
-            if(connection!= null)
+        } finally {
+            if (connection != null) {
                 try {
                     connection.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+                }
             }
         }
         return false;
     }
-    
-    public boolean delete(P_GiaCongDTO n){
+
+    public boolean delete(P_GiaCongDTO n) {
         try {
             //create procedure DICHVU_Del (MADV varchar(10) )
 
             connection = DataSource.getInstance().getConnection();
             call = connection.prepareCall(deleteStatement);
-            call.setString(maPhieuGiaCong, n.getMaP_GC());
-            
+            call.setInt(maPhieuGiaCong, n.getMaP_GC());
+
             return call.execute();
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-        }
-        finally{
-            if(connection!=null)
+        } finally {
+            if (connection != null) {
                 try {
                     connection.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+                }
             }
         }
         return false;
     }
-    
-    public String getLastID() {
+
+    public int getLastID() {
         try {
             // procedure  P_No_getLastID(out maxid varchar(10))
             connection = DataSource.getInstance().getConnection();
@@ -134,7 +133,7 @@ public class P_GiaCongDAO {
             call.registerOutParameter(1, java.sql.Types.VARCHAR);
 
             call.execute();
-            return call.getString(1);
+            return call.getInt(1);
 
         } catch (SQLException ex) {
             Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
@@ -155,17 +154,11 @@ public class P_GiaCongDAO {
             }
         }
 //</editor-fold>
-        return null;
+        return 0;
     }
-    
-    public String getNexId()
-    {
-        String maPhieu = Resource.P_GIACONG+"1";
-        if(this.getLastID()!=null)
-        {
-            String curentId = getLastID();
-            maPhieu= Resource.P_GIACONG+(Integer.valueOf(curentId.substring(Resource.P_GIACONG.length()))+1)+"";
-        }
-        return maPhieu;
+
+    public int getNexId() {
+        return getLastID() + 1;
+
     }
 }
