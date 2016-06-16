@@ -22,6 +22,7 @@ import DTO.P_ThuDTO;
 import DTO.SanPhamDTO;
 import MVCModels.PhieuBanHangModel;
 import MVCViews.PhieuBanHangView;
+import java.awt.event.WindowEvent;
 import table.TableData;
 
 public class PhieuBanHangController implements Controller {
@@ -322,6 +323,7 @@ public class PhieuBanHangController implements Controller {
     @Override
     public void setParent(Controller parent) {
         this.parent = parent;
+        parent.addChild(this);
     }
 
     @Override
@@ -332,5 +334,15 @@ public class PhieuBanHangController implements Controller {
     @Override
     public void setParentVisiableTrue() {
         this.parent.setParentVisiableTrue();
+    }
+
+    @Override
+    public void addChild(Controller child) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void dipose() {
+        view.getFrame().dispatchEvent(new WindowEvent(view.getFrame(), WindowEvent.WINDOW_CLOSING));
     }
 }

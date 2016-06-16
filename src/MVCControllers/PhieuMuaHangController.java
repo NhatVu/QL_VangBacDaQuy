@@ -23,6 +23,7 @@ import DTO.P_MuaHangDTO;
 import DTO.SanPhamDTO;
 import MVCModels.PhieuMuaHangModel;
 import MVCViews.PhieuMuaHangView;
+import java.awt.event.WindowEvent;
 import table.TableData;
 
 public class PhieuMuaHangController implements Controller{
@@ -311,6 +312,7 @@ public class PhieuMuaHangController implements Controller{
      @Override
     public void setParent(Controller parent) {
         this.parent = parent;
+        parent.addChild(this);
     }
 
     @Override
@@ -321,5 +323,15 @@ public class PhieuMuaHangController implements Controller{
    @Override
     public void setParentVisiableTrue() {
         this.parent.setParentVisiableTrue();
+    }
+
+    @Override
+    public void addChild(Controller child) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public void dipose() {
+        view.getFrame().dispatchEvent(new WindowEvent(view.getFrame(), WindowEvent.WINDOW_CLOSING));
     }
 }

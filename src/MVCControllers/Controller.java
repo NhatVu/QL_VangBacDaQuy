@@ -13,4 +13,6 @@ public interface Controller {
     void setParent (Controller parent);
     void setParentVisiableFalse();
     void setParentVisiableTrue();
+    void addChild(Controller child);
+    void dipose();
 }

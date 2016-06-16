@@ -17,6 +17,7 @@ import MVCModels.PhieuDichVuModel;
 import MVCViews.PhieuDichVuView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import static java.lang.System.in;
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -316,6 +317,7 @@ public class PhieuDichVuController implements ActionListener, Controller {
      @Override
     public void setParent(Controller parent) {
         this.parent = parent;
+        parent.addChild(this);
     }
 
     @Override
@@ -326,6 +328,16 @@ public class PhieuDichVuController implements ActionListener, Controller {
    @Override
     public void setParentVisiableTrue() {
         this.parent.setParentVisiableTrue();
+    }
+
+    @Override
+    public void addChild(Controller child) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public void dipose() {
+        mPhieuDichVuView.getFrame().dispatchEvent(new WindowEvent(mPhieuDichVuView.getFrame(), WindowEvent.WINDOW_CLOSING));
     }
 
 }

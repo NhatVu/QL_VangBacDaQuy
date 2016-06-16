@@ -8,6 +8,8 @@ package MVCControllers;
 import MVCViews.MainPageView;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -17,6 +19,7 @@ public class MainPageController implements Controller {
 
     private MainPageView view = null;
     private Controller parent;
+    private List<Controller> child = new ArrayList<Controller>();
 
     public void start() {
         view = new MainPageView(this);
@@ -68,6 +71,9 @@ public class MainPageController implements Controller {
 
     public void btnThoatActionPerformed(ActionEvent e) {
         view.getFrame().dispatchEvent(new WindowEvent(view.getFrame(), WindowEvent.WINDOW_CLOSING));
+        for(int i = 0; i<child.size(); i++){
+            child.get(i).dipose();
+        }
     }
 
     public MainPageController() {
@@ -86,6 +92,16 @@ public class MainPageController implements Controller {
     @Override
     public void setParentVisiableTrue() {
         this.view.getFrame().setVisible(true);
+    }
+
+    @Override
+    public void addChild(Controller child) {
+        this.child.add(child);
+    }
+
+    @Override
+    public void dipose() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
