@@ -23,10 +23,11 @@ import main.Resource;
  *
  * @author Minh Nhat
  */
-public class TonKhoController {
+public class TonKhoController implements Controller{
 
     TonKhoModel model = new TonKhoModel();
     TonKhoView view = null;
+    private Controller parent;
 
     /*
      Khi vừa  load form, thì tất cả các thông tin đều đã được hiện thị lên.
@@ -35,6 +36,7 @@ public class TonKhoController {
     public void start() {
         view = new TonKhoView(this);
         view.getFrame().setVisible(true);
+        setParentVisiableFalse();
     }
 
     /*
@@ -60,7 +62,9 @@ public class TonKhoController {
     }
 
     public void btnThoatActionEvent(ActionEvent e) {
-        view.getFrame().dispatchEvent(new WindowEvent(view.getFrame(), WindowEvent.WINDOW_CLOSING));
+        //view.getFrame().dispatchEvent(new WindowEvent(view.getFrame(), WindowEvent.WINDOW_CLOSING));
+        view.getFrame().setVisible(false);
+        setParentVisiableTrue();
     }
 
     public void frameWindowOpened(WindowEvent e) {
@@ -97,4 +101,18 @@ public class TonKhoController {
         }
     }
 
+     @Override
+    public void setParent(Controller parent) {
+        this.parent = parent;
+    }
+
+    @Override
+    public void setParentVisiableFalse() {
+        this.parent.setParentVisiableFalse();
+    }
+
+   @Override
+    public void setParentVisiableTrue() {
+        this.parent.setParentVisiableTrue();
+    }
 }

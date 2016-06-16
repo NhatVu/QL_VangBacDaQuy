@@ -20,14 +20,16 @@ import main.Resource;
  *
  * @author Minh Nhat
  */
-public class PhieuChiController {
+public class PhieuChiController implements Controller{
 
     PhieuChiModel model = new PhieuChiModel();
     PhieuChiView view = null;
+    private Controller parent;
 
     public void start() {
         view = new PhieuChiView(this);
         view.getFrame().setVisible(true);
+        setParentVisiableFalse();
     }
 
     public void btnLuuActionPerformed(ActionEvent e) {
@@ -59,11 +61,28 @@ public class PhieuChiController {
     }
 
     public void btnThoatActionEvent(ActionEvent e) {
-        view.getFrame().dispatchEvent(new WindowEvent(view.getFrame(), WindowEvent.WINDOW_CLOSING));
+        //view.getFrame().dispatchEvent(new WindowEvent(view.getFrame(), WindowEvent.WINDOW_CLOSING));
+        view.getFrame().setVisible(false);
+        setParentVisiableTrue();
     }
 
     public void frameWindowOpened(WindowEvent e) {
         view.getTextMaPhieu().setText(String.valueOf(model.getNextID()));
         view.getDateNgayChi().setDate(new Date());
+    }
+    
+     @Override
+    public void setParent(Controller parent) {
+        this.parent = parent;
+    }
+
+    @Override
+    public void setParentVisiableFalse() {
+        this.parent.setParentVisiableFalse();
+    }
+
+   @Override
+    public void setParentVisiableTrue() {
+        this.parent.setParentVisiableTrue();
     }
 }

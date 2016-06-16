@@ -25,10 +25,11 @@ import MVCModels.PhieuMuaHangModel;
 import MVCViews.PhieuMuaHangView;
 import table.TableData;
 
-public class PhieuMuaHangController {
+public class PhieuMuaHangController implements Controller{
 
     private PhieuMuaHangModel model = new PhieuMuaHangModel();
     private PhieuMuaHangView view = null;
+    private Controller parent;
 
     private String[] dsTenSanPham;
     private double donGiaMua = 0;
@@ -38,6 +39,7 @@ public class PhieuMuaHangController {
         view.setVisible(true);
         createAutoView();
         btnThemRowActionPerformed(null); // tự tạo dòng đầu tiên trong JTable khi Phiếu Mua Hàng được mở lên
+        setParentVisiableFalse();
     }
 
     private void createAutoView() {
@@ -303,6 +305,21 @@ public class PhieuMuaHangController {
 
     public void btnThoatActionPerformed(ActionEvent arg0) {
         view.setVisible(false);
+        setParentVisiableTrue();
     }
 
+     @Override
+    public void setParent(Controller parent) {
+        this.parent = parent;
+    }
+
+    @Override
+    public void setParentVisiableFalse() {
+        this.parent.setParentVisiableFalse();
+    }
+
+   @Override
+    public void setParentVisiableTrue() {
+        this.parent.setParentVisiableTrue();
+    }
 }

@@ -131,7 +131,7 @@ public class HangGiaCongDAO {
             ResultSet rs = st.executeQuery(query);
             while (rs.next()) {
                 int maGC = rs.getInt("MALOAIGC");
-                String tenGC = rs.getString("TENLOAGC");
+                String tenGC = rs.getString("TENLOAIGC");
                 double dongia = Double.parseDouble(rs.getString("DONGIA"));
                 HangGiaCongDTO dv = new HangGiaCongDTO(maGC, tenGC, dongia);
                 result.add(dv);

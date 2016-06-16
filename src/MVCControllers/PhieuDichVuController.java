@@ -38,12 +38,13 @@ import table.TableData;
  *
  * @author Administrator
  */
-public class PhieuDichVuController implements ActionListener {
+public class PhieuDichVuController implements ActionListener, Controller {
 
     private PhieuDichVuView mPhieuDichVuView;
     private PhieuDichVuModel mPhieuDichVuModel;
     private String[] mDichVu;
     private double dongia = 0;
+    private Controller parent;
 
     public PhieuDichVuController() {
         mPhieuDichVuView = new PhieuDichVuView();
@@ -55,11 +56,12 @@ public class PhieuDichVuController implements ActionListener {
         createView();
         handleEvent();
         addMoreTableRecord();
-
+        setParentVisiableFalse();
     }
 
     public void stop() {
         mPhieuDichVuView.setVisible(false);
+        setParentVisiableTrue();
     }
 
     private void handleEvent() {
@@ -309,6 +311,21 @@ public class PhieuDichVuController implements ActionListener {
         }
         // only got here if we didn't return false
         return true;
+    }
+    
+     @Override
+    public void setParent(Controller parent) {
+        this.parent = parent;
+    }
+
+    @Override
+    public void setParentVisiableFalse() {
+        this.parent.setParentVisiableFalse();
+    }
+
+   @Override
+    public void setParentVisiableTrue() {
+        this.parent.setParentVisiableTrue();
     }
 
 }

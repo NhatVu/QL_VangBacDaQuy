@@ -32,12 +32,13 @@ import table.TableData;
  *
  * @author Administrator
  */
-public class PhieuGiaCongController implements ActionListener {
+public class PhieuGiaCongController implements ActionListener, Controller {
 
     private PhieuHangGiaCongView mPhieuHangGiaCongView;
     private PhieuGiaCongModel mPhieuGiaCongModel;
     private String[] mHangGiaCong;
     private double dongia = 0;
+    private Controller parent;
 
     public PhieuGiaCongController() {
         mPhieuHangGiaCongView = new PhieuHangGiaCongView(this);
@@ -49,11 +50,12 @@ public class PhieuGiaCongController implements ActionListener {
         createView();
         handleEvent();
         addMoreTableRecord();
-
+        setParentVisiableFalse();
     }
 
     public void stop() {
         mPhieuHangGiaCongView.setVisible(false);
+        setParentVisiableTrue();
     }
 
     private void createView() {
@@ -260,5 +262,20 @@ public class PhieuGiaCongController implements ActionListener {
         }
         // only got here if we didn't return false
         return true;
+    }
+
+    @Override
+    public void setParent(Controller parent) {
+        this.parent = parent;
+    }
+
+    @Override
+    public void setParentVisiableFalse() {
+        this.parent.setParentVisiableFalse();
+    }
+
+   @Override
+    public void setParentVisiableTrue() {
+        this.parent.setParentVisiableTrue();
     }
 }

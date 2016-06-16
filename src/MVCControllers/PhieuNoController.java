@@ -16,14 +16,16 @@ import javax.swing.JTextField;
 import main.CheckInput;
 import main.Resource;
 
-public class PhieuNoController {
+public class PhieuNoController implements Controller{
 
     private PhieuNoModel model = new PhieuNoModel();
     private PhieuNoView view = null;
+    private Controller parent;
 
     public void start() {
         view = new PhieuNoView(this);
         view.getFrame().setVisible(true);
+        setParentVisiableFalse();
     }
 
     /*
@@ -79,7 +81,9 @@ public class PhieuNoController {
      */
     public void btnThoatActionPerformed(ActionEvent arg) {
         JFrame mFrame = view.getFrame();
-        mFrame.dispatchEvent(new WindowEvent(mFrame, WindowEvent.WINDOW_CLOSING));
+        //mFrame.dispatchEvent(new WindowEvent(mFrame, WindowEvent.WINDOW_CLOSING));
+        mFrame.setVisible(false);
+        setParentVisiableTrue();
     }
 
     /*
@@ -134,5 +138,20 @@ public class PhieuNoController {
      */
     public void frameWindowOpened(WindowEvent arg) {
         view.getTextMaPhieuNo().setText(String.valueOf(model.getNextID()));
+    }
+    
+     @Override
+    public void setParent(Controller parent) {
+        this.parent = parent;
+    }
+
+    @Override
+    public void setParentVisiableFalse() {
+        this.parent.setParentVisiableFalse();
+    }
+
+   @Override
+    public void setParentVisiableTrue() {
+        this.parent.setParentVisiableTrue();
     }
 }
