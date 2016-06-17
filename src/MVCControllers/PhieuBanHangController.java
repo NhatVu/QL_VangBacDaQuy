@@ -184,7 +184,8 @@ public class PhieuBanHangController implements Controller {
     }
 
     public void btnLuuVaoDbActionPerformed(ActionEvent arg0) {
-        if (view.isAllTextFilled() == true && isTableEmpty() != true) {
+        if (view.isAllTextFilled() == true && isTableEmpty() != true
+                && view.getDateNgayBan().getDate().getTime() <= view.getDateNgayThanhToan().getDate().getTime()) {
             double finalMoney = calculateFinalMoney();
             view.getTextTongCong().setText(finalMoney + "");
 
@@ -229,6 +230,7 @@ public class PhieuBanHangController implements Controller {
              */
             int nextIdPhieuBanHang = model.getNextIdOfPhieuBanHang();
             P_BanHangDTO p_BanHangDTO = new P_BanHangDTO(nextIdPhieuBanHang, nextIdPhieuThu);
+            model.insertPhieuBanHang(p_BanHangDTO);
 
             /*
              *  insert CTP_BanHangDTO
@@ -261,11 +263,8 @@ public class PhieuBanHangController implements Controller {
                      *  update SoLuongTon của SanPham
                      */
                     soLuongTon -= soLuong;
-                    if (model.updateSoLuongTonOfSanPham(soLuongTon, maSP)) {
-                        JOptionPane.showMessageDialog(null, "Số lượng tồn đã được cập nhật");
-                    } else {
-                        JOptionPane.showConfirmDialog(null, "Số lượng tồn CHƯA được cập nhật");
-                    }
+                    model.updateSoLuongTonOfSanPham(soLuongTon, maSP);
+                    JOptionPane.showMessageDialog(null, "Lưu thành công");
 
                 } else {
                     JOptionPane.showMessageDialog(null, "Số lượng sản phẩm trong kho không đủ");
@@ -273,7 +272,7 @@ public class PhieuBanHangController implements Controller {
             }
 
         } else {
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin");
+            JOptionPane.showMessageDialog(null, "Vui lòng kiểm tra lại thông tin");
         }
     }
 

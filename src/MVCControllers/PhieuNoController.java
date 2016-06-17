@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 import main.CheckInput;
 import main.Resource;
 
-public class PhieuNoController implements Controller{
+public class PhieuNoController implements Controller {
 
     private PhieuNoModel model = new PhieuNoModel();
     private PhieuNoView view = null;
@@ -40,9 +40,14 @@ public class PhieuNoController implements Controller{
                 || view.getTextConLai().getText() == "" || view.getTextHoTen().getText() == null
                 || view.getTextMaKH().getText() == null || view.getTextMaPhieuNo().getText() == null
                 || view.getTextMaPhieuBan().getText() == null || view.getTextMaPhieuNo().getText() == null
-                || view.getTextSoTienNo().getText() == null || view.getTextSoTienTra().getText() == null) // nếu 1 trường không được điền, hoặc điền rỗng => thống báo phải điền đủ
+                || view.getTextSoTienNo().getText() == null || view.getTextSoTienTra().getText() == null
+                || view.getDateNgayNo().getDate().getTime() > view.getDateNgayTra().getDate().getTime()) // nếu 1 trường không được điền, hoặc điền rỗng => thống báo phải điền đủ
         {
-            JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin");
+            JOptionPane.showMessageDialog(null, "Vui lòng kiểm tra thông tin");
+        } else if (!CheckInput.isDouble(view.getTextSoTienNo().getText())
+                || !CheckInput.isDouble(view.getTextSoTienTra().getText())
+                || !CheckInput.isDouble(view.getTextConLai().getText())) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập số");
         } else {
             P_NoDTO noDTO = new P_NoDTO();
             noDTO.setMaP_No(Integer.parseInt(view.getTextMaPhieuNo().getText()));
@@ -139,8 +144,8 @@ public class PhieuNoController implements Controller{
     public void frameWindowOpened(WindowEvent arg) {
         view.getTextMaPhieuNo().setText(String.valueOf(model.getNextID()));
     }
-    
-     @Override
+
+    @Override
     public void setParent(Controller parent) {
         this.parent = parent;
         parent.addChild(this);
@@ -151,7 +156,7 @@ public class PhieuNoController implements Controller{
         this.parent.setParentVisiableFalse();
     }
 
-   @Override
+    @Override
     public void setParentVisiableTrue() {
         this.parent.setParentVisiableTrue();
     }
@@ -160,7 +165,7 @@ public class PhieuNoController implements Controller{
     public void addChild(Controller child) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     public void dipose() {
         view.getFrame().dispatchEvent(new WindowEvent(view.getFrame(), WindowEvent.WINDOW_CLOSING));

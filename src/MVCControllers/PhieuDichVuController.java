@@ -125,12 +125,13 @@ public class PhieuDichVuController implements ActionListener, Controller {
         mPhieuDichVuView.getTextTongCong().setText("");
         mPhieuDichVuView.getDateNgayDK().cleanup();
         mPhieuDichVuView.getDateNgayGiao().cleanup();
-
+        mPhieuDichVuView.getmTableModel().clearObject();
     }
 
     private void saveData() {
 
-        if (this.isTableEmpty() != true && mPhieuDichVuView.isAllTextFilled() == true) {
+        if (this.isTableEmpty() != true && mPhieuDichVuView.isAllTextFilled() == true && 
+                mPhieuDichVuView.getDateNgayDK().getDate().getTime() <= mPhieuDichVuView.getDateNgayGiao().getDate().getTime()) {
             double finalMoney = calculateFinalMoney();
             mPhieuDichVuView.getTextTongCong().setText(finalMoney + "");
             String shortId = mPhieuDichVuView.getTextMaKH().getText().toString().trim();
@@ -178,10 +179,16 @@ public class PhieuDichVuController implements ActionListener, Controller {
                         idDv,
                         Integer.parseInt(data.getDataAt(1)), Double.parseDouble(data.getDataAt(3)));
                 mPhieuDichVuModel.insertCTPDichVu(ctp);
+                JOptionPane.showMessageDialog(null, "Lưu thành công");
+                clearData();
+                addMoreTableRecord();
+                mPhieuDichVuView.getTextMaPhieu().setText(String.valueOf(mPhieuDichVuModel.getNextIdOfPhieuDichVu()));
             }
         } else {
             JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin");
         }
+        
+        
     }
 
     private void createView() {

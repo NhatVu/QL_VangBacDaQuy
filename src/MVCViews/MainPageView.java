@@ -81,7 +81,7 @@ public class MainPageView {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.btnChiActionPerfomed(e);
+                controller.btnTonKhoActionPerformed(e);
             }
         });
         

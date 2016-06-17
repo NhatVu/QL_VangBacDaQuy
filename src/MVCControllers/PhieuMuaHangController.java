@@ -212,7 +212,8 @@ public class PhieuMuaHangController implements Controller{
     }
 
     public void btnLuuVaoDbActionPerformed(ActionEvent arg0) {
-        if (view.isAllTextFilled() == true && isTableEmpty() != true) {
+        if (view.isAllTextFilled() == true && isTableEmpty() != true &&
+                 view.getDateNgayMua().getDate().getTime() <= view.getDateNgayThanhToan().getDate().getTime()) {
             double finalMoney = calculateFinalMoney();
             view.getTextTongCong().setText(finalMoney + "");
 
@@ -250,6 +251,7 @@ public class PhieuMuaHangController implements Controller{
                     new Timestamp(view.getDateNgayMua().getDate().getTime()),
                     new Timestamp(view.getDateNgayThanhToan().getDate().getTime()),
                     finalMoney);
+            model.insertPhieuMuaHang(p_MuaHangDTO);
 
             /*
              * 	insert CTP_MuaHangDTO
@@ -281,16 +283,12 @@ public class PhieuMuaHangController implements Controller{
                  *  update SoLuongTon của SanPham
                  */
                 soLuongTon += soLuong;
-                if (model.updateSoLuongTonOfSanPham(soLuongTon, maSP)) {
-                    JOptionPane.showMessageDialog(null, "Số lượng tồn đã được cập nhật");
-                } else {
-                    JOptionPane.showConfirmDialog(null, "Số lượng tồn CHƯA được cập nhật");
-                }
-
+                model.updateSoLuongTonOfSanPham(soLuongTon, maSP);
+                JOptionPane.showMessageDialog(null, "Lưu thành công");
             }
 
         } else {
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin");
+            JOptionPane.showMessageDialog(null, "Vui lòng kiểm tra lại thông tin");
         }
 
     }

@@ -39,6 +39,12 @@ public class TableModel extends AbstractTableModel {
     	mObjectList.remove(index);
     	fireTableDataChanged();
     }
+     
+     public void clearObject()
+     {
+         mObjectList.clear();
+         fireTableDataChanged();
+     }
     
     
 

@@ -198,7 +198,8 @@ public class PhieuGiaCongController implements ActionListener, Controller {
     }
 
     private void saveData() {
-        if (this.isTableEmpty() != true && mPhieuHangGiaCongView.isAllTextFilled() == true) {
+        if (this.isTableEmpty() != true && mPhieuHangGiaCongView.isAllTextFilled() == true
+                && mPhieuHangGiaCongView.getDateNgayNhanHang().getDate().getTime() <= mPhieuHangGiaCongView.getDateNgayThanhToan().getDate().getTime()) {
             double finalMoney = calculateFinalMoney();
             mPhieuHangGiaCongView.getTextTongCong().setText(finalMoney + "");
 
@@ -224,9 +225,13 @@ public class PhieuGiaCongController implements ActionListener, Controller {
                         nextIdOfPhieuGiaCong,
                         Integer.parseInt(data.getDataAt(1)), Double.parseDouble(data.getDataAt(3)));
                 mPhieuGiaCongModel.insertCTP_GiaCong(ctp);
+                JOptionPane.showMessageDialog(null, "Lưu thành công");
+                clearData();
+                addMoreTableRecord();
+                mPhieuHangGiaCongView.getTextMaPhieu().setText(String.valueOf(mPhieuGiaCongModel.getNextIdOfPhieuGiaCong()));
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin");
+            JOptionPane.showMessageDialog(null, "Vui lòng kiểm tra thông tin đã nhập");
         }
     }
 
@@ -253,6 +258,8 @@ public class PhieuGiaCongController implements ActionListener, Controller {
         mPhieuHangGiaCongView.getTextTongCong().setText("");
         mPhieuHangGiaCongView.getDateNgayNhanHang().cleanup();
         mPhieuHangGiaCongView.getDateNgayThanhToan().cleanup();
+        mPhieuHangGiaCongView.getmTableModel().clearObject();
+
     }
 
     public static boolean isInteger(String s) {
@@ -276,7 +283,7 @@ public class PhieuGiaCongController implements ActionListener, Controller {
         this.parent.setParentVisiableFalse();
     }
 
-   @Override
+    @Override
     public void setParentVisiableTrue() {
         this.parent.setParentVisiableTrue();
     }
@@ -285,7 +292,7 @@ public class PhieuGiaCongController implements ActionListener, Controller {
     public void addChild(Controller child) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     public void dipose() {
         mPhieuHangGiaCongView.getFrame().dispatchEvent(new WindowEvent(mPhieuHangGiaCongView.getFrame(), WindowEvent.WINDOW_CLOSING));
