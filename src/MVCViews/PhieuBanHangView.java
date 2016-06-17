@@ -181,6 +181,7 @@ public class PhieuBanHangView {
         dateNgayBan.setBounds(123, 105, 116, 20);
         frmPhiuBnHng.getContentPane().add(dateNgayBan);
         this.mAllDateChoolser.add(dateNgayBan);
+        dateNgayBan.setEnabled(false);
 
         dateNgayThanhToan = new JDateChooser();
         dateNgayThanhToan.setBounds(579, 105, 131, 20);

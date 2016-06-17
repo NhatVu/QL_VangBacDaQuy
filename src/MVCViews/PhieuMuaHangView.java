@@ -181,6 +181,7 @@ public class PhieuMuaHangView {
         dateNgayMua.setBounds(123, 105, 116, 20);
         frmPhiuMuaHng.getContentPane().add(dateNgayMua);
         this.mAllDateChoolser.add(dateNgayMua);
+        dateNgayMua.setEnabled(false);
 
         dateNgayThanhToan = new JDateChooser();
         dateNgayThanhToan.setBounds(579, 105, 131, 20);

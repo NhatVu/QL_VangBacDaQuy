@@ -187,7 +187,7 @@ public class PhieuBanHangController implements Controller {
     public void btnLuuVaoDbActionPerformed(ActionEvent arg0) {
         if (view.isAllTextFilled() == true && isTableEmpty() != true
                 && view.getDateNgayBan().getDate().getTime() <= view.getDateNgayThanhToan().getDate().getTime()
-                && CheckInput.isStringMax50(view.getTextHoTen().getText()) 
+                && CheckInput.isStringMax50(view.getTextHoTen().getText())
                 && CheckInput.isStringMax50(view.getTextMaKH().getText())
                 && CheckInput.isStringMax300(view.getTextDiaChi().getText())) {
             double finalMoney = calculateFinalMoney();
@@ -268,12 +268,12 @@ public class PhieuBanHangController implements Controller {
                      */
                     soLuongTon -= soLuong;
                     model.updateSoLuongTonOfSanPham(soLuongTon, maSP);
-                    JOptionPane.showMessageDialog(null, "Lưu thành công");
 
                 } else {
                     JOptionPane.showMessageDialog(null, "Số lượng sản phẩm trong kho không đủ");
                 }
             }
+            JOptionPane.showMessageDialog(null, "Lưu thành công");
 
         } else {
             JOptionPane.showMessageDialog(null, "Vui lòng kiểm tra lại thông tin");

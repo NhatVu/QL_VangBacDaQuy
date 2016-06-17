@@ -273,6 +273,7 @@ public class PhieuDichVuView {
         dateNgayDK.setBounds(563, 71, 136, 20);
         frmPhiuDchV.getContentPane().add(dateNgayDK);
         mAllDateChoolser.add(dateNgayDK);
+        dateNgayDK.setEnabled(false);
 
         dateNgayGiao = new JDateChooser();
         dateNgayGiao.setBounds(563, 108, 136, 20);

@@ -27,7 +27,7 @@ import java.awt.event.WindowEvent;
 import main.CheckInput;
 import table.TableData;
 
-public class PhieuMuaHangController implements Controller{
+public class PhieuMuaHangController implements Controller {
 
     private PhieuMuaHangModel model = new PhieuMuaHangModel();
     private PhieuMuaHangView view = null;
@@ -213,12 +213,11 @@ public class PhieuMuaHangController implements Controller{
     }
 
     public void btnLuuVaoDbActionPerformed(ActionEvent arg0) {
-        if (view.isAllTextFilled() == true && isTableEmpty() != true &&
-                 view.getDateNgayMua().getDate().getTime() <= view.getDateNgayThanhToan().getDate().getTime()
-                 && CheckInput.isStringMax50(view.getTextMaKH().getText()) 
+        if (view.isAllTextFilled() == true && isTableEmpty() != true
+                && view.getDateNgayMua().getDate().getTime() <= view.getDateNgayThanhToan().getDate().getTime()
+                && CheckInput.isStringMax50(view.getTextMaKH().getText())
                 && CheckInput.isStringMax50(view.getTextHoTen().getText())
-                && CheckInput.isStringMax300(view.getTextDiaChi().getText()))
-         {
+                && CheckInput.isStringMax300(view.getTextDiaChi().getText())) {
             double finalMoney = calculateFinalMoney();
             view.getTextTongCong().setText(finalMoney + "");
 
@@ -289,12 +288,12 @@ public class PhieuMuaHangController implements Controller{
                  */
                 soLuongTon += soLuong;
                 model.updateSoLuongTonOfSanPham(soLuongTon, maSP);
-                JOptionPane.showMessageDialog(null, "Lưu thành công");
             }
 
         } else {
             JOptionPane.showMessageDialog(null, "Vui lòng kiểm tra lại thông tin");
         }
+        JOptionPane.showMessageDialog(null, "Lưu thành công");
 
     }
 
@@ -312,7 +311,7 @@ public class PhieuMuaHangController implements Controller{
         setParentVisiableTrue();
     }
 
-     @Override
+    @Override
     public void setParent(Controller parent) {
         this.parent = parent;
         parent.addChild(this);
@@ -323,7 +322,7 @@ public class PhieuMuaHangController implements Controller{
         this.parent.setParentVisiableFalse();
     }
 
-   @Override
+    @Override
     public void setParentVisiableTrue() {
         this.parent.setParentVisiableTrue();
     }
@@ -332,7 +331,7 @@ public class PhieuMuaHangController implements Controller{
     public void addChild(Controller child) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     public void dipose() {
         view.getFrame().dispatchEvent(new WindowEvent(view.getFrame(), WindowEvent.WINDOW_CLOSING));

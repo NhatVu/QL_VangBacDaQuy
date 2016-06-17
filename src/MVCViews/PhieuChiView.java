@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Date;
 
 public class PhieuChiView {
 
@@ -93,6 +94,8 @@ public class PhieuChiView {
         dateNgayChi = new JDateChooser();
         dateNgayChi.setBounds(123, 105, 127, 20);
         frmPhiuChi.getContentPane().add(dateNgayChi);
+        dateNgayChi.setDate(new Date());
+        dateNgayChi.setEnabled(false);
         
         textNoiDung = new JTextArea();
         textNoiDung.setBounds(122, 151, 420, 82);

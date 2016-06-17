@@ -22,6 +22,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Date;
 
 public class PhieuNoView {
 
@@ -138,6 +139,7 @@ public class PhieuNoView {
         textSoTienNo = new JTextField();
         textSoTienNo.setColumns(10);
         textSoTienNo.setBounds(499, 181, 148, 20);
+        textSoTienNo.setEditable(false);
         frmPhiuN.getContentPane().add(textSoTienNo);
 
         JLabel lblNgyTr = new JLabel("Ngày trả :");
@@ -166,11 +168,14 @@ public class PhieuNoView {
         textConLai = new JTextField();
         textConLai.setColumns(10);
         textConLai.setBounds(499, 301, 148, 20);
+        textConLai.setEditable(false);
         frmPhiuN.getContentPane().add(textConLai);
 
         dateNgayNo = new JDateChooser();
         dateNgayNo.setBounds(122, 181, 116, 20);
         frmPhiuN.getContentPane().add(dateNgayNo);
+        dateNgayNo.setDate(new Date());
+        dateNgayNo.setEnabled(false);
 
         dateNgayTra = new JDateChooser();
         dateNgayTra.setBounds(122, 246, 116, 20);

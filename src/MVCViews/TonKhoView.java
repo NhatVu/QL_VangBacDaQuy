@@ -112,6 +112,8 @@ public class TonKhoView {
 
         dateNgayBaoCao = new JDateChooser();
         dateNgayBaoCao.setBounds(154, 105, 108, 20);
+        dateNgayBaoCao.setDate(new Date());
+        dateNgayBaoCao.setEnabled(false);
         frmTnKho.getContentPane().add(dateNgayBaoCao);
     }
 

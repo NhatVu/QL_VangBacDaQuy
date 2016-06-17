@@ -260,6 +260,7 @@ public class PhieuHangGiaCongView {
         dateNgayNhanHang.setBounds(530, 108, 180, 20);
         frmPhiuHngGia.getContentPane().add(dateNgayNhanHang);
         mAllDateChoolser.add(dateNgayNhanHang);
+        //dateNgayNhanHang.setEnabled(false);
 
         dateNgayThanhToan = new JDateChooser();
         dateNgayThanhToan.setBounds(530, 152, 180, 20);
