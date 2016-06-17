@@ -158,7 +158,7 @@ public class KhachHangDAO {
 
             connection = DataSource.getInstance().getConnection();
             ArrayList<KhachHangDTO> result = new ArrayList();
-            String query = "select * from NGUOI,KHACHHANG WHERE NGUOi.MANGUOI = KHACHHANG.MANGUOI AND KHACHHANG.LAKHACHQUEN = true AND NGUOI.SHORTID=" + shortId;
+            String query = "select * from NGUOI,KHACHHANG WHERE NGUOi.MANGUOI = KHACHHANG.MANGUOI AND NGUOI.SHORTID=" + shortId;
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(query);
             if (rs.first()) {

@@ -25,7 +25,7 @@ import java.awt.event.WindowEvent;
 
 public class PhieuNoView {
 
-    private JFrame frame;
+    private JFrame frmPhiuN;
     private JTextField textMaPhieuNo;
     private JTextField textMaKH;
     private JTextField textHoTen;
@@ -49,15 +49,16 @@ public class PhieuNoView {
      * Initialize the contents of the frame.
      */
     private void initialize() {
-        frame = new JFrame();
-        frame.addWindowListener(new WindowAdapter() {
+        frmPhiuN = new JFrame();
+        frmPhiuN.setTitle("Phiếu nợ");
+        frmPhiuN.addWindowListener(new WindowAdapter() {
         	@Override
         	public void windowOpened(WindowEvent arg0) {
                     controller.frameWindowOpened(arg0);
         	}
         });
-        frame.setBounds(100, 100, 792, 484);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frmPhiuN.setBounds(100, 100, 792, 484);
+        frmPhiuN.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JLabel lblPhiuMuaHng = new JLabel("PHIẾU NỢ");
         lblPhiuMuaHng.setBounds(294, 32, 116, 14);
@@ -72,15 +73,15 @@ public class PhieuNoView {
 
         JLabel lblNgayMua = new JLabel("Mã khách :");
         lblNgayMua.setBounds(45, 132, 67, 14);
-        frame.getContentPane().setLayout(null);
-        frame.getContentPane().add(lblPhiuMuaHng);
-        frame.getContentPane().add(lblSPhiu);
-        frame.getContentPane().add(textMaPhieuNo);
-        frame.getContentPane().add(lblNgayMua);
+        frmPhiuN.getContentPane().setLayout(null);
+        frmPhiuN.getContentPane().add(lblPhiuMuaHng);
+        frmPhiuN.getContentPane().add(lblSPhiu);
+        frmPhiuN.getContentPane().add(textMaPhieuNo);
+        frmPhiuN.getContentPane().add(lblNgayMua);
 
         JButton btnLuu = new JButton("Lưu"); 
         btnLuu.setBounds(88, 411, 89, 23);
-        frame.getContentPane().add(btnLuu);
+        frmPhiuN.getContentPane().add(btnLuu);
         btnLuu.addActionListener(new ActionListener() {
 
             @Override
@@ -91,7 +92,7 @@ public class PhieuNoView {
 
         JButton btnXoa = new JButton("Xóa");
         btnXoa.setBounds(309, 411, 89, 23);
-        frame.getContentPane().add(btnXoa);
+        frmPhiuN.getContentPane().add(btnXoa);
         btnXoa.addActionListener(new ActionListener() {
 			
 			@Override
@@ -108,44 +109,44 @@ public class PhieuNoView {
         	}
         });
         btnThoat.setBounds(531, 411, 89, 23);
-        frame.getContentPane().add(btnThoat);
+        frmPhiuN.getContentPane().add(btnThoat);
 
         textMaKH = new JTextField();
         textMaKH.setColumns(10);
         textMaKH.setBounds(122, 129, 111, 20);
         textMaKH.setEditable(false);
-        frame.getContentPane().add(textMaKH);
+        frmPhiuN.getContentPane().add(textMaKH);
 
         JLabel lblTnKhch = new JLabel("Tên khách :");
         lblTnKhch.setBounds(413, 132, 76, 14);
-        frame.getContentPane().add(lblTnKhch);
+        frmPhiuN.getContentPane().add(lblTnKhch);
 
         textHoTen = new JTextField();
         textHoTen.setColumns(10);
         textHoTen.setBounds(499, 126, 148, 20);
         textHoTen.setEditable(false);
-        frame.getContentPane().add(textHoTen);
+        frmPhiuN.getContentPane().add(textHoTen);
 
         JLabel lblNgyN = new JLabel("Ngày nợ :");
         lblNgyN.setBounds(45, 187, 67, 14);
-        frame.getContentPane().add(lblNgyN);
+        frmPhiuN.getContentPane().add(lblNgyN);
 
         JLabel lblSTinN = new JLabel("Số tiền nợ :");
         lblSTinN.setBounds(413, 184, 67, 14);
-        frame.getContentPane().add(lblSTinN);
+        frmPhiuN.getContentPane().add(lblSTinN);
 
         textSoTienNo = new JTextField();
         textSoTienNo.setColumns(10);
         textSoTienNo.setBounds(499, 181, 148, 20);
-        frame.getContentPane().add(textSoTienNo);
+        frmPhiuN.getContentPane().add(textSoTienNo);
 
         JLabel lblNgyTr = new JLabel("Ngày trả :");
         lblNgyTr.setBounds(45, 246, 67, 14);
-        frame.getContentPane().add(lblNgyTr);
+        frmPhiuN.getContentPane().add(lblNgyTr);
 
         JLabel lblSTinN_1 = new JLabel("Số tiền trả :");
         lblSTinN_1.setBounds(413, 243, 67, 14);
-        frame.getContentPane().add(lblSTinN_1);
+        frmPhiuN.getContentPane().add(lblSTinN_1);
 
         textSoTienTra = new JTextField();
         textSoTienTra.addFocusListener(new FocusAdapter() {
@@ -156,28 +157,28 @@ public class PhieuNoView {
         });
         textSoTienTra.setColumns(10);
         textSoTienTra.setBounds(499, 243, 148, 20);
-        frame.getContentPane().add(textSoTienTra);
+        frmPhiuN.getContentPane().add(textSoTienTra);
 
         JLabel lblCnLi = new JLabel("Còn lại :");
         lblCnLi.setBounds(413, 304, 67, 14);
-        frame.getContentPane().add(lblCnLi);
+        frmPhiuN.getContentPane().add(lblCnLi);
 
         textConLai = new JTextField();
         textConLai.setColumns(10);
         textConLai.setBounds(499, 301, 148, 20);
-        frame.getContentPane().add(textConLai);
+        frmPhiuN.getContentPane().add(textConLai);
 
         dateNgayNo = new JDateChooser();
         dateNgayNo.setBounds(122, 181, 116, 20);
-        frame.getContentPane().add(dateNgayNo);
+        frmPhiuN.getContentPane().add(dateNgayNo);
 
         dateNgayTra = new JDateChooser();
         dateNgayTra.setBounds(122, 246, 116, 20);
-        frame.getContentPane().add(dateNgayTra);
+        frmPhiuN.getContentPane().add(dateNgayTra);
         
         JLabel lblMPhiuBn = new JLabel("Mã phiếu bán :");
         lblMPhiuBn.setBounds(413, 68, 89, 14);
-        frame.getContentPane().add(lblMPhiuBn);
+        frmPhiuN.getContentPane().add(lblMPhiuBn);
         
         textMaPhieuBan = new JTextField();
         textMaPhieuBan.addFocusListener(new FocusAdapter() {
@@ -192,17 +193,17 @@ public class PhieuNoView {
 		});
         textMaPhieuBan.setColumns(10);
         textMaPhieuBan.setBounds(499, 68, 148, 20);
-        frame.getContentPane().add(textMaPhieuBan);
+        frmPhiuN.getContentPane().add(textMaPhieuBan);
     }
 
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     
     public JFrame getFrame() {
-        return frame;
+        return frmPhiuN;
     }
     
     public void setFrame(JFrame frame) {
-        this.frame = frame;
+        this.frmPhiuN = frame;
     }
     
     

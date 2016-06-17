@@ -44,7 +44,9 @@ public class PhieuChiController implements Controller{
 //        }
         p_ChiDTO.setNoiDung(view.getTextNoiDung().getText());
 
-        if (!CheckInput.isDouble(view.getTextSoTienChi().getText())) {
+        if (!CheckInput.isDouble(view.getTextSoTienChi().getText())
+                || !CheckInput.isStringMax50(view.getTextSoTienChi().getText())
+                || !CheckInput.isStringMax300(view.getTextNoiDung().getText())) {
             JOptionPane.showMessageDialog(null, "Vui lòng kiểm tra lại thông tin");
             return;
         }

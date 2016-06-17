@@ -31,6 +31,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import main.CheckInput;
 import main.Resource;
 //import sun.net.www.MimeTable;
 import table.TableData;
@@ -131,7 +132,10 @@ public class PhieuDichVuController implements ActionListener, Controller {
     private void saveData() {
 
         if (this.isTableEmpty() != true && mPhieuDichVuView.isAllTextFilled() == true && 
-                mPhieuDichVuView.getDateNgayDK().getDate().getTime() <= mPhieuDichVuView.getDateNgayGiao().getDate().getTime()) {
+                mPhieuDichVuView.getDateNgayDK().getDate().getTime() <= mPhieuDichVuView.getDateNgayGiao().getDate().getTime()
+                && CheckInput.isStringMax50(mPhieuDichVuView.getTextHoTen().getText()) 
+                && CheckInput.isStringMax50(mPhieuDichVuView.getTextMaKH().getText())
+                && CheckInput.isStringMax300(mPhieuDichVuView.getTextDiaChi().getText())) {
             double finalMoney = calculateFinalMoney();
             mPhieuDichVuView.getTextTongCong().setText(finalMoney + "");
             String shortId = mPhieuDichVuView.getTextMaKH().getText().toString().trim();

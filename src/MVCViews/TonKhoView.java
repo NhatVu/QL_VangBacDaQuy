@@ -24,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class TonKhoView {
 
-    private JFrame frame;
+    private JFrame frmTnKho;
     private JTextField textMaPhieu;
     private JTable tableTK;
     private JDateChooser dateNgayBaoCao;
@@ -46,10 +46,11 @@ public class TonKhoView {
      * Initialize the contents of the frame.
      */
     private void initialize() {
-        frame = new JFrame();
-        frame.setBounds(100, 100, 792, 484);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.addWindowListener(new WindowAdapter() {
+        frmTnKho = new JFrame();
+        frmTnKho.setTitle("Tồn kho");
+        frmTnKho.setBounds(100, 100, 792, 484);
+        frmTnKho.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frmTnKho.addWindowListener(new WindowAdapter() {
 
             @Override
             public void windowOpened(WindowEvent e) {
@@ -70,16 +71,16 @@ public class TonKhoView {
 
         JLabel lblNgayMua = new JLabel("Ngày báo cáo :");
         lblNgayMua.setBounds(45, 111, 94, 14);
-        frame.getContentPane().setLayout(null);
-        frame.getContentPane().add(lblPhiuMuaHng);
-        frame.getContentPane().add(lblSPhiu);
-        frame.getContentPane().add(textMaPhieu);
-        frame.getContentPane().add(lblNgayMua);
+        frmTnKho.getContentPane().setLayout(null);
+        frmTnKho.getContentPane().add(lblPhiuMuaHng);
+        frmTnKho.getContentPane().add(lblSPhiu);
+        frmTnKho.getContentPane().add(textMaPhieu);
+        frmTnKho.getContentPane().add(lblNgayMua);
 
         JPanel panel_1 = new JPanel();
         panel_1.setBorder(new TitledBorder(null, "Chi tiết phiếu tồn kho", TitledBorder.LEADING, TitledBorder.TOP, null, null));
         panel_1.setBounds(37, 177, 703, 181);
-        frame.getContentPane().add(panel_1);
+        frmTnKho.getContentPane().add(panel_1);
         panel_1.setLayout(null);
         
         JScrollPane scrollPane = new JScrollPane();
@@ -98,7 +99,7 @@ public class TonKhoView {
             }
         });
         btnLuu.setBounds(88, 411, 89, 23);
-        frame.getContentPane().add(btnLuu);
+        frmTnKho.getContentPane().add(btnLuu);
 
         JButton btnThoat = new JButton("Thoát");
         btnThoat.addActionListener(new ActionListener() {
@@ -107,20 +108,20 @@ public class TonKhoView {
             }
         });
         btnThoat.setBounds(531, 411, 89, 23);
-        frame.getContentPane().add(btnThoat);
+        frmTnKho.getContentPane().add(btnThoat);
 
         dateNgayBaoCao = new JDateChooser();
         dateNgayBaoCao.setBounds(154, 105, 108, 20);
-        frame.getContentPane().add(dateNgayBaoCao);
+        frmTnKho.getContentPane().add(dateNgayBaoCao);
     }
 
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     public JFrame getFrame() {
-        return frame;
+        return frmTnKho;
     }
 
     public void setFrame(JFrame frame) {
-        this.frame = frame;
+        this.frmTnKho = frame;
     }
 
     public JTextField getTextMaPhieu() {

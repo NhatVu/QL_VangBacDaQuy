@@ -24,7 +24,7 @@ public class PhieuBanHangView {
     ArrayList<JTextField> mAllTextField = new ArrayList<>();
     ArrayList<JDateChooser> mAllDateChoolser = new ArrayList<>();
 
-    private JFrame frame;
+    private JFrame frmPhiuBnHng;
     private JTextField textMaPhieu;
     private JTextField textMaKH;
     private JTextField textHoTen;
@@ -63,16 +63,17 @@ public class PhieuBanHangView {
     }
 
     public void setVisible(boolean b) {
-        frame.setVisible(b);
+        frmPhiuBnHng.setVisible(b);
         if (!b) {
-            frame.dispose();
+            frmPhiuBnHng.dispose();
         }
     }
 
     private void initialize() {
-        frame = new JFrame();
-        frame.setBounds(100, 100, 769, 484);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frmPhiuBnHng = new JFrame();
+        frmPhiuBnHng.setTitle("Phiếu bán hàng");
+        frmPhiuBnHng.setBounds(100, 100, 769, 484);
+        frmPhiuBnHng.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JLabel lblPhiuMuaHng = new JLabel("PHIẾU BÁN HÀNG");
         lblPhiuMuaHng.setFont(new Font("Times New Roman", Font.BOLD, 15));
@@ -116,24 +117,24 @@ public class PhieuBanHangView {
         textDiaChi.setColumns(10);
         this.mAllTextField.add(textDiaChi);
 
-        frame.getContentPane().setLayout(null);
-        frame.getContentPane().add(lblPhiuMuaHng);
-        frame.getContentPane().add(lblSPhiu);
-        frame.getContentPane().add(textMaPhieu);
-        frame.getContentPane().add(lblNgayMua);
-        frame.getContentPane().add(lblNgyThanhTon);
-        frame.getContentPane().add(labelMaKH);
-        frame.getContentPane().add(textMaKH);
-        frame.getContentPane().add(lblHTn);
-        frame.getContentPane().add(textHoTen);
-        frame.getContentPane().add(lblaCh);
-        frame.getContentPane().add(textDiaChi);
+        frmPhiuBnHng.getContentPane().setLayout(null);
+        frmPhiuBnHng.getContentPane().add(lblPhiuMuaHng);
+        frmPhiuBnHng.getContentPane().add(lblSPhiu);
+        frmPhiuBnHng.getContentPane().add(textMaPhieu);
+        frmPhiuBnHng.getContentPane().add(lblNgayMua);
+        frmPhiuBnHng.getContentPane().add(lblNgyThanhTon);
+        frmPhiuBnHng.getContentPane().add(labelMaKH);
+        frmPhiuBnHng.getContentPane().add(textMaKH);
+        frmPhiuBnHng.getContentPane().add(lblHTn);
+        frmPhiuBnHng.getContentPane().add(textHoTen);
+        frmPhiuBnHng.getContentPane().add(lblaCh);
+        frmPhiuBnHng.getContentPane().add(textDiaChi);
 
         tableModel = new TableModel(columnNames, editColums);
 
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setBounds(45, 262, 665, 110);
-        frame.getContentPane().add(scrollPane);
+        frmPhiuBnHng.getContentPane().add(scrollPane);
 
         tableCTP_BanHang = new JTable(tableModel);
         scrollPane.setViewportView(tableCTP_BanHang);
@@ -141,12 +142,13 @@ public class PhieuBanHangView {
 
         JLabel lblTngCng = new JLabel("Tổng cộng :");
         lblTngCng.setBounds(492, 386, 67, 14);
-        frame.getContentPane().add(lblTngCng);
+        frmPhiuBnHng.getContentPane().add(lblTngCng);
 
         textTongCong = new JTextField();
         textTongCong.setBounds(569, 383, 141, 20);
-        frame.getContentPane().add(textTongCong);
+        frmPhiuBnHng.getContentPane().add(textTongCong);
         textTongCong.setColumns(10);
+        textTongCong.setEditable(false);
 
         btnLuu = new JButton("Lưu");
         btnLuu.addActionListener(new ActionListener() {
@@ -155,7 +157,7 @@ public class PhieuBanHangView {
             }
         });
         btnLuu.setBounds(330, 411, 89, 23);
-        frame.getContentPane().add(btnLuu);
+        frmPhiuBnHng.getContentPane().add(btnLuu);
 
         btnXoa = new JButton("Xóa");
         btnXoa.addActionListener(new ActionListener() {
@@ -164,7 +166,7 @@ public class PhieuBanHangView {
             }
         });
         btnXoa.setBounds(475, 411, 89, 23);
-        frame.getContentPane().add(btnXoa);
+        frmPhiuBnHng.getContentPane().add(btnXoa);
 
         btnThoat = new JButton("Thoát");
         btnThoat.addActionListener(new ActionListener() {
@@ -173,21 +175,21 @@ public class PhieuBanHangView {
             }
         });
         btnThoat.setBounds(621, 411, 89, 23);
-        frame.getContentPane().add(btnThoat);
+        frmPhiuBnHng.getContentPane().add(btnThoat);
 
         dateNgayBan = new JDateChooser();
         dateNgayBan.setBounds(123, 105, 116, 20);
-        frame.getContentPane().add(dateNgayBan);
+        frmPhiuBnHng.getContentPane().add(dateNgayBan);
         this.mAllDateChoolser.add(dateNgayBan);
 
         dateNgayThanhToan = new JDateChooser();
         dateNgayThanhToan.setBounds(579, 105, 131, 20);
-        frame.getContentPane().add(dateNgayThanhToan);
+        frmPhiuBnHng.getContentPane().add(dateNgayThanhToan);
         this.mAllDateChoolser.add(dateNgayThanhToan);
 
         JLabel lblNewLabel = new JLabel("Danh Sách Chi Tiết Phiếu Bán Hàng");
         lblNewLabel.setBounds(45, 246, 176, 14);
-        frame.getContentPane().add(lblNewLabel);
+        frmPhiuBnHng.getContentPane().add(lblNewLabel);
 
         btnThm = new JButton("Thêm");
         btnThm.addActionListener(new ActionListener() {
@@ -196,7 +198,7 @@ public class PhieuBanHangView {
             }
         });
         btnThm.setBounds(45, 383, 67, 23);
-        frame.getContentPane().add(btnThm);
+        frmPhiuBnHng.getContentPane().add(btnThm);
 
         btnXa = new JButton("Xóa");
         btnXa.addActionListener(new ActionListener() {
@@ -205,7 +207,7 @@ public class PhieuBanHangView {
             }
         });
         btnXa.setBounds(132, 382, 74, 23);
-        frame.getContentPane().add(btnXa);
+        frmPhiuBnHng.getContentPane().add(btnXa);
 
         btnCheckKhachQuen = new JButton("Kiểm tra");
         btnCheckKhachQuen.addActionListener(new ActionListener() {
@@ -214,7 +216,7 @@ public class PhieuBanHangView {
             }
         });
         btnCheckKhachQuen.setBounds(249, 135, 89, 23);
-        frame.getContentPane().add(btnCheckKhachQuen);
+        frmPhiuBnHng.getContentPane().add(btnCheckKhachQuen);
 
         btnLayMaKHTiepTheo = new JButton("Lấy mã khách hàng tiếp theo");
         btnLayMaKHTiepTheo.addActionListener(new ActionListener() {
@@ -223,16 +225,16 @@ public class PhieuBanHangView {
             }
         });
         btnLayMaKHTiepTheo.setBounds(122, 171, 216, 23);
-        frame.getContentPane().add(btnLayMaKHTiepTheo);
+        frmPhiuBnHng.getContentPane().add(btnLayMaKHTiepTheo);
     }
 
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
     public JFrame getFrame() {
-        return frame;
+        return frmPhiuBnHng;
     }
 
     public void setFrame(JFrame frame) {
-        this.frame = frame;
+        this.frmPhiuBnHng = frame;
     }
 
     public JTextField getTextMaPhieu() {

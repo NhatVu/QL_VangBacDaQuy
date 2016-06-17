@@ -17,7 +17,7 @@ import java.awt.event.ActionListener;
 
 public class MainPageView {
     
-    private JFrame frame;
+    private JFrame frmCaHngVng;
     private MainPageController controller;
 
     /**
@@ -32,18 +32,19 @@ public class MainPageView {
      * Initialize the contents of the frame.
      */
     private void initialize() {
-        frame = new JFrame();
-        frame.setBounds(100, 100, 792, 484);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frmCaHngVng = new JFrame();
+        frmCaHngVng.setTitle("Cửa hàng vàng bạc đá quý");
+        frmCaHngVng.setBounds(100, 100, 792, 484);
+        frmCaHngVng.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         JLabel lblPhiuMuaHng = new JLabel("CỬA HÀNG VÀNG BẠC ĐÁ QUÝ");
         lblPhiuMuaHng.setBounds(279, 31, 180, 14);
-        frame.getContentPane().setLayout(null);
-        frame.getContentPane().add(lblPhiuMuaHng);
+        frmCaHngVng.getContentPane().setLayout(null);
+        frmCaHngVng.getContentPane().add(lblPhiuMuaHng);
         
         JButton btnBanHang = new JButton("BÁN HÀNG");
         btnBanHang.setBounds(104, 109, 157, 41);
-        frame.getContentPane().add(btnBanHang);
+        frmCaHngVng.getContentPane().add(btnBanHang);
         btnBanHang.addActionListener(new ActionListener() {
             
             @Override
@@ -54,7 +55,7 @@ public class MainPageView {
         
         JButton btnHangGiaCong = new JButton("HÀNG GIA CÔNG");
         btnHangGiaCong.setBounds(104, 189, 157, 41);
-        frame.getContentPane().add(btnHangGiaCong);
+        frmCaHngVng.getContentPane().add(btnHangGiaCong);
         btnHangGiaCong.addActionListener(new ActionListener() {
             
             @Override
@@ -65,7 +66,7 @@ public class MainPageView {
         
         JButton btnChiTien = new JButton("CHI TIỀN");
         btnChiTien.setBounds(104, 272, 157, 41);
-        frame.getContentPane().add(btnChiTien);
+        frmCaHngVng.getContentPane().add(btnChiTien);
         btnChiTien.addActionListener(new ActionListener() {
 
             @Override
@@ -76,7 +77,7 @@ public class MainPageView {
         
         JButton btnTonKho = new JButton("TỒN KHO");
         btnTonKho.setBounds(104, 352, 157, 41);
-        frame.getContentPane().add(btnTonKho);
+        frmCaHngVng.getContentPane().add(btnTonKho);
         btnTonKho.addActionListener(new ActionListener() {
 
             @Override
@@ -87,7 +88,7 @@ public class MainPageView {
         
         JButton btnMuaHang = new JButton("MUA HÀNG");
         btnMuaHang.setBounds(456, 109, 157, 41);
-        frame.getContentPane().add(btnMuaHang);
+        frmCaHngVng.getContentPane().add(btnMuaHang);
         btnMuaHang.addActionListener(new ActionListener() {
 
             @Override
@@ -98,7 +99,7 @@ public class MainPageView {
         
         JButton btnDichVu = new JButton("DỊCH VỤ");
         btnDichVu.setBounds(456, 189, 157, 41);
-        frame.getContentPane().add(btnDichVu);
+        frmCaHngVng.getContentPane().add(btnDichVu);
         btnDichVu.addActionListener(new ActionListener() {
 
             @Override
@@ -109,7 +110,7 @@ public class MainPageView {
         
         JButton btnNo = new JButton("NỢ");
         btnNo.setBounds(456, 272, 157, 41);
-        frame.getContentPane().add(btnNo);
+        frmCaHngVng.getContentPane().add(btnNo);
         btnNo.addActionListener(new ActionListener() {
 
             @Override
@@ -120,7 +121,7 @@ public class MainPageView {
         
         JButton btnKetThuc = new JButton("KẾT THÚC");
         btnKetThuc.setBounds(456, 352, 157, 41);
-        frame.getContentPane().add(btnKetThuc);
+        frmCaHngVng.getContentPane().add(btnKetThuc);
         btnKetThuc.addActionListener(new ActionListener() {
 
             @Override
@@ -134,11 +135,11 @@ public class MainPageView {
      * Getters and Setters
      */
     public JFrame getFrame() {
-        return frame;
+        return frmCaHngVng;
     }
     
     public void setFrame(JFrame frame) {
-        this.frame = frame;
+        this.frmCaHngVng = frame;
     }
     
 }

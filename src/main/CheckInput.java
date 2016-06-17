@@ -24,4 +24,12 @@ public class CheckInput {
     public static boolean isCharacter(String a){
         return a.matches("\\D");
     }
+    
+    public static boolean isStringMax50(String a){
+        return (a.length() <= 50);
+    }
+    
+    public static boolean isStringMax300(String a){
+        return (a.length() <= 300);
+    }
 }
