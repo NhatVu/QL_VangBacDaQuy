@@ -48,10 +48,10 @@ public class PhieuNoController implements Controller {
                 || !CheckInput.isDouble(view.getTextSoTienTra().getText())
                 || !CheckInput.isDouble(view.getTextConLai().getText())) {
             JOptionPane.showMessageDialog(null, "Vui lòng nhập số");
-        } else if(CheckInput.isStringMax50(view.getTextMaKH().getText()) ||
-                CheckInput.isStringMax50(view.getTextSoTienNo().getText())
-                || CheckInput.isStringMax50(view.getTextSoTienTra().getText())
-                || CheckInput.isStringMax50(view.getTextConLai().getText())){
+        } else if(!CheckInput.isStringMax50(view.getTextMaKH().getText()) 
+                || !CheckInput.isStringMax50(view.getTextSoTienNo().getText())
+                || !CheckInput.isStringMax50(view.getTextSoTienTra().getText())
+                || !CheckInput.isStringMax50(view.getTextConLai().getText())){
             JOptionPane.showMessageDialog(null, "Kiểm tra lại độ dài của thông tin. Max 50 ký tự.");
         }else {
             P_NoDTO noDTO = new P_NoDTO();
