@@ -1,5 +1,5 @@
 <config>
 	<databaseName>vangbacdaquy</databaseName>
 	<username>root</username>
-	<password>mysqlroot!@3</password>
+	<password>mysqlroot</password>
 </config>

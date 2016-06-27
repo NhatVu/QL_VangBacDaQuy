@@ -3,6 +3,7 @@ package MVCControllers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Timestamp;
+import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -34,6 +35,8 @@ public class PhieuBanHangController implements Controller {
 
     private String[] dsTenSanPham;
     private double donGiaBan = 0;
+    
+    double finalMoney = 0;
 
     public void start() {
         view = new PhieuBanHangView(this);
@@ -72,18 +75,22 @@ public class PhieuBanHangController implements Controller {
                 for (int i = 0; i < model.getAllSanPham().size(); i++) {
                     if (tenSanPham.equals(model.getAllSanPham().get(i).getTenSP())) {
                         donGiaBan = model.getAllSanPham().get(i).getDonGiaBan();
-                        break;
+//                        break;
                     }
-                }
-                int selectedRow = view.getTable().getSelectedRow();
-                if (selectedRow >= 0) {
-                    view.getTableModel().setValueAt(donGiaBan + "", selectedRow, 2);
-
-                    if (view.getTableModel().getValueAt(selectedRow, 1).toString().trim().length() != 0) {
-                        int soLuongNhap = Integer.valueOf(view.getTableModel().getmObjectList().get(selectedRow).getDataAt(1).trim());
-                        view.getTableModel().setValueAt(donGiaBan * soLuongNhap + "", selectedRow, 3);
+                    
+                    int selectedRow = view.getTable().getSelectedRow();
+                    if (selectedRow >= 0) 
+                    {
+                        view.getTableModel().setValueAt(donGiaBan + "", selectedRow, 2);
+                        
+                        if (view.getTableModel().getValueAt(selectedRow, 1).toString().trim().length() != 0) {
+                            int soLuongNhap = Integer.valueOf(view.getTableModel().getmObjectList().get(selectedRow).getDataAt(1).trim());
+                            view.getTableModel().setValueAt(donGiaBan * soLuongNhap + "", selectedRow, 3);
+                        }
                     }
+                    
                 }
+                
             }
         });
 
@@ -115,12 +122,25 @@ public class PhieuBanHangController implements Controller {
 
             private void warn() {
                 // TODO Auto-generated method stub
-                if (textField.getText().toString().trim().length() > 0) {
-                    if (isInteger(textField.getText().toString().trim())) {
-                        view.getTableModel().setValueAt(donGiaBan * Integer.parseInt(textField.getText().toString().trim()) + "", view.getTable().getSelectedRow(), 3);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Vui lòng nhập số");
+            	
+                if (	Integer.parseInt( textField.getText().toString().trim() ) > 0
+                		&& isInteger(textField.getText().toString().trim()) 
+                	) 
+                {
+                	view.getTableModel().setValueAt(donGiaBan * Integer.parseInt(textField.getText().toString().trim()) + "", view.getTable().getSelectedRow(), 3);    
+                	
+                	/*
+                     *  cập nhật giá trị của Tổng Tiền
+                     */
+                    if( view.getTable().getRowCount() >= 1 )
+                    {
+                    	finalMoney = calculateFinalMoney();
+                        view.getTextTongCong().setText(finalMoney + "");
                     }
+                }
+                else
+                {
+                	JOptionPane.showMessageDialog(null, "Vui lòng kiểm tra lại Số Lượng ( kiểu số, lớn hơn 0 )");
                 }
             }
         });
@@ -165,6 +185,7 @@ public class PhieuBanHangController implements Controller {
         int size = view.getTableModel().getmObjectList().size();
 
         if ((size > 0 && view.getTableModel().getValueAt(size - 1, 3).toString().trim().length() != 0) || size == 0) {
+        	        	
             ArrayList<String> data = new ArrayList<>();
             data.add(model.getAllSanPham().get(0).getTenSP());
             data.add("");
@@ -173,6 +194,10 @@ public class PhieuBanHangController implements Controller {
 
             TableData tableData = new TableData(data);
             view.getTableModel().addObject(tableData);
+        }
+        else
+        {
+        	JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin dòng phía trên !");
         }
     }
 
@@ -185,98 +210,118 @@ public class PhieuBanHangController implements Controller {
     }
 
     public void btnLuuVaoDbActionPerformed(ActionEvent arg0) {
-        if (view.isAllTextFilled() == true && isTableEmpty() != true
-                && view.getDateNgayBan().getDate().getTime() <= view.getDateNgayThanhToan().getDate().getTime()
-                && CheckInput.isStringMax50(view.getTextHoTen().getText())
-                && CheckInput.isStringMax50(view.getTextMaKH().getText())
-                && CheckInput.isStringMax300(view.getTextDiaChi().getText())) {
-            double finalMoney = calculateFinalMoney();
-            view.getTextTongCong().setText(finalMoney + "");
+        if ( 	view.isAllTextFilled() == true && isTableEmpty() != true
+                && CheckInput.isStringMax50( view.getTextHoTen().getText() )
+                && CheckInput.isStringMax50( view.getTextMaKH().getText() )
+                && CheckInput.isStringMax300( view.getTextDiaChi().getText() ) 
+           ) 
+        {
+        	if ( view.getDateNgayBan().getDate().getTime() > view.getDateNgayThanhToan().getDate().getTime() )
+        	{
+        		JOptionPane.showMessageDialog(null, "Ngày thanh toán không thể trước ngày bán !");
+        	}
+        	else if ( ! isInteger(view.getTextMaKH().getText()) )
+        	{
+        		JOptionPane.showMessageDialog(null, "Mã khách hàng phải có định dạng số !");
+        	}
+        	
+        	else
+        	{
+        		
+//        		double finalMoney = calculateFinalMoney();
+//                view.getTextTongCong().setText(finalMoney + "");
 
-            /*
-             * insert NguoiiDTO, KhachHangDTO
-             */
-            String shortId = view.getTextMaKH().getText().toString().trim();
-            NguoiDTO nguoi = model.kiemTraKhachQuen(Integer.valueOf(shortId));
+                /*
+                 * insert NguoiiDTO, KhachHangDTO
+                 */
+                String shortId = view.getTextMaKH().getText().toString().trim();
+                NguoiDTO nguoi = model.kiemTraKhachQuen(Integer.valueOf(shortId));
 
-            int maKH = 0;
-            if (nguoi == null) {
-                int nextNguoiId = model.getNextIdOfNguoi();
-                maKH = model.getNextIdOfKhachHang();
-                NguoiDTO nguoiDTO = new NguoiDTO(
-                        nextNguoiId,
-                        view.getTextHoTen().getText().toString().trim(),
-                        view.getTextDiaChi().getText().toString().trim(),
-                        Integer.valueOf(shortId)
-                );
+                int maKH = 0;
+                if (nguoi == null) {
+                    int nextNguoiId = model.getNextIdOfNguoi();
+                    maKH = model.getNextIdOfKhachHang();
+                    NguoiDTO nguoiDTO = new NguoiDTO(
+                            nextNguoiId,
+                            view.getTextHoTen().getText().toString().trim(),
+                            view.getTextDiaChi().getText().toString().trim(),
+                            Integer.valueOf(shortId)
+                    );
 
-                KhachHangDTO khachHangDTO = new KhachHangDTO(maKH, nextNguoiId, false);
+                    KhachHangDTO khachHangDTO = new KhachHangDTO(maKH, nextNguoiId, false);
 
-                model.insertKhachHang(nguoiDTO, khachHangDTO);
-            } else {
-                maKH = model.getMaKhById(Integer.valueOf(shortId));
-            }
+                    model.insertKhachHang(nguoiDTO, khachHangDTO);
+                } else {
+                    maKH = model.getMaKhById(Integer.valueOf(shortId));
+                }
 
-            /*
-             *  insert P_ThuDTO
-             */
-            int nextIdPhieuThu = model.getNextIdOfPhieuThu();
-            P_ThuDTO p_ThuDTO = new P_ThuDTO(
-                    nextIdPhieuThu,
-                    maKH,
-                    new Timestamp(view.getDateNgayBan().getDate().getTime()),
-                    new Timestamp(view.getDateNgayThanhToan().getDate().getTime()),
-                    finalMoney);
-            model.insertPhieuThu(p_ThuDTO);
+                /*
+                 *  insert P_ThuDTO
+                 */
+                int nextIdPhieuThu = model.getNextIdOfPhieuThu();
+                P_ThuDTO p_ThuDTO = new P_ThuDTO(
+                        nextIdPhieuThu,
+                        maKH,
+                        new Timestamp(view.getDateNgayBan().getDate().getTime()),
+                        new Timestamp(view.getDateNgayThanhToan().getDate().getTime()),
+                        finalMoney);
+                model.insertPhieuThu(p_ThuDTO);
 
-            /*
-             *  insert P_BanHangDTO
-             */
-            int nextIdPhieuBanHang = model.getNextIdOfPhieuBanHang();
-            P_BanHangDTO p_BanHangDTO = new P_BanHangDTO(nextIdPhieuBanHang, nextIdPhieuThu);
-            model.insertPhieuBanHang(p_BanHangDTO);
+                /*
+                 *  insert P_BanHangDTO
+                 */
+                int nextIdPhieuBanHang = model.getNextIdOfPhieuBanHang();
+                P_BanHangDTO p_BanHangDTO = new P_BanHangDTO(nextIdPhieuBanHang, nextIdPhieuThu);
+                model.insertPhieuBanHang(p_BanHangDTO);
 
-            /*
-             *  insert CTP_BanHangDTO
-             */
-            for (TableData data : view.getTableModel().getmObjectList()) {
-                int maSP = 0;// được lấy lên từ Database 
-                int soLuongTon = 0; // được lấy lên từ Database 
-                String tenSP = data.getDataAt(0);
+                /*
+                 *  insert CTP_BanHangDTO
+                 */
+                for (TableData data : view.getTableModel().getmObjectList()) 
+                {
+                    int maSP = 0;// được lấy lên từ Database 
+                    int soLuongTon = 0; // được lấy lên từ Database 
+                    String tenSP = data.getDataAt(0);
 
-                for (SanPhamDTO sanPhamDTO : model.getAllSanPham()) {
-                    if (tenSP.equals(sanPhamDTO.getTenSP())) {
-                        maSP = sanPhamDTO.getMaSP();
-                        soLuongTon = sanPhamDTO.getSoLuongTon();
-                        break;
+                    for (SanPhamDTO sanPhamDTO : model.getAllSanPham()) {
+                        if (tenSP.equals(sanPhamDTO.getTenSP())) {
+                            maSP = sanPhamDTO.getMaSP();
+                            soLuongTon = sanPhamDTO.getSoLuongTon();
+                            break;
+                        }
+                    }
+
+                    int soLuong = Integer.parseInt(data.getDataAt(1));
+                    if (soLuong <= soLuongTon) {
+                        CTP_BanHangDTO ctp_BanHangDTO = new CTP_BanHangDTO(
+                                model.getNextIdOfChiTietPhieuBanHang(),
+                                nextIdPhieuBanHang,
+                                maSP,
+                                soLuong,
+                                Double.parseDouble(data.getDataAt(3))
+                        );
+                        model.insertChiTietPhieuBanHang(ctp_BanHangDTO);
+
+                        /*
+                         *  update SoLuongTon của SanPham
+                         */
+                        soLuongTon -= soLuong;
+                        model.updateSoLuongTonOfSanPham(soLuongTon, maSP);
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Số lượng sản phẩm trong kho không đủ");
                     }
                 }
+        		
+                JOptionPane.showMessageDialog(null, "Lưu thành công");
+        	}
+            
+            
 
-                int soLuong = Integer.parseInt(data.getDataAt(1));
-                if (soLuong <= soLuongTon) {
-                    CTP_BanHangDTO ctp_BanHangDTO = new CTP_BanHangDTO(
-                            model.getNextIdOfChiTietPhieuBanHang(),
-                            nextIdPhieuBanHang,
-                            maSP,
-                            soLuong,
-                            Double.parseDouble(data.getDataAt(3))
-                    );
-                    model.insertChiTietPhieuBanHang(ctp_BanHangDTO);
-
-                    /*
-                     *  update SoLuongTon của SanPham
-                     */
-                    soLuongTon -= soLuong;
-                    model.updateSoLuongTonOfSanPham(soLuongTon, maSP);
-
-                } else {
-                    JOptionPane.showMessageDialog(null, "Số lượng sản phẩm trong kho không đủ");
-                }
-            }
-            JOptionPane.showMessageDialog(null, "Lưu thành công");
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Vui lòng kiểm tra lại thông tin");
+        } 
+        else 
+        {
+            JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin !");
         }
     }
 
