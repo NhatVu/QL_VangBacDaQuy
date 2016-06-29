@@ -1,23 +1,22 @@
 package MVCViews;
 
-import MVCControllers.PhieuBanHangController;
-import table.TableModel;
-import table.TableScroller;
-
-import com.toedter.calendar.JDateChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-
-import javax.swing.JTable;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.awt.event.ActionEvent;
 
-import java.awt.Font;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+
+import table.TableModel;
+import table.TableScroller;
+import MVCControllers.PhieuBanHangController;
+
+import com.toedter.calendar.JDateChooser;
 
 public class PhieuBanHangView {
 

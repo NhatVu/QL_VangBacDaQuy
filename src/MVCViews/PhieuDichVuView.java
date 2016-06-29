@@ -1,31 +1,18 @@
 package MVCViews;
 
-import MVCControllers.PhieuDichVuController;
-import java.awt.EventQueue;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.border.TitledBorder;
-
 import com.toedter.calendar.JDateChooser;
-import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
+
 import java.util.ArrayList;
-import javax.swing.DefaultCellEditor;
-import javax.swing.JComboBox;
+
 import main.Resource;
+
 import javax.swing.JScrollPane;
-import javax.swing.JViewport;
-import javax.swing.SwingUtilities;
 import table.TableModel;
-import table.TableData;
 import table.TableScroller;
 
 public class PhieuDichVuView {

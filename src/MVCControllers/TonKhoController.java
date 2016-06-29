@@ -5,19 +5,18 @@
  */
 package MVCControllers;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.WindowEvent;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+
 import DTO.CT_TonKhoDTO;
 import DTO.TonKhoDTO;
 import MVCModels.TonKhoModel;
 import MVCViews.TonKhoView;
-import table.CT_TonKhoTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.WindowEvent;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import javax.swing.JOptionPane;
-import main.Resource;
 
 /**
  *

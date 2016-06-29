@@ -1,19 +1,15 @@
 package MVCViews;
 
-import MVCControllers.PhieuChiController;
-import java.awt.EventQueue;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.border.TitledBorder;
+import MVCControllers.PhieuChiController;
 
 import com.toedter.calendar.JDateChooser;
-import javax.swing.JEditorPane;
+
 import javax.swing.JTextArea;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;

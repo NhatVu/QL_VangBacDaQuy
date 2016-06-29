@@ -1,17 +1,10 @@
 package MVCViews;
 
-import MVCControllers.MainPageController;
-import java.awt.EventQueue;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.border.TitledBorder;
+import MVCControllers.MainPageController;
 
-import com.toedter.calendar.JDateChooser;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -35,7 +28,7 @@ public class MainPageView {
         frmCaHngVng = new JFrame();
         frmCaHngVng.setTitle("Cửa hàng vàng bạc đá quý");
         frmCaHngVng.setBounds(100, 100, 792, 484);
-        frmCaHngVng.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frmCaHngVng.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
         JLabel lblPhiuMuaHng = new JLabel("CỬA HÀNG VÀNG BẠC ĐÁ QUÝ");
         lblPhiuMuaHng.setBounds(279, 31, 180, 14);

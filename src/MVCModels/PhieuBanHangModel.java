@@ -1,19 +1,6 @@
 package MVCModels;
 
-import java.awt.color.ICC_ColorSpace;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
-
-import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
-
-import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
-
-import com.mchange.v1.xmlprops.SaxXmlPropsParser;
-import com.toedter.calendar.JDateChooser;
-
 import DTO.CTP_BanHangDTO;
 import DTO.KhachHangDTO;
 import DTO.NguoiDTO;

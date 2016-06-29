@@ -5,191 +5,181 @@
  */
 package DataAcessLayer;
 
-import DTO.DichVuDTO;
-import DTO.KhachHangDTO;
-import DTO.NguoiDTO;
-import java.sql.CallableStatement;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import main.Resource;
+
+import DTO.NguoiDTO;
 
 /**
  *
  * @author Administrator
  */
-public class NguoiDAO {
+public class NguoiDAO extends SuperDAO {
 
-    CallableStatement call = null;
-    Connection connection = null;
+	// Properties of table
+	private static final String maNguoi = "MANGUOI";
+	private static final String shortId = "SHORTID";
+	private static final String hoten = "HOTEN";
+	private static final String diachi = "DIACHI";
 
-    //Properties of table
-    private static final String maNguoi = "MANGUOI";
-    private static final String shortId = "SHORTID";
-    private static final String hoten = "HOTEN";
-    private static final String diachi = "DIACHI";
+	private static final String insertStatement = "{call NGUOI_Ins(?,?,?,?)}";
+	private static final String updateStatement = "{call NGUOI_Upd(?,?,?,?)}";
+	private static final String deleteStatement = "{call NGUOI_Del(?)}";
 
-    private static final String insertStatement = "{call NGUOI_Ins(?,?,?,?)}";
-    private static final String updateStatement = "{call NGUOI_Upd(?,?,?,?)}";
-    private static final String deleteStatement = "{call NGUOI_Del(?)}";
+	// TAG
+	private static final String TAG = NguoiDAO.class.getSimpleName();
 
-    //TAG
-    private static final String TAG = NguoiDAO.class.getSimpleName();
+	public NguoiDAO() {
 
-    public NguoiDAO() {
+	}
 
-    }
+	/*
+	 * CRUD
+	 */
+	public boolean insert(NguoiDTO n) {
+		try {
+			this.getConnection();
+			call = connection.prepareCall(insertStatement);
 
-    /*
-     * CRUD
-     */
-    public boolean insert(NguoiDTO n) {
-        //create procedure DICHVU_Ins (MADV varchar(10), TENDV varchar(30) )
-        try {
-            connection = DataSource.getInstance().getConnection();
-            call = connection.prepareCall(insertStatement);
+			call.setInt(maNguoi, n.getMaLoaiNguoi());
+			call.setInt(shortId, n.getShortID());
+			call.setString(hoten, n.getHoTen());
+			call.setString(diachi, n.getDiaChi());
 
-            call.setInt(maNguoi, n.getMaLoaiNguoi());
-            call.setInt(shortId, n.getShortID());
-            call.setString(hoten, n.getHoTen());
-            call.setString(diachi, n.getDiaChi());
+			if(call.executeUpdate() > 0)
+				return true;
 
-            return call.execute();
+		} catch (SQLException ex) {
+			Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+				}
+			}
+		}
+		return false;
+	}
 
-        } catch (SQLException ex) {
-            Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return false;
-    }
+	public boolean update(NguoiDTO n) {
+		try {
+			this.getConnection();
+			call = connection.prepareCall(updateStatement);
+			call.setInt(maNguoi, n.getMaLoaiNguoi());
+			call.setInt(shortId, n.getShortID());
+			call.setString(hoten, n.getHoTen());
+			call.setString(diachi, n.getDiaChi());
 
-    public boolean update(NguoiDTO n) {
-        try {
-            // procedure DICHVU_Upd (MADV varchar(10), TENDV varchar(30) )
-            connection = DataSource.getInstance().getConnection();
+			if(call.executeUpdate() > 0)
+				return true;
 
-            call = connection.prepareCall(updateStatement);
-            call.setInt(maNguoi, n.getMaLoaiNguoi());
-            call.setInt(shortId, n.getShortID());
-            call.setString(hoten, n.getHoTen());
-            call.setString(diachi, n.getDiaChi());
+		} catch (SQLException ex) {
+			Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+				}
+			}
+		}
+		return false;
+	}
 
-            return call.execute();
+	public boolean delete(NguoiDTO n) {
+		try {
+			this.getConnection();
+			call = connection.prepareCall(deleteStatement);
+			call.setInt(maNguoi, n.getMaLoaiNguoi());
 
-        } catch (SQLException ex) {
-            Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return false;
-    }
+			if(call.executeUpdate() > 0)
+				return true;
 
-    public boolean delete(NguoiDTO n) {
-        try {
-            //create procedure DICHVU_Del (MADV varchar(10) )
+		} catch (SQLException ex) {
+			Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+				}
+			}
+		}
+		return false;
+	}
 
-            connection = DataSource.getInstance().getConnection();
-            call = connection.prepareCall(deleteStatement);
-            call.setInt(maNguoi, n.getMaLoaiNguoi());
+	public NguoiDTO getNguoiFromMaNguoi(int maNguoi) {
+		try {
+			this.getConnection();
+			String query = "select * from NGUOI WHERE NGUOI.MANGUOI ="
+					+ maNguoi;
+			Statement st = connection.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			if (rs.first() != false) {
+				String diachi = rs.getString("DIACHI");
+				String ten = rs.getString("HOTEN");
+				int shortId = rs.getInt("SHORTID");
+				NguoiDTO ng = new NguoiDTO(maNguoi, ten, diachi, shortId);
+				st.close();
+				return ng;
+			}
+		} catch (SQLException ex) {
+			Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+				}
+			}
+		}
+		return null;
+	}
 
-            return call.execute();
+	public int getLastID() {
+		try {
+			this.getConnection();
+			call = connection.prepareCall("{call NGUOI_getLastID(?)}");
+			call.registerOutParameter(1, java.sql.Types.VARCHAR);
 
-        } catch (SQLException ex) {
-            Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return false;
-    }
+			call.execute();
+			return call.getInt(1);
 
-    public NguoiDTO getNguoiFromMaNguoi(int maNguoi) {
-        try {
-            //create procedure DICHVU_Del (MADV varchar(10) )
+		} catch (SQLException ex) {
+			Logger.getLogger(NguoiDAO.class.getName()).log(Level.SEVERE, null,
+					ex);
+		} // <editor-fold defaultstate="collapsed" desc="finally">
+		finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					Logger.getLogger(NguoiDAO.class.getName()).log(
+							Level.SEVERE, null, ex);
+				}
+			}
 
-            connection = DataSource.getInstance().getConnection();
-            ArrayList<KhachHangDTO> result = new ArrayList();
-            String query = "select * from NGUOI WHERE NGUOI.MANGUOI =" + maNguoi;
-            Statement st = connection.createStatement();
-            ResultSet rs = st.executeQuery(query);
-            if (rs.first() != false) {
-                String diachi = rs.getString("DIACHI");
-                String ten = rs.getString("HOTEN");
-                int shortId = rs.getInt("SHORTID");
-                NguoiDTO ng = new NguoiDTO(maNguoi, ten, diachi, shortId);
-                st.close();
-                return ng;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return null;
-    }
+			try {
+				call.close();
+			} catch (SQLException ex) {
+				Logger.getLogger(NguoiDAO.class.getName()).log(Level.SEVERE,
+						null, ex);
+			}
+		}
+		// </editor-fold>
+		return 0;
+	}
 
-    public int getLastID() {
-        try {
-            // procedure  P_No_getLastID(out maxid varchar(10))
-            connection = DataSource.getInstance().getConnection();
-            call = connection.prepareCall("{call NGUOI_getLastID(?)}");
-            call.registerOutParameter(1, java.sql.Types.VARCHAR);
+	public int getNexId() {
+		return getLastID() + 1;
 
-            call.execute();
-            return call.getInt(1);
-
-        } catch (SQLException ex) {
-            Logger.getLogger(NguoiDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } //<editor-fold defaultstate="collapsed" desc="finally">
-        finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(NguoiDAO.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-
-            try {
-                call.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(NguoiDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-//</editor-fold>
-        return 0;
-    }
-
-    public int getNexId() {
-        return getLastID() + 1;
-
-    }
+	}
 }

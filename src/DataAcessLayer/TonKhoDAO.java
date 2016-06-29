@@ -5,210 +5,200 @@
  */
 package DataAcessLayer;
 
-import DTO.DichVuDTO;
-import DTO.NguoiDTO;
-import DTO.TonKhoDTO;
-import java.sql.CallableStatement;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import main.Resource;
+
+import DTO.TonKhoDTO;
 
 /**
  *
  * @author Administrator
  */
-public class TonKhoDAO {
+public class TonKhoDAO extends SuperDAO {
+	// Properties of table
+	private static final String maTonKho = "MAP_TK";
+	private static final String ngayBaoCao = "NGAYBAOCAO";
 
-    CallableStatement call = null;
-    Connection connection = null;
+	private static final String insertStatement = "{call TONKHO_Ins(?,?)}";
+	private static final String updateStatement = "{call TONKHO_Upd(?,?,?,?)}";
+	private static final String deleteStatement = "{call TONKHO_Del(?)}";
 
-    //Properties of table
-    private static final String maTonKho = "MAP_TK";
-    private static final String ngayBaoCao = "NGAYBAOCAO";
+	// TAG
+	private static final String TAG = TonKhoDAO.class.getSimpleName();
 
-    private static final String insertStatement = "{call TONKHO_Ins(?,?)}";
-    private static final String updateStatement = "{call TONKHO_Upd(?,?,?,?)}";
-    private static final String deleteStatement = "{call TONKHO_Del(?)}";
+	public TonKhoDAO() {
 
-    //TAG
-    private static final String TAG = TonKhoDAO.class.getSimpleName();
+	}
 
-    public TonKhoDAO() {
+	/*
+	 * CRUD
+	 */
+	public boolean insert(TonKhoDTO n) {
+		try {
+			this.getConnection();
+			call = connection.prepareCall(insertStatement);
 
-    }
+			call.setInt(maTonKho, n.getMaP_TK());
+			call.setTimestamp(ngayBaoCao, n.getNgayBaoCao());
 
-    /*
-     * CRUD
-     */
-    public boolean insert(TonKhoDTO n) {
-        //create procedure DICHVU_Ins (MADV varchar(10), TENDV varchar(30) )
-        try {
-            connection = DataSource.getInstance().getConnection();
-            call = connection.prepareCall(insertStatement);
+			if (call.executeUpdate() > 0)
+				return true;
 
-            call.setInt(maTonKho, n.getMaP_TK());
-            call.setTimestamp(ngayBaoCao, n.getNgayBaoCao());
+		} catch (SQLException ex) {
+			Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+				}
+			}
+			try {
+				call.close();
+			} catch (SQLException ex) {
+				Logger.getLogger(TonKhoDAO.class.getName()).log(Level.SEVERE,
+						null, ex);
+			}
+		}
+		return false;
+	}
 
-            return call.execute();
+	public boolean update(TonKhoDTO n) {
+		try {
+			this.getConnection();
+			call = connection.prepareCall(updateStatement);
+			call.setInt(maTonKho, n.getMaP_TK());
+			call.setTimestamp(ngayBaoCao, n.getNgayBaoCao());
 
-        } catch (SQLException ex) {
-            Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-                }
-            }
-            try {
-                call.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(TonKhoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return false;
-    }
+			if (call.executeUpdate() > 0)
+				return true;
 
-    public boolean update(TonKhoDTO n) {
-        try {
-            // procedure DICHVU_Upd (MADV varchar(10), TENDV varchar(30) )
-            connection = DataSource.getInstance().getConnection();
+		} catch (SQLException ex) {
+			Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+				}
+			}
+			try {
+				call.close();
+			} catch (SQLException ex) {
+				Logger.getLogger(TonKhoDAO.class.getName()).log(Level.SEVERE,
+						null, ex);
+			}
+		}
+		return false;
+	}
 
-            call = connection.prepareCall(updateStatement);
-            call.setInt(maTonKho, n.getMaP_TK());
-            call.setTimestamp(ngayBaoCao, n.getNgayBaoCao());
+	public boolean delete(TonKhoDTO n) {
+		try {
+			this.getConnection();
+			call = connection.prepareCall(deleteStatement);
+			call.setInt(maTonKho, n.getMaP_TK());
 
-            return call.execute();
+			if (call.executeUpdate() > 0)
+				return true;
 
-        } catch (SQLException ex) {
-            Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-                }
-            }
-            try {
-                call.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(TonKhoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return false;
-    }
+		} catch (SQLException ex) {
+			Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+				}
+			}
+			try {
+				call.close();
+			} catch (SQLException ex) {
+				Logger.getLogger(TonKhoDAO.class.getName()).log(Level.SEVERE,
+						null, ex);
+			}
+		}
+		return false;
+	}
 
-    public boolean delete(TonKhoDTO n) {
-        try {
-            //create procedure DICHVU_Del (MADV varchar(10) )
+	/*
+	 * 1. Intent - Lấy dòng cuối cùng trong bảng tồn kho - lấy mã tồn kho và
+	 * ngày báo cáo.
+	 */
+	public void getLastRow(TonKhoDTO tk) {
+		try {
+			this.getConnection();
+			call = connection.prepareCall("call TonKho_getLastRow()");
 
-            connection = DataSource.getInstance().getConnection();
-            call = connection.prepareCall(deleteStatement);
-            call.setInt(maTonKho, n.getMaP_TK());
+			ResultSet rs = call.executeQuery();
+			while (rs.next()) {
+				tk.setMaP_TK(rs.getInt(1));
+				tk.setNgayBaoCao(rs.getTimestamp(2));
+			}
 
-            return call.execute();
+			if (tk.getMaP_TK() == 0) {
+				tk.setMaP_TK(0);
+			}
+			if (tk.getNgayBaoCao() == null) {
+				tk.setNgayBaoCao(new Timestamp(1432876790));
+			}
+		} catch (SQLException ex) {
+			Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+				}
+			}
+			try {
+				call.close();
+			} catch (SQLException ex) {
+				Logger.getLogger(TonKhoDAO.class.getName()).log(Level.SEVERE,
+						null, ex);
+			}
+		}
+	}
 
-        } catch (SQLException ex) {
-            Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-                }
-            }
-            try {
-                call.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(TonKhoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return false;
-    }
+	/*
+	 * 1. Intent - Lấy mã sản phẩm + tồn cuối kỳ của tồn kho 2. Parameter
+	 * Map<String, String> lResult. = Map<MaSP, TonCuoiKy>
+	 */
+	public void getMaSPTonCuoiKyByMaTK(int maTK, Map<Integer, Integer> lResult) {
+		try {
+			this.getConnection();
+			call = connection
+					.prepareCall("call TonKho_getMaSPTonCuoiKyByMaTK(?)");
+			call.setInt(1, maTK);
 
-    /*
-     1. Intent
-     - Lấy dòng cuối cùng trong bảng tồn kho
-     - lấy mã tồn kho và ngày báo cáo.
-     */
-    public void getLastRow(TonKhoDTO tk) {
-        try {
-            //create procedure DICHVU_Del (MADV varchar(10) )
-            connection = DataSource.getInstance().getConnection();
-            call = connection.prepareCall("call TonKho_getLastRow()");
+			ResultSet rs = call.executeQuery();
+			while (rs.next()) {
+				lResult.put(rs.getInt(1), rs.getInt(2));
+			}
 
-            ResultSet rs = call.executeQuery();
-            while (rs.next()) {
-                tk.setMaP_TK(rs.getInt(1));
-                tk.setNgayBaoCao(rs.getTimestamp(2));
-            }
-
-            if (tk.getMaP_TK() == 0) {
-                tk.setMaP_TK(0);
-            }
-            if (tk.getNgayBaoCao() == null) {
-                tk.setNgayBaoCao(new Timestamp(1432876790));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-                }
-            }
-            try {
-                call.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(TonKhoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-
-    /*
-     1. Intent
-     - Lấy mã sản phẩm + tồn cuối kỳ của tồn kho
-     2. Parameter 
-     Map<String, String> lResult. = Map<MaSP, TonCuoiKy>
-     */
-    public void getMaSPTonCuoiKyByMaTK(int maTK, Map<Integer, Integer> lResult) {
-        try {
-            //create procedure TonKho_getMaSPTonCuoiKyByMaTK(in MaTK varchar(10))
-            connection = DataSource.getInstance().getConnection();
-            call = connection.prepareCall("call TonKho_getMaSPTonCuoiKyByMaTK(?)");
-            call.setInt(1, maTK);
-
-            ResultSet rs = call.executeQuery();
-            while (rs.next()) {
-                lResult.put(rs.getInt(1), rs.getInt(2));
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-                }
-            }
-            try {
-                call.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(TonKhoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
+		} catch (SQLException ex) {
+			Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+				}
+			}
+			try {
+				call.close();
+			} catch (SQLException ex) {
+				Logger.getLogger(TonKhoDAO.class.getName()).log(Level.SEVERE,
+						null, ex);
+			}
+		}
+	}
 }

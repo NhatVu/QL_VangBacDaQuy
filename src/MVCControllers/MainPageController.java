@@ -5,11 +5,12 @@
  */
 package MVCControllers;
 
-import MVCViews.MainPageView;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
+
+import MVCViews.MainPageView;
 
 /**
  *
@@ -18,7 +19,6 @@ import java.util.List;
 public class MainPageController implements Controller {
 
     private MainPageView view = null;
-    private Controller parent;
     private List<Controller> child = new ArrayList<Controller>();
 
     public void start() {
@@ -81,7 +81,6 @@ public class MainPageController implements Controller {
 
     @Override
     public void setParent(Controller parent) {
-        this.parent = null;
     }
 
     @Override

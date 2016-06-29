@@ -1,9 +1,5 @@
 package MVCControllers;
 
-import DTO.P_NoDTO;
-import MVCViews.*;
-import MVCModels.*;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;
 import java.awt.event.WindowEvent;
@@ -13,8 +9,11 @@ import java.sql.Timestamp;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
 import main.CheckInput;
-import main.Resource;
+import DTO.P_NoDTO;
+import MVCModels.PhieuNoModel;
+import MVCViews.PhieuNoView;
 
 public class PhieuNoController implements Controller {
 
@@ -41,9 +40,11 @@ public class PhieuNoController implements Controller {
                 || view.getTextMaKH().getText() == null || view.getTextMaPhieuNo().getText() == null
                 || view.getTextMaPhieuBan().getText() == null || view.getTextMaPhieuNo().getText() == null
                 || view.getTextSoTienNo().getText() == null || view.getTextSoTienTra().getText() == null
-                || view.getDateNgayNo().getDate().getTime() > view.getDateNgayTra().getDate().getTime()) // nếu 1 trường không được điền, hoặc điền rỗng => thống báo phải điền đủ
+                || view.getDateNgayNo().getDate().getTime()> view.getDateNgayTra().getDate().getTime()) // nếu 1 trường không được điền, hoặc điền rỗng => thống báo phải điền đủ
         {
-            JOptionPane.showMessageDialog(null, "Vui lòng kiểm tra thông tin");
+            JOptionPane.showMessageDialog(null, "Vui lòng kiểm tra thông tin:\n"
+            		+ "- Ngày nợ phải nhỏ hơn hoặc bằng ngày trả:\n"
+            		+ "- Các trường mã, tiền nợ, tiền trả,... phải hợp lệ");
         } else if (!CheckInput.isDouble(view.getTextSoTienNo().getText())
                 || !CheckInput.isDouble(view.getTextSoTienTra().getText())
                 || !CheckInput.isDouble(view.getTextConLai().getText())) {

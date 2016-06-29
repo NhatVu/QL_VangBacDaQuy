@@ -1,27 +1,20 @@
 package MVCViews;
 
-import java.awt.EventQueue;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.border.TitledBorder;
+import MVCControllers.PhieuNoController;
 
 import com.toedter.calendar.JDateChooser;
 
-import MVCControllers.PhieuNoController;
-import table.CT_TonKhoTableModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Calendar;
 import java.util.Date;
 
 public class PhieuNoView {
@@ -174,7 +167,12 @@ public class PhieuNoView {
         dateNgayNo = new JDateChooser();
         dateNgayNo.setBounds(122, 181, 116, 20);
         frmPhiuN.getContentPane().add(dateNgayNo);
-        dateNgayNo.setDate(new Date());
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        dateNgayNo.setDate(calendar.getTime());
         dateNgayNo.setEnabled(false);
 
         dateNgayTra = new JDateChooser();

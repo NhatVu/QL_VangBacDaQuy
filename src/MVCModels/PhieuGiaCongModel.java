@@ -5,13 +5,14 @@
  */
 package MVCModels;
 
+import java.util.ArrayList;
+
 import DTO.CTP_GiaCongDTO;
 import DTO.HangGiaCongDTO;
 import DTO.P_GiaCongDTO;
 import DataAcessLayer.CTP_GiaCongDAO;
 import DataAcessLayer.HangGiaCongDAO;
 import DataAcessLayer.P_GiaCongDAO;
-import java.util.ArrayList;
 
 /**
  *

@@ -35,7 +35,11 @@ public class SanPhamDTO {
         this.soLuongTon = soLuongTon;
     }
 
-    public int getMaSP() {
+    public SanPhamDTO() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public int getMaSP() {
         return maSP;
     }
 

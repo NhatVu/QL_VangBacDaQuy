@@ -5,11 +5,6 @@
  */
 package DataAcessLayer;
 
-import DTO.DichVuDTO;
-import DTO.HangGiaCongDTO;
-import DTO.NguoiDTO;
-import java.sql.CallableStatement;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,138 +12,131 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import DTO.HangGiaCongDTO;
+import DTO.NguoiDTO;
+
 /**
  *
  * @author Administrator
  */
-public class HangGiaCongDAO {
+public class HangGiaCongDAO extends SuperDAO {
 
-    CallableStatement call = null;
-    Connection connection = null;
+	// Properties of table
+	private static final String maLoaiGiaCong = "MALOAIGC";
+	private static final String tenLoaiGiaCong = "TENLOAIGC";
+	private static final String donGia = "DONGIA";
 
-    //Properties of table
-    private static final String maLoaiGiaCong = "MALOAIGC";
-    private static final String tenLoaiGiaCong = "TENLOAIGC";
-    private static final String donGia = "DONGIA";
+	private static final String insertStatement = "{call HANGGIACONG_Ins(?,?,?)}";
+	private static final String updateStatement = "{call HANGGIACONG_Upd(?,?,?)}";
+	private static final String deleteStatement = "{call CTP_GIACONG_Del(?)}";
+	// TAG
+	private static final String TAG = HangGiaCongDAO.class.getSimpleName();
 
-    private static final String insertStatement = "{call HANGGIACONG_Ins(?,?,?)}";
-    private static final String updateStatement = "{call HANGGIACONG_Upd(?,?,?)}";
-    private static final String deleteStatement = "{call CTP_GIACONG_Del(?)}";
-    //TAG
-    private static final String TAG = HangGiaCongDAO.class.getSimpleName();
+	public HangGiaCongDAO() {
 
-    public HangGiaCongDAO() {
+	}
 
-    }
+	/*
+	 * CRUD
+	 */
+	public boolean insert(HangGiaCongDTO n) {
+		try {
+			this.getConnection();
+			call = connection.prepareCall(insertStatement);
 
-    /*
-     * CRUD
-     */
-    public boolean insert(HangGiaCongDTO n) {
-        //create procedure DICHVU_Ins (MADV varchar(10), TENDV varchar(30) )
-        try {
-            connection = DataSource.getInstance().getConnection();
-            call = connection.prepareCall(insertStatement);
+			call.setInt(maLoaiGiaCong, n.getMaLoaiGC());
+			call.setString(tenLoaiGiaCong, n.getTenLoaiGC());
+			call.setDouble(donGia, n.getDonGia());
 
-            call.setInt(maLoaiGiaCong, n.getMaLoaiGC());
-            call.setString(tenLoaiGiaCong, n.getTenLoaiGC());
-            call.setDouble(donGia, n.getDonGia());
+			return call.execute();
 
-            return call.execute();
+		} catch (SQLException ex) {
+			Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+				}
+			}
+		}
+		return false;
+	}
 
-        } catch (SQLException ex) {
-            Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return false;
-    }
+	public boolean update(HangGiaCongDTO n) {
+		try {
+			this.getConnection();
+			call = connection.prepareCall(updateStatement);
+			call.setInt(maLoaiGiaCong, n.getMaLoaiGC());
+			call.setString(tenLoaiGiaCong, n.getTenLoaiGC());
+			call.setDouble(donGia, n.getDonGia());
 
-    public boolean update(HangGiaCongDTO n) {
-        try {
-            // procedure DICHVU_Upd (MADV varchar(10), TENDV varchar(30) )
-            connection = DataSource.getInstance().getConnection();
+			return call.execute();
 
-            call = connection.prepareCall(updateStatement);
-            call.setInt(maLoaiGiaCong, n.getMaLoaiGC());
-            call.setString(tenLoaiGiaCong, n.getTenLoaiGC());
-            call.setDouble(donGia, n.getDonGia());
+		} catch (SQLException ex) {
+			Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+				}
+			}
+		}
+		return false;
+	}
 
-            return call.execute();
+	public boolean delete(NguoiDTO n) {
+		try {
+			this.getConnection();
+			call = connection.prepareCall(deleteStatement);
+			call.setInt(maLoaiGiaCong, n.getMaLoaiNguoi());
 
-        } catch (SQLException ex) {
-            Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return false;
-    }
+			return call.execute();
 
-    public boolean delete(NguoiDTO n) {
-        try {
-            //create procedure DICHVU_Del (MADV varchar(10) )
+		} catch (SQLException ex) {
+			Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+				}
+			}
+		}
+		return false;
+	}
 
-            connection = DataSource.getInstance().getConnection();
-            call = connection.prepareCall(deleteStatement);
-            call.setInt(maLoaiGiaCong, n.getMaLoaiNguoi());
-
-            return call.execute();
-
-        } catch (SQLException ex) {
-            Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return false;
-    }
-
-    public ArrayList<HangGiaCongDTO> getAllHangGiaCong() {
-        try {
-            //create procedure DICHVU_Del (MADV varchar(10) )
-
-            connection = DataSource.getInstance().getConnection();
-            ArrayList<HangGiaCongDTO> result = new ArrayList();
-            String query = "SELECT * FROM HANGGIACONG";
-            Statement st = connection.createStatement();
-            ResultSet rs = st.executeQuery(query);
-            while (rs.next()) {
-                int maGC = rs.getInt("MALOAIGC");
-                String tenGC = rs.getString("TENLOAIGC");
-                double dongia = Double.parseDouble(rs.getString("DONGIA"));
-                HangGiaCongDTO dv = new HangGiaCongDTO(maGC, tenGC, dongia);
-                result.add(dv);
-            }
-            st.close();
-            return result;
-        } catch (SQLException ex) {
-            Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return null;
-    }
+	public ArrayList<HangGiaCongDTO> getAllHangGiaCong() {
+		try {
+			this.getConnection();
+			ArrayList<HangGiaCongDTO> result = new ArrayList<HangGiaCongDTO>();
+			String query = "SELECT * FROM HANGGIACONG";
+			Statement st = connection.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			while (rs.next()) {
+				int maGC = rs.getInt("MALOAIGC");
+				String tenGC = rs.getString("TENLOAIGC");
+				double dongia = Double.parseDouble(rs.getString("DONGIA"));
+				HangGiaCongDTO dv = new HangGiaCongDTO(maGC, tenGC, dongia);
+				result.add(dv);
+			}
+			st.close();
+			return result;
+		} catch (SQLException ex) {
+			Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+				}
+			}
+		}
+		return null;
+	}
 }

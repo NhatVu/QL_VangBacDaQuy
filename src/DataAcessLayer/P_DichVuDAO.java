@@ -1,138 +1,136 @@
 package DataAcessLayer;
 
-import DTO.P_DichVuDTO;
-import java.sql.CallableStatement;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import main.Resource;
 
-public class P_DichVuDAO {
+import DTO.P_DichVuDTO;
 
-    CallableStatement call = null;
-    Connection connection = null;
+public class P_DichVuDAO extends SuperDAO {
 
-    private String TAG = P_DichVuDAO.class.getSimpleName();
+	private String TAG = P_DichVuDAO.class.getSimpleName();
 
-    public P_DichVuDAO() {
+	public P_DichVuDAO() {
 
-    }
+	}
 
-    /*
-     * CRUD
-     */
-    public boolean insert(P_DichVuDTO p_DV) {
-        // procedure P_DICHVU_Ins (MAP_DV varchar(10), MAP_THU varchar(10) )   	 
+	/*
+	 * CRUD
+	 */
+	public boolean insert(P_DichVuDTO p_DV) {
+		try {
+			this.getConnection();
+			call = connection.prepareCall("{call P_DICHVU_Ins(?,?)}");
 
-        try {
-            connection = DataSource.getInstance().getConnection();
-            call = connection.prepareCall("{call P_DICHVU_Ins(?,?)}");
+			call.setInt("MAP_DV", p_DV.getMaP_DV());
+			call.setInt("MAP_THU", p_DV.getMaP_Thu());
 
-            call.setInt("MAP_DV", p_DV.getMaP_DV());
-            call.setInt("MAP_THU", p_DV.getMaP_Thu());
+			if(call.executeUpdate() > 0)
+				return true;
 
-            return call.execute();
+		} catch (SQLException ex) {
+			Logger.getLogger(P_DichVuDAO.class.getName()).log(Level.SEVERE,
+					null, ex);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					Logger.getLogger(P_DichVuDAO.class.getName()).log(
+							Level.SEVERE, null, ex);
+				}
+			}
+		}
+		return false;
+	}
 
-        } catch (SQLException ex) {
-            Logger.getLogger(P_DichVuDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(P_DichVuDAO.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return false;
-    }
+	public boolean update(P_DichVuDTO p_DV) {
+		try {
+			this.getConnection();
+			call = connection.prepareCall("{call P_DICHVU_Upd(?,?)}");
 
-    public boolean update(P_DichVuDTO p_DV) {
-        // P_DICHVU_Upd (MAP_DV varchar(10), MAP_THU varchar(10) )  
+			call.setInt("MAP_DV", p_DV.getMaP_DV());
+			call.setInt("MAP_THU", p_DV.getMaP_Thu());
 
-        try {
-            connection = DataSource.getInstance().getConnection();
-            call = connection.prepareCall("{call P_DICHVU_Upd(?,?)}");
+			if(call.executeUpdate() > 0)
+				return true;
 
-            call.setInt("MAP_DV", p_DV.getMaP_DV());
-            call.setInt("MAP_THU", p_DV.getMaP_Thu());
+		} catch (SQLException ex) {
+			Logger.getLogger(P_DichVuDAO.class.getName()).log(Level.SEVERE,
+					null, ex);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					Logger.getLogger(P_DichVuDAO.class.getName()).log(
+							Level.SEVERE, null, ex);
+				}
+			}
+		}
+		return false;
+	}
 
-            return call.execute();
+	public boolean delete(P_DichVuDTO p_DV) {
+		try {
+			this.getConnection();
+			call = connection.prepareCall("{call P_DICHVU_Del(?)}");
+			call.setInt("MAP_DV", p_DV.getMaP_DV());
 
-        } catch (SQLException ex) {
-            Logger.getLogger(P_DichVuDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(P_DichVuDAO.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return false;
-    }
+			if(call.executeUpdate() > 0)
+				return true;
 
-    public boolean delete(P_DichVuDTO p_DV) {
-        try {
-            // P_DICHVU_Del (MAPDV varchar(10))
-            connection = DataSource.getInstance().getConnection();
-            call = connection.prepareCall("{call P_DICHVU_Del(?)}");
-            call.setInt("MAP_DV", p_DV.getMaP_DV());
+		} catch (SQLException ex) {
+			Logger.getLogger(P_DichVuDAO.class.getName()).log(Level.SEVERE,
+					null, ex);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					Logger.getLogger(P_DichVuDAO.class.getName()).log(
+							Level.SEVERE, null, ex);
+				}
+			}
+		}
+		return false;
+	}
 
-            return call.execute();
+	public int getLastID() {
+		try {
+			this.getConnection();
+			call = connection.prepareCall("{call P_DICHVU_getLastID(?)}");
+			call.registerOutParameter(1, java.sql.Types.VARCHAR);
 
-        } catch (SQLException ex) {
-            Logger.getLogger(P_DichVuDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(P_DichVuDAO.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return false;
-    }
+			call.execute();
 
-    public int getLastID() {
-        try {
-            // procedure  P_No_getLastID(out maxid varchar(10))
-            connection = DataSource.getInstance().getConnection();
-            call = connection.prepareCall("{call P_DICHVU_getLastID(?)}");
-            call.registerOutParameter(1, java.sql.Types.VARCHAR);
+			return call.getInt(1);
 
-            call.execute();
+		} catch (SQLException ex) {
+			Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+		} // <editor-fold defaultstate="collapsed" desc="finally">
+		finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+				}
+			}
 
-            return call.getInt(1);
+			try {
+				call.close();
+			} catch (SQLException ex) {
+				Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+			}
+		}
+		// </editor-fold>
+		return 0;
+	}
 
-        } catch (SQLException ex) {
-            Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-        } //<editor-fold defaultstate="collapsed" desc="finally">
-        finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-                }
-            }
+	public int getNexId() {
+		return getLastID() + 1;
 
-            try {
-                call.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-            }
-        }
-//</editor-fold>
-        return 0;
-    }
-
-    public int getNexId() {
-        return getLastID() + 1;
-
-    }
+	}
 
 }

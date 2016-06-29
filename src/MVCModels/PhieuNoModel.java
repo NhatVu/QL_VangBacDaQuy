@@ -1,8 +1,9 @@
 package MVCModels;
 
+import java.sql.Timestamp;
+
 import DTO.P_NoDTO;
 import DataAcessLayer.*;
-import java.sql.Timestamp;
 
 public class PhieuNoModel {
 

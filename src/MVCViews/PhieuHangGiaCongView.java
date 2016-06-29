@@ -1,35 +1,28 @@
 package MVCViews;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+
 import DTO.NguoiDTO;
 import DTO.ThoGiaCongDTO;
 import DataAcessLayer.NguoiDAO;
 import DataAcessLayer.ThoGiaCongDAO;
 import MVCControllers.PhieuGiaCongController;
-import java.awt.EventQueue;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.border.TitledBorder;
 
 import com.toedter.calendar.JDateChooser;
-import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
+
 import java.util.ArrayList;
-import javax.swing.DefaultCellEditor;
+
 import javax.swing.JComboBox;
+
 import main.Resource;
+
 import javax.swing.JScrollPane;
-import javax.swing.JViewport;
-import javax.swing.SwingUtilities;
+
 import table.TableModel;
-import table.TableData;
 import table.TableScroller;
 
 public class PhieuHangGiaCongView {
@@ -58,7 +51,7 @@ public class PhieuHangGiaCongView {
     private JFrame frmPhiuHngGia;
     private JTextField textMaPhieu;
     private JTextField textMaKH;
-    private JComboBox textHoTen;
+    private JComboBox<?> textHoTen;
     private JTextField textDiaChi;
     private JTextField textTongCong;
 
@@ -130,7 +123,7 @@ public class PhieuHangGiaCongView {
     private JButton mExitButton;
     private JDateChooser dateNgayThanhToan;
     private JDateChooser dateNgayNhanHang;
-    private PhieuGiaCongController controller = null;
+    
 
     /**
      * Launch the application.
@@ -144,7 +137,6 @@ public class PhieuHangGiaCongView {
      */
     public PhieuHangGiaCongView(PhieuGiaCongController controller) {
         initialize();
-        this.controller = controller;
     }
 
     /**
@@ -212,7 +204,7 @@ public class PhieuHangGiaCongView {
         textMaKH.setText(String.valueOf(mAllThoGiaCong.get(0).getMaTho()));
         textDiaChi.setText(mAllNguoi.get(0).getDiaChi());
 
-        textHoTen = new JComboBox(thogiacongs);
+        textHoTen = new JComboBox<Object>(thogiacongs);
         textHoTen.setBounds(122, 111, 180, 20);
 
         JLabel lblaCh = new JLabel("Địa chỉ :");
@@ -321,11 +313,11 @@ public class PhieuHangGiaCongView {
         this.textMaKH = textMaKH;
     }
 
-    public JComboBox getTextHoTen() {
+    public JComboBox<?> getTextHoTen() {
         return textHoTen;
     }
 
-    public void setTextHoTen(JComboBox textHoTen) {
+    public void setTextHoTen(JComboBox<?> textHoTen) {
         this.textHoTen = textHoTen;
     }
 

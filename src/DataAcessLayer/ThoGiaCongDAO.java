@@ -5,11 +5,6 @@
  */
 package DataAcessLayer;
 
-import DTO.DichVuDTO;
-import DTO.NguoiDTO;
-import DTO.ThoGiaCongDTO;
-import java.sql.CallableStatement;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,144 +12,123 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import DTO.ThoGiaCongDTO;
+
 /**
  *
  * @author Administrator
  */
-public class ThoGiaCongDAO {
-    CallableStatement call = null;
-    Connection connection = null;
-    
-    //Properties of table
-    private static final String maTho = "MATHOGC";
-    private static final String maNguoi = "MANGUOI";
-    
-    private static final String insertStatement = "{call THOGIACONG_Ins(?,?)}";
-    private static final String updateStatement = "{call THOGIACONG_Upd(?,?)}";
-    private static final String deleteStatement = "{call THOGIACONG_Del(?)}";
-    
-    
-    //TAG
-    private static final String TAG = ThoGiaCongDAO.class.getSimpleName();
-    
-    
-    public ThoGiaCongDAO(){
-        
-    }
-    
-    /*
-    * CRUD
-    */
-    public boolean insert(ThoGiaCongDTO n){
-        //create procedure DICHVU_Ins (MADV varchar(10), TENDV varchar(30) )
-        try {
-            connection = DataSource.getInstance().getConnection();
-            call = connection.prepareCall(insertStatement);
-            
-            call.setInt(maTho, n.getMaTho());
-            call.setInt(maNguoi, n.getMaNguoi());
-           
-            
-            return call.execute();
-                    
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-        }
-        finally{
-            if(connection!= null)
-                try {
-                    connection.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-            }
-        }
-        return false;
-    }
-    
-    public boolean update(ThoGiaCongDTO n){
-        try {
-            // procedure DICHVU_Upd (MADV varchar(10), TENDV varchar(30) )
-            connection = DataSource.getInstance().getConnection();
-            
-            call = connection.prepareCall(updateStatement);
-            call.setInt(maTho, n.getMaTho());
-            call.setInt(maNguoi, n.getMaNguoi());
-            
-            return call.execute();
-           
-        } catch (SQLException ex) {
-            Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-        }
-        finally{
-            if(connection!= null)
-                try {
-                    connection.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-            }
-        }
-        return false;
-    }
-    
-    public boolean delete(ThoGiaCongDTO n){
-        try {
-            //create procedure DICHVU_Del (MADV varchar(10) )
+public class ThoGiaCongDAO extends SuperDAO {
+	// Properties of table
+	private static final String maTho = "MATHOGC";
+	private static final String maNguoi = "MANGUOI";
 
-            connection = DataSource.getInstance().getConnection();
-            call = connection.prepareCall(deleteStatement);
-            call.setInt(maTho, n.getMaTho());
-            
-            return call.execute();
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-        }
-        finally{
-            if(connection!=null)
-                try {
-                    connection.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-            }
-        }
-        return false;
-    }
-    
-    public ArrayList<ThoGiaCongDTO> getAllThoGiaCong()
-    {
-        try {
-            //create procedure DICHVU_Del (MADV varchar(10) )
-            
-            connection = DataSource.getInstance().getConnection();
-            ArrayList<ThoGiaCongDTO> result = new ArrayList();
-            String query = "SELECT * FROM THOGIACONG";
-            Statement st = connection.createStatement();
-            ResultSet rs = st.executeQuery(query);
-            while(rs.next())
-            {
-                int maTho = rs.getInt("MATHOGC");
-                int maNguoi = rs.getInt("MANGUOI");
-                ThoGiaCongDTO dv = new ThoGiaCongDTO(maTho,maNguoi);
-                result.add(dv);
-            }
-            st.close();
-            return result;
-        } catch (SQLException ex) {
-            Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-        }
-        finally{
-            if(connection!=null)
-                try {
-                    connection.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-            }
-        }
-        return null;
-    }
-    
-    
-    
-    
+	private static final String insertStatement = "{call THOGIACONG_Ins(?,?)}";
+	private static final String updateStatement = "{call THOGIACONG_Upd(?,?)}";
+	private static final String deleteStatement = "{call THOGIACONG_Del(?)}";
+
+	// TAG
+	private static final String TAG = ThoGiaCongDAO.class.getSimpleName();
+
+	public ThoGiaCongDAO() {
+
+	}
+
+	/*
+	 * CRUD
+	 */
+	public boolean insert(ThoGiaCongDTO n) {
+		try {
+			this.getConnection();
+			call = connection.prepareCall(insertStatement);
+
+			call.setInt(maTho, n.getMaTho());
+			call.setInt(maNguoi, n.getMaNguoi());
+
+			return call.execute();
+
+		} catch (SQLException ex) {
+			Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+		} finally {
+			if (connection != null)
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+				}
+		}
+		return false;
+	}
+
+	public boolean update(ThoGiaCongDTO n) {
+		try {
+			this.getConnection();
+			call = connection.prepareCall(updateStatement);
+			call.setInt(maTho, n.getMaTho());
+			call.setInt(maNguoi, n.getMaNguoi());
+
+			return call.execute();
+
+		} catch (SQLException ex) {
+			Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+		} finally {
+			if (connection != null)
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+				}
+		}
+		return false;
+	}
+
+	public boolean delete(ThoGiaCongDTO n) {
+		try {
+			this.getConnection();
+			call = connection.prepareCall(deleteStatement);
+			call.setInt(maTho, n.getMaTho());
+
+			return call.execute();
+
+		} catch (SQLException ex) {
+			Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+		} finally {
+			if (connection != null)
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+				}
+		}
+		return false;
+	}
+
+	public ArrayList<ThoGiaCongDTO> getAllThoGiaCong() {
+		try {
+			this.getConnection();
+			ArrayList<ThoGiaCongDTO> result = new ArrayList<ThoGiaCongDTO>();
+			String query = "SELECT * FROM THOGIACONG";
+			Statement st = connection.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			while (rs.next()) {
+				int maTho = rs.getInt("MATHOGC");
+				int maNguoi = rs.getInt("MANGUOI");
+				ThoGiaCongDTO dv = new ThoGiaCongDTO(maTho, maNguoi);
+				result.add(dv);
+			}
+			st.close();
+			return result;
+		} catch (SQLException ex) {
+			Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+		} finally {
+			if (connection != null)
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+				}
+		}
+		return null;
+	}
+
 }

@@ -3,16 +3,12 @@ package DataAcessLayer;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import java.sql.DriverManager;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.mchange.v2.c3p0.*;
 import java.beans.PropertyVetoException;
 import java.io.File;
 import java.io.IOException;
-import java.sql.Statement;
-
-import javax.xml.ws.BindingProvider;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;

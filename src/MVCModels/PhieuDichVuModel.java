@@ -5,6 +5,8 @@
  */
 package MVCModels;
 
+import java.util.ArrayList;
+
 import DTO.CTP_DichVuDTO;
 import DTO.DichVuDTO;
 import DTO.KhachHangDTO;
@@ -17,7 +19,6 @@ import DataAcessLayer.KhachHangDAO;
 import DataAcessLayer.NguoiDAO;
 import DataAcessLayer.P_DichVuDAO;
 import DataAcessLayer.P_ThuDAO;
-import java.util.ArrayList;
 
 /**
  *

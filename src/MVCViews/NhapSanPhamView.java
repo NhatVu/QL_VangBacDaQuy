@@ -1,13 +1,14 @@
 package MVCViews;
 
-import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import MVCControllers.*;
+
+import MVCControllers.NhapSanPhamController;
 
 public class NhapSanPhamView {
 
@@ -19,7 +20,7 @@ public class NhapSanPhamView {
     private JTextField textSoLuongTon;
     private JLabel lblNhpThngTin;
 
-    private NhapSanPhamController controller ;//= new NhapSanPhamController();
+    
 
     /**
      * Launch the application.
@@ -30,7 +31,6 @@ public class NhapSanPhamView {
      */
     public NhapSanPhamView(NhapSanPhamController controller) {
         initialize();
-        this.controller = controller;
     }
 
     /**

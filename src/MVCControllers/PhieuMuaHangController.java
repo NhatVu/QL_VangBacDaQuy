@@ -1,6 +1,5 @@
 package MVCControllers;
 
-import java.awt.Desktop.Action;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Timestamp;
@@ -15,7 +14,6 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import DTO.CTP_BanHangDTO;
 import DTO.CTP_MuaHangDTO;
 import DTO.KhachHangDTO;
 import DTO.NguoiDTO;
@@ -23,7 +21,9 @@ import DTO.P_MuaHangDTO;
 import DTO.SanPhamDTO;
 import MVCModels.PhieuMuaHangModel;
 import MVCViews.PhieuMuaHangView;
+
 import java.awt.event.WindowEvent;
+
 import main.CheckInput;
 import table.TableData;
 
@@ -35,7 +35,7 @@ public class PhieuMuaHangController implements Controller {
 
     private String[] dsTenSanPham;
     private double donGiaMua = 0;
-    
+
     double finalMoney = 0;
 
     public void start() {
@@ -56,7 +56,7 @@ public class PhieuMuaHangController implements Controller {
         /*
          *  tạo comboBox tên sản phẩm  cho cột Tên Sản Phẩm
          */
-        JComboBox comboTenSanPham = new JComboBox<String>(dsTenSanPham);
+        JComboBox<String> comboTenSanPham = new JComboBox<String>(dsTenSanPham);
         view.getTable().getColumnModel().getColumn(0).setCellEditor(new DefaultCellEditor(comboTenSanPham));
         view.getTable().putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
         comboTenSanPham.addActionListener(new ActionListener() {
@@ -64,7 +64,7 @@ public class PhieuMuaHangController implements Controller {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 // TODO Auto-generated method stub
-                JComboBox cb = (JComboBox) arg0.getSource();
+                JComboBox<?> cb = (JComboBox<?>) arg0.getSource();
                 String tenSanPham = (String) cb.getSelectedItem();
 
                 /*
@@ -115,24 +115,19 @@ public class PhieuMuaHangController implements Controller {
 
             private void warn() {
                 // TODO Auto-generated method stub
-            	if (	Integer.parseInt( textField.getText().toString().trim() ) > 0
-                		&& isInteger(textField.getText().toString().trim()) 
-                	) 
-                {
-                	view.getTableModel().setValueAt(donGiaMua * Integer.parseInt(textField.getText().toString().trim()) + "", view.getTable().getSelectedRow(), 3);    
-                	
-                	/*
+                if (Integer.parseInt(textField.getText().toString().trim()) > 0
+                        && isInteger(textField.getText().toString().trim())) {
+                    view.getTableModel().setValueAt(donGiaMua * Integer.parseInt(textField.getText().toString().trim()) + "", view.getTable().getSelectedRow(), 3);
+
+                    /*
                      *  cập nhật giá trị của Tổng Tiền
                      */
-                    if( view.getTable().getRowCount() >= 1 )
-                    {
-                    	finalMoney = calculateFinalMoney();
+                    if (view.getTable().getRowCount() >= 1) {
+                        finalMoney = calculateFinalMoney();
                         view.getTextTongCong().setText(finalMoney + "");
                     }
-                }
-                else
-                {
-                	JOptionPane.showMessageDialog(null, "Vui lòng kiểm tra lại Số Lượng ( kiểu số, lớn hơn 0 )");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Vui lòng kiểm tra lại Số Lượng ( kiểu số, lớn hơn 0 )");
                 }
             }
         });
@@ -146,6 +141,10 @@ public class PhieuMuaHangController implements Controller {
     private Date getCurrentDate() {
         // TODO Auto-generated method stub
         Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
         return calendar.getTime();
     }
 
@@ -227,25 +226,17 @@ public class PhieuMuaHangController implements Controller {
     }
 
     public void btnLuuVaoDbActionPerformed(ActionEvent arg0) {
-        if (	view.isAllTextFilled() == true && isTableEmpty() != true  
+        if (view.isAllTextFilled() == true && isTableEmpty() != true
                 && CheckInput.isStringMax50(view.getTextMaKH().getText())
                 && CheckInput.isStringMax50(view.getTextHoTen().getText())
-                && CheckInput.isStringMax300(view.getTextDiaChi().getText())
-                ) 
-        {
-        	
-        	if ( view.getDateNgayMua().getDate().getTime() > view.getDateNgayThanhToan().getDate().getTime() )
-        	{
-        		JOptionPane.showMessageDialog(null, "Ngày thanh toán không thể trước ngày mua !");
-        	}
-        	else if ( ! isInteger(view.getTextMaKH().getText()) )
-        	{
-        		JOptionPane.showMessageDialog(null, "Mã khách hàng phải có định dạng số !");
-        	}
-        	
-        	else
-        	{
-        		
+                && CheckInput.isStringMax300(view.getTextDiaChi().getText())) {
+
+            if (view.getDateNgayMua().getDate().getTime()> view.getDateNgayThanhToan().getDate().getTime()) {
+                JOptionPane.showMessageDialog(null, "Ngày thanh toán không thể trước ngày mua !");
+            } else if (!isInteger(view.getTextMaKH().getText())) {
+                JOptionPane.showMessageDialog(null, "Mã khách hàng phải có định dạng số !");
+            } else {
+
 //        		double finalMoney = calculateFinalMoney();
 //                view.getTextTongCong().setText(finalMoney + "");
 
@@ -288,8 +279,7 @@ public class PhieuMuaHangController implements Controller {
                 /*
                  * 	insert CTP_MuaHangDTO
                  */
-                for (TableData data : view.getTableModel().getmObjectList()) 
-                {
+                for (TableData data : view.getTableModel().getmObjectList()) {
                     int maSP = 0; // được lấy lên từ Database 
                     int soLuongTon = 0; // được lấy lên từ Database 
                     String tenSP = data.getDataAt(0);
@@ -318,16 +308,13 @@ public class PhieuMuaHangController implements Controller {
                     soLuongTon += soLuong;
                     model.updateSoLuongTonOfSanPham(soLuongTon, maSP);
                 }
-        		
-                JOptionPane.showMessageDialog(null, "Lưu thành công !" );
-        	}
-    
+
+                JOptionPane.showMessageDialog(null, "Lưu thành công !");
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Vui lòng kiểm tra thông tin !");
         }
-        else 
-        {
-        	JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin !");
-        }
-        
 
     }
 

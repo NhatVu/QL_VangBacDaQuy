@@ -5,8 +5,8 @@
  */
 package table;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -14,7 +14,7 @@ import javax.swing.table.AbstractTableModel;
  * @author Administrator
  */
 public class TableModel extends AbstractTableModel {
-    private List<TableData> mObjectList = new ArrayList();
+    private List<TableData> mObjectList = new ArrayList<TableData>();
     
     
     private String[] mColumnNames;

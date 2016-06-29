@@ -5,143 +5,139 @@
  */
 package DataAcessLayer;
 
-import DTO.CTP_MuaHangDTO;
-import main.Resource;
-
-import java.sql.CallableStatement;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import DTO.CTP_MuaHangDTO;
 
 /**
  *
  * @author Minh Nhat
  */
-public class CTP_MuaHangDAO {
+public class CTP_MuaHangDAO extends SuperDAO {
 
-    CallableStatement call = null;
-    Connection connection = null;
+	/*
+	 * CRUD
+	 */
+	public boolean insert(CTP_MuaHangDTO ctp_MH) {
+		try {
+			this.getConnection();
+			call = connection.prepareCall("{call CTP_MUAHANG_Ins(?,?,?,?,?)}");
+			call.setInt("MACTP_MH", ctp_MH.getMaCTP_MH());
+			call.setInt("MASP", ctp_MH.getMaSP());
+			call.setInt("MAP_MH", ctp_MH.getMaP_MH());
+			call.setInt("SOLUONG", ctp_MH.getSoLuong());
+			call.setDouble("THANHTIEN", ctp_MH.getThanhTien());
 
-    public CTP_MuaHangDAO() {
+			if(call.executeUpdate() > 0)
+				return true;
 
-    }
+		} catch (SQLException ex) {
+			Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE,
+					null, ex);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					Logger.getLogger(CTP_BanHangDAO.class.getName()).log(
+							Level.SEVERE, null, ex);
+				}
+			}
+		}
+		return false;
+	}
 
-    /*
-     * CRUD
-     */
-    public boolean insert(CTP_MuaHangDTO ctp_MH) {
-        // procedure CTP_MUAHANG_Ins (MACTP_MH varchar(10), MASP varchar(10), MAP_MH varchar(10),
-        // SOLUONG int, DONGIA decimal, THANHTIEN decimal )
-        try {
-            connection = DataSource.getInstance().getConnection();
-            call = connection.prepareCall("{call CTP_MUAHANG_Ins(?,?,?,?,?)}");
-            call.setInt("MACTP_MH", ctp_MH.getMaCTP_MH());
-            call.setInt("MASP", ctp_MH.getMaSP());
-            call.setInt("MAP_MH", ctp_MH.getMaP_MH());
-            call.setInt("SOLUONG", ctp_MH.getSoLuong());
-            call.setDouble("THANHTIEN", ctp_MH.getThanhTien());
+	public boolean update(CTP_MuaHangDTO ctp_MH) {
+		try {
+			this.getConnection();
+			call = connection.prepareCall("{call CTP_MUAHANG_Upd(?,?,?,?,?)}");
+			call.setInt("MACTP_MH", ctp_MH.getMaCTP_MH());
+			call.setInt("MASP", ctp_MH.getMaSP());
+			call.setInt("MAP_MH", ctp_MH.getMaP_MH());
+			call.setInt("SOLUONG", ctp_MH.getSoLuong());
+			call.setDouble("THANHTIEN", ctp_MH.getThanhTien());
 
-            return call.execute();
+			if(call.executeUpdate() > 0)
+				return true;
 
-        } catch (SQLException ex) {
-            Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return false;
-    }
+		} catch (SQLException ex) {
+			Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE,
+					null, ex);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					Logger.getLogger(CTP_BanHangDAO.class.getName()).log(
+							Level.SEVERE, null, ex);
+				}
+			}
+		}
+		return false;
+	}
 
-    public boolean update(CTP_MuaHangDTO ctp_MH) {
-        try {
-            //procedure CTP_MUAHANG_Upd (MACTP_MH varchar(10), MASP varchar(10), MAP_MH varchar(10),
-            // SOLUONG int, DONGIA decimal, THANHTIEN decimal )
-            connection = DataSource.getInstance().getConnection();
+	public boolean delete(CTP_MuaHangDTO ctp_MH) {
+		try {
+			this.getConnection();
+			call = connection.prepareCall("{call CTP_MUAHANG_Del(?)}");
+			call.setInt("MACTP_MH", ctp_MH.getMaCTP_MH());
 
-            call = connection.prepareCall("{call CTP_MUAHANG_Upd(?,?,?,?,?)}");
-            call.setInt("MACTP_MH", ctp_MH.getMaCTP_MH());
-            call.setInt("MASP", ctp_MH.getMaSP());
-            call.setInt("MAP_MH", ctp_MH.getMaP_MH());
-            call.setInt("SOLUONG", ctp_MH.getSoLuong());
-            call.setDouble("THANHTIEN", ctp_MH.getThanhTien());
+			if(call.executeUpdate() > 0)
+				return true;
 
-            return call.execute();
+		} catch (SQLException ex) {
+			Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE,
+					null, ex);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					Logger.getLogger(CTP_BanHangDAO.class.getName()).log(
+							Level.SEVERE, null, ex);
+				}
+			}
+		}
+		return false;
+	}
 
-        } catch (SQLException ex) {
-            Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return false;
-    }
+	public int getLastID() {
+		try {
+			this.getConnection();
+			call = connection.prepareCall("{call CTP_MUAHANG_getLastID(?)}");
+			call.registerOutParameter(1, java.sql.Types.VARCHAR);
 
-    public boolean delete(CTP_MuaHangDTO ctp_MH) {
-        try {
-            //procedure CTP_MUAHANG_Del (MACTP_MH varchar(10) )
-            connection = DataSource.getInstance().getConnection();
-            call = connection.prepareCall("{call CTP_MUAHANG_Del(?)}");
-            call.setInt("MACTP_MH", ctp_MH.getMaCTP_MH());
+			call.execute();
+			return call.getInt(1);
 
-            return call.execute();
+		} catch (SQLException ex) {
+			Logger.getLogger(CTP_MuaHangDAO.class.getName()).log(Level.SEVERE,
+					null, ex);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					Logger.getLogger(CTP_MuaHangDAO.class.getName()).log(
+							Level.SEVERE, null, ex);
+				}
+			}
 
-        } catch (SQLException ex) {
-            Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return false;
-    }
+			try {
+				call.close();
+			} catch (SQLException ex) {
+				Logger.getLogger(CTP_MuaHangDAO.class.getName()).log(
+						Level.SEVERE, null, ex);
+			}
+		}
 
-    public int getLastID() {
-        try {
-            connection = DataSource.getInstance().getConnection();
-            call = connection.prepareCall("{call CTP_MUAHANG_getLastID(?)}");
-            call.registerOutParameter(1, java.sql.Types.VARCHAR);
+		return 0;
+	}
 
-            call.execute();
-            return call.getInt(1);
+	public int getNexId() {
+		return getLastID() + 1;
 
-        } catch (SQLException ex) {
-            Logger.getLogger(CTP_MuaHangDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(CTP_MuaHangDAO.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-
-            try {
-                call.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(CTP_MuaHangDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        return 0;
-    }
-
-    public int getNexId() {
-        return getLastID() + 1;
-
-    }
+	}
 }

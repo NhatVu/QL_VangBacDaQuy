@@ -5,12 +5,6 @@
  */
 package DataAcessLayer;
 
-import DTO.SanPhamDTO;
-
-import java.security.interfaces.RSAKey;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.ResultSet;
@@ -20,334 +14,350 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
-
-import com.mchange.io.impl.EndsWithFilenameFilter;
+import DTO.SanPhamDTO;
 
 /**
  *
  * @author Minh Nhat
  */
-public class SanPhamDAO {
+public class SanPhamDAO extends SuperDAO {
 
-    CallableStatement call = null;
-    Connection connection = null;
+	private String TAG = SanPhamDAO.class.getSimpleName();
 
-    private String TAG = SanPhamDAO.class.getSimpleName();
+	public SanPhamDAO() {
 
-    public SanPhamDAO() {
+	}
 
-    }
+	/*
+	 * CRUD
+	 */
+	public boolean insert(SanPhamDTO sp) {
+		// procedure SANPHAM_Ins (MASP varchar(10), TENLOAISP varchar(30),
+		// DONGIAMUA decial, DONGIABAN decimal, SOLUONGTON int )
+		try {
+			this.getConnection();
+			call = connection.prepareCall("{call SANPHAM_Ins(?,?,?,?,?)}");
+			call.setInt("MASP", sp.getMaSP());
+			call.setString("TENLOAISP", sp.getTenSP());
+			call.setDouble("DONGIAMUA", sp.getDonGiaMua());
+			call.setDouble("DONGIABAN", sp.getDonGiaBan());
+			call.setInt("SOLUONGTON", sp.getSoLuongTon());
 
-    /*
-     * CRUD
-     */
-    public boolean insert(SanPhamDTO sp) {
-        //procedure SANPHAM_Ins (MASP varchar(10), TENLOAISP varchar(30), DONGIAMUA decial, DONGIABAN decimal, SOLUONGTON int )
-        try {
-            connection = DataSource.getInstance().getConnection();
-            call = connection.prepareCall("{call SANPHAM_Ins(?,?,?,?,?)}");
-            call.setInt("MASP", sp.getMaSP());
-            call.setString("TENLOAISP", sp.getTenSP());
-            call.setDouble("DONGIAMUA", sp.getDonGiaMua());
-            call.setDouble("DONGIABAN", sp.getDonGiaBan());
-            call.setInt("SOLUONGTON", sp.getSoLuongTon());
+			if(call.executeUpdate() > 0)
+				return true;
 
-            return call.execute();
+		} catch (SQLException ex) {
+			Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE,
+					null, ex);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					Logger.getLogger(CTP_BanHangDAO.class.getName()).log(
+							Level.SEVERE, null, ex);
+				}
+			}
+			try {
+				call.close();
+			} catch (SQLException ex) {
+				Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE,
+						null, ex);
+			}
+		}
+		return false;
+	}
 
-        } catch (SQLException ex) {
-            Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            try {
-                call.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return false;
-    }
+	public boolean update(SanPhamDTO sp) {
+		try {
+			this.getConnection();
+			call = connection.prepareCall("{call SANPHAM_Upd(?,?,?,?,?)}");
+			call.setInt("MASP", sp.getMaSP());
+			call.setString("TENLOAISP", sp.getTenSP());
+			call.setDouble("DONGIAMUA", sp.getDonGiaMua());
+			call.setDouble("DONGIABAN", sp.getDonGiaBan());
+			call.setInt("SOLUONGTON", sp.getSoLuongTon());
 
-    public boolean update(SanPhamDTO sp) {
-        try {
-            //procedure SANPHAM_Upd (MASP varchar(10), TENLOAISP varchar(30), DONGIAMUA decimal, DONGIABAN decimal, SOLUONGTON int )
-            connection = DataSource.getInstance().getConnection();
+			if(call.executeUpdate() > 0)
+				return true;
 
-            call = connection.prepareCall("{call SANPHAM_Upd(?,?,?,?,?)}");
-            call.setInt("MASP", sp.getMaSP());
-            call.setString("TENLOAISP", sp.getTenSP());
-            call.setDouble("DONGIAMUA", sp.getDonGiaMua());
-            call.setDouble("DONGIABAN", sp.getDonGiaBan());
-            call.setInt("SOLUONGTON", sp.getSoLuongTon());
+		} catch (SQLException ex) {
+			Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE,
+					null, ex);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					Logger.getLogger(CTP_BanHangDAO.class.getName()).log(
+							Level.SEVERE, null, ex);
+				}
+			}
+			try {
+				call.close();
+			} catch (SQLException ex) {
+				Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE,
+						null, ex);
+			}
+		}
+		return false;
+	}
 
-            return call.execute();
+	public boolean delete(SanPhamDTO sp) {
+		try {
+			this.getConnection();
+			call = connection.prepareCall("{call SANPHAM_Del(?)}");
+			call.setInt("MASP", sp.getMaSP());
 
-        } catch (SQLException ex) {
-            Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            try {
-                call.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return false;
-    }
+			if(call.executeUpdate() > 0)
+				return true;
 
-    public boolean delete(SanPhamDTO sp) {
-        try {
-            //create procedure SANPHAM_Del (MASP varchar(10) )
+		} catch (SQLException ex) {
+			Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE,
+					null, ex);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					Logger.getLogger(CTP_BanHangDAO.class.getName()).log(
+							Level.SEVERE, null, ex);
+				}
+			}
 
-            connection = DataSource.getInstance().getConnection();
-            call = connection.prepareCall("{call SANPHAM_Del(?)}");
-            call.setInt("MASP", sp.getMaSP());
+			try {
+				call.close();
+			} catch (SQLException ex) {
+				Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE,
+						null, ex);
+			}
+		}
+		return false;
+	}
 
-            return call.execute();
+	public ArrayList<SanPhamDTO> getAllSanPham() {
+		try {
+			this.getConnection();
+			ArrayList<SanPhamDTO> result = new ArrayList<SanPhamDTO>();
+			String query = "SELECT * FROM SANPHAM";
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(query);
+			while (resultSet.next()) {
+				int maSP = resultSet.getInt("MASP");
+				String tenLoaiSP = resultSet.getString("TENLOAISP");
+				double donGiaMua = Double.parseDouble(resultSet
+						.getString("DONGIAMUA"));
+				double donGiaBan = Double.parseDouble(resultSet
+						.getString("DONGIABAN"));
+				int soLuongTon = Integer.parseInt(resultSet
+						.getString("SOLUONGTON"));
 
-        } catch (SQLException ex) {
-            Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+				SanPhamDTO sanPhamDTO = new SanPhamDTO(maSP, tenLoaiSP,
+						donGiaMua, donGiaBan, soLuongTon);
 
-            try {
-                call.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return false;
-    }
+				result.add(sanPhamDTO);
 
-    public ArrayList<SanPhamDTO> getAllSanPham() {
-        try {
-            connection = DataSource.getInstance().getConnection();
-            ArrayList<SanPhamDTO> result = new ArrayList();
-            String query = "SELECT * FROM SANPHAM";
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
-            while (resultSet.next()) {
-                int maSP = resultSet.getInt("MASP");
-                String tenLoaiSP = resultSet.getString("TENLOAISP");
-                double donGiaMua = Double.parseDouble(resultSet.getString("DONGIAMUA"));
-                double donGiaBan = Double.parseDouble(resultSet.getString("DONGIABAN"));
-                int soLuongTon = Integer.parseInt(resultSet.getString("SOLUONGTON"));
+			}
+			statement.close();
+			return result;
+		} catch (SQLException ex) {
+			Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					// TODO: handle exception
+					Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
+				}
+			}
+		}
 
-                SanPhamDTO sanPhamDTO = new SanPhamDTO(maSP, tenLoaiSP, donGiaMua, donGiaBan, soLuongTon);
+		return null;
+	}
 
-                result.add(sanPhamDTO);
+	/*
+	 * Cập nhật lại giá trị của SoLuongTon trong table sanpham + Tham Số 1: Số
+	 * lương tồn sau khi được cập nhật + Tham số 2: Mã số của dòng được cập nhật
+	 */
+	public boolean updateSLTSanPham(int updateSoLuongTon, int maSP) {
+		PreparedStatement preparedStatement = null;
 
-            }
-            statement.close();
-            return result;
-        } catch (SQLException ex) {
-            Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    // TODO: handle exception
-                    Logger.getLogger(TAG).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
+		try {
+			this.getConnection();
+			String sql = "update sanpham set SOLUONGTON = ? where MASP = ?";
 
-        return null;
-    }
+			preparedStatement = connection.prepareStatement(sql);
 
-    /*
-     * 	Cập nhật lại giá trị của SoLuongTon trong table sanpham
-     * 		+ Tham Số 1: Số lương tồn sau khi được cập nhật
-     * 		+ Tham số 2: Mã số của dòng được cập nhật 
-     */
-    public boolean updateSLTSanPham(int updateSoLuongTon, int maSP) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
+			preparedStatement.setInt(1, updateSoLuongTon);
+			preparedStatement.setInt(2, maSP);
 
-        try {
-            connection = DataSource.getInstance().getConnection();
+			int rows = preparedStatement.executeUpdate();
 
-            String sql = "update sanpham set SOLUONGTON = ? where MASP = ?";
+			if (rows != 0) {
+				return true; // khi update thành công
+			}
 
-            preparedStatement = connection.prepareStatement(sql);
+		} catch (SQLException ex) {
+			// TODO: handle exception
+			ex.printStackTrace();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+			} catch (Exception e) {
 
-            preparedStatement.setInt(1, updateSoLuongTon);
-            preparedStatement.setInt(2, maSP);
+			}
 
-            int rows = preparedStatement.executeUpdate();
+			try {
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+		}
 
-            if (rows != 0) {
-                return true; // khi update thành công
-            }
+		return false; // khi update không thành công
+	}
 
-        } catch (SQLException ex) {
-            // TODO: handle exception
-            ex.printStackTrace();
-        } catch (Exception e) {
-            // TODO: handle exception
-            e.printStackTrace();
-        } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-            } catch (Exception e) {
+	public List<Integer> getMaSP() {
+		try {
+			this.getConnection();
+			List<Integer> result = new ArrayList<Integer>();
+			call = connection.prepareCall("{call SanPham_getSanPham()}");
 
-            }
+			ResultSet rs = call.executeQuery();
+			while (rs.next()) {
+				result.add(rs.getInt(1));
+			}
+			return result;
 
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (Exception e2) {
-                // TODO: handle exception
-            }
-        }
+		} catch (SQLException ex) {
+			Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE,
+					null, ex);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					Logger.getLogger(CTP_BanHangDAO.class.getName()).log(
+							Level.SEVERE, null, ex);
+				}
+			}
+			try {
+				call.close();
+			} catch (SQLException ex) {
+				Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE,
+						null, ex);
+			}
+		}
+		return null;
+	}
 
-        return false; // khi update không thành công
-    }
+	public List<Double> getDonGiaBan() {
+		try {
+			this.getConnection();
+			List<Double> result = new ArrayList<Double>();
+			call = connection.prepareCall("{call SanPham_getDonGiaBan()}");
 
-    public List<Integer> getMaSP() {
-        try {
-            List<Integer> result = new ArrayList<Integer>();
-            connection = DataSource.getInstance().getConnection();
+			ResultSet rs = call.executeQuery();
+			while (rs.next()) {
+				result.add(rs.getDouble(1));
+			}
+			return result;
+		} catch (SQLException ex) {
+			Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE,
+					null, ex);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					Logger.getLogger(CTP_BanHangDAO.class.getName()).log(
+							Level.SEVERE, null, ex);
+				}
+			}
+			try {
+				call.close();
+			} catch (SQLException ex) {
+				Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE,
+						null, ex);
+			}
+		}
 
-            call = connection.prepareCall("{call SanPham_getSanPham()}");
+		return null;
+	}
 
-            ResultSet rs = call.executeQuery();
-            while (rs.next()) {
-                result.add(rs.getInt(1));
-            }
-            return result;
+	public List<Double> getDonGiaMua() {
+		try {
+			this.getConnection();
+			List<Double> result = new ArrayList<Double>();
+			call = connection.prepareCall("{call SanPham_getDonGiaMua()}");
 
-        } catch (SQLException ex) {
-            Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            try {
-                call.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return null;
-    }
+			ResultSet rs = call.executeQuery();
+			while (rs.next()) {
+				result.add(rs.getDouble(1));
+			}
+			return result;
+		} catch (SQLException ex) {
+			Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE,
+					null, ex);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					Logger.getLogger(CTP_BanHangDAO.class.getName()).log(
+							Level.SEVERE, null, ex);
+				}
+			}
+			try {
+				call.close();
+			} catch (SQLException ex) {
+				Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE,
+						null, ex);
+			}
+		}
 
-    public List<Double> getDonGiaBan() {
-        try {
-            List<Double> result = new ArrayList<Double>();
-            connection = DataSource.getInstance().getConnection();
-            call = connection.prepareCall("{call SanPham_getDonGiaBan()}");
+		return null;
+	}
 
-            ResultSet rs = call.executeQuery();
-            while (rs.next()) {
-                result.add(rs.getDouble(1));
-            }
-            return result;
-        } catch (SQLException ex) {
-            Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            try {
-                call.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+	public List<Integer> getSoLuongTon() {
+		try {
+			this.getConnection();
+			List<Integer> result = new ArrayList<Integer>();
+			call = connection.prepareCall("{call SanPham_getSoLuongTon()}");
 
-        return null;
-    }
+			ResultSet rs = call.executeQuery();
+			while (rs.next()) {
+				result.add(rs.getInt(1));
+			}
+			return result;
+		} catch (SQLException ex) {
+			Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE,
+					null, ex);
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					Logger.getLogger(CTP_BanHangDAO.class.getName()).log(
+							Level.SEVERE, null, ex);
+				}
+			}
+			try {
+				call.close();
+			} catch (SQLException ex) {
+				Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE,
+						null, ex);
+			}
+		}
 
-    public List<Double> getDonGiaMua() {
-        try {
-            List<Double> result = new ArrayList<Double>();
-            connection = DataSource.getInstance().getConnection();
-            call = connection.prepareCall("{call SanPham_getDonGiaMua()}");
-
-            ResultSet rs = call.executeQuery();
-            while (rs.next()) {
-                result.add(rs.getDouble(1));
-            }
-            return result;
-        } catch (SQLException ex) {
-            Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            try {
-                call.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        return null;
-    }
-
-    public List<Integer> getSoLuongTon() {
-        try {
-            List<Integer> result = new ArrayList<Integer>();
-            connection = DataSource.getInstance().getConnection();
-            call = connection.prepareCall("{call SanPham_getSoLuongTon()}");
-
-            ResultSet rs = call.executeQuery();
-            while (rs.next()) {
-                result.add(rs.getInt(1));
-            }
-            return result;
-        } catch (SQLException ex) {
-            Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(CTP_BanHangDAO.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            try {
-                call.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        return null;
-    }
+		return null;
+	}
 }
